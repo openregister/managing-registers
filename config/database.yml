@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: custodian_update_tool_development
+
+test:
+  <<: *default
+  database: custodian_update_tool_test
+
+production:
+  <<: *default
+  database: custodian_update_tool_production
+  username: custodian_update_tool
+  password: <%= ENV['CUSTODIAN_UPDATE_TOOL_DATABASE_PASSWORD'] %>
