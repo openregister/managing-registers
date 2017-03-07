@@ -1,10 +1,14 @@
-!!!
-%html
-  %head
-    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title CustodianUpdateTool
-    = csrf_meta_tags
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-  %body
-    = yield
+- content_for :page_title, ' - GOV.UK Registers'
+
+- content_for :head do
+  = stylesheet_link_tag 'application'
+  = csrf_meta_tags
+
+- content_for :content do
+  %main#content{tabindex: "-1"}
+    = content_for?(:main) ? yield(:main) : yield
+
+- content_for :body_end do
+  = javascript_include_tag 'application'
+
+= render file: 'layouts/govuk_template'

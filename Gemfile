@@ -22,6 +22,11 @@ gem 'jquery-rails'
 
 gem 'haml-rails', '~> 0.9'
 
+# GOV.UK UI
+gem 'govuk_template'
+gem 'govuk_frontend_toolkit'
+gem 'govuk_elements_rails'
+
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5'
