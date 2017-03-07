@@ -27,6 +27,9 @@ gem 'govuk_template'
 gem 'govuk_frontend_toolkit'
 gem 'govuk_elements_rails'
 
+# Ruby client for OpenRegisters
+gem 'openregister-ruby', git: 'https://github.com/robmckinnon/openregister-ruby.git'
+
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5'
