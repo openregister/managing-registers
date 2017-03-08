@@ -1,8 +1,20 @@
 - content_for :page_title, ' - GOV.UK Registers'
 
-- content_for :inside_header, "<h1 class='header-title'>Custodian update tool</h1>".html_safe
+- content_for :inside_header do
+  %h1.header-title Registers
 
 - content_for :homepage_url, "/"
+
+- content_for :header_class, "with-proposition"
+
+- content_for :proposition_header do
+  .header-proposition
+    .content
+      = link_to "Menu", "#proposition-links", class: "js-header-toggle menu"
+      %nav{id: "proposition-menu"}
+        %ul#proposition-links
+          %li
+            = link_to "Tony Worron", root_path
 
 - content_for :head do
   = stylesheet_link_tag 'application'
@@ -13,7 +25,7 @@
     .phase-banner
       %p
         %strong.phase-tag ALPHA
-        %span This is a new service – your <a href="mailto:registerteam@digital.cabinet-office.gov.uk">feedback</a> will help us to improve it.
+        %span This is a new service – your #{link_to "feedback", "mailto:registerteam@digital.cabinet-office.gov.uk"} will help us to improve it.
     = content_for?(:main) ? yield(:main) : yield
 
 - content_for :body_end do
