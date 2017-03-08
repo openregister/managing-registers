@@ -1,11 +1,19 @@
 - content_for :page_title, ' - GOV.UK Registers'
 
+- content_for :inside_header, "<h1 class='header-title'>Custodian update tool</h1>".html_safe
+
+- content_for :homepage_url, "/"
+
 - content_for :head do
   = stylesheet_link_tag 'application'
   = csrf_meta_tags
 
 - content_for :content do
-  %main#content{tabindex: "-1"}
+  %main#content{role:'main', tabindex: "-1"}
+    .phase-banner
+      %p
+        %strong.phase-tag ALPHA
+        %span This is a new service – your <a href="mailto:registerteam@digital.cabinet-office.gov.uk">feedback</a> will help us to improve it.
     = content_for?(:main) ? yield(:main) : yield
 
 - content_for :body_end do
