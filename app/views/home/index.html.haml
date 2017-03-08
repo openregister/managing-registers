@@ -1,4 +1,8 @@
 = content_for :page_title, 'Home'
 
-%h1.heading-large Home#index
-%p Find me in app/views/home/index.html.erb
+%h1.heading-large Hi, Tony Worron
+
+%h3.heading-medium Available registers
+%ul
+  %li= link_to "Country register", countries_path
+  %li= link_to "Territory register", territories_path
