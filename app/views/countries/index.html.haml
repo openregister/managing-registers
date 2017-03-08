@@ -1,0 +1,17 @@
+= content_for :page_title, "Countries"
+
+%h1.heading-large Country Register
+
+%table
+  %thead
+    %tr
+      %th Country
+      %th Offical name
+      %th
+  %tbody
+    - @countries.each do |country|
+      %tr
+        %td= country.country
+        %td= country.official_name
+        %td= link_to "Update", edit_country_path(id: country.country)
+
