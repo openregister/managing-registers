@@ -1,0 +1,60 @@
+%h1.heading-large Manage Register
+
+%h2.heading-medium Update the details of the country
+
+%form
+  .form-group
+    %label.form-label.form-label-bold{for: "country"} Country
+    %span.form-hint The country's 2-letter ISO 3166-2 alpha code
+    %input#country.form-control.form-control-1-8.disabled{type: "text", value: "#{params[:id]}", disabled: true}/
+
+  .form-group
+    %label.form-label.form-label-bold{for: "name"} Name
+    %span.form-hint The commonly used name for this record
+    %input#name.form-control{type: "text"}/
+
+  .form-group
+    %label.form-label.form-label-bold{for: "official-name"} Official name
+    %span.form-hint The official or technical name for this record
+    %input#official-name.form-control{type: "text"}/
+
+  .form-group
+    %label.form-label.form-label-bold{for: "citizen-name"} Citizen name
+    %span.form-hint The name of the country's citizen's
+    %input#citizen-name.form-control{type: "text"}/
+
+  .form-group
+    %fieldset
+      %legend
+        %span.form-label-bold
+          Start date
+        %span.form-hint The date the record first became relevant to a register. For example, the date a country was first recognised by the UK.
+      .form-date
+        .form-group.form-group-day
+          %label.form-label{for: "start-date-day"} Day
+          %input#start-date-day.form-control{"aria-describedby" => "start-date-hint", max: "31", min: "0", name: "start-date-day", pattern: "[0-9]*", type: "number"}/
+        .form-group.form-group-month
+          %label.form-label{for: "start-date-month"} Month
+          %input#start-date-month.form-control{max: "12", min: "0", name: "start-date-month", pattern: "[0-9]*", type: "number"}/
+        .form-group.form-group-year
+          %label.form-label{for: "start-date-year"} Year
+          %input#start-date-year.form-control{max: "2016", min: "0", name: "start-date-year", pattern: "[0-9]*", type: "number"}/
+
+  .form-group
+    %fieldset
+      %legend
+        %span.form-label-bold
+          End date
+        %span.form-hint The date a record stopped being applicable. For example, the date a school closed down.
+      .form-date
+        .form-group.form-group-day
+          %label.form-label{for: "end-date-day"} Day
+          %input#end-date-day.form-control{"aria-describedby" => "end-date-hint", max: "31", min: "0", name: "end-date-day", pattern: "[0-9]*", type: "number"}/
+        .form-group.form-group-month
+          %label.form-label{for: "end-date-month"} Month
+          %input#end-date-month.form-control{max: "12", min: "0", name: "end-date-month", pattern: "[0-9]*", type: "number"}/
+        .form-group.form-group-year
+          %label.form-label{for: "end-date-year"} Year
+          %input#end-date-year.form-control{max: "2016", min: "0", name: "end-date-year", pattern: "[0-9]*", type: "number"}/
+
+  %button{type: "submit", value: "Continue", class: "button"} Continue

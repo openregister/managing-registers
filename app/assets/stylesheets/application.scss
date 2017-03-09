@@ -12,3 +12,8 @@ table th {
 a:visited {
   color: $govuk-blue;
 }
+
+.form-control.disabled {
+  border-color: $grey-2;
+  color: $grey-2;
+}
