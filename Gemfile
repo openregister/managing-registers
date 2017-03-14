@@ -30,6 +30,9 @@ gem 'govuk_elements_rails'
 # Ruby client for OpenRegisters
 gem 'openregister-ruby', git: 'https://github.com/robmckinnon/openregister-ruby.git'
 
+# Deploying jobs
+gem 'whenever', require: false
+
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5'
@@ -42,4 +45,5 @@ group :development do
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'letter_opener'
 end
