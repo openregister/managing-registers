@@ -1,0 +1,22 @@
+%h1.heading-large Update the details of the territory.
+
+.form-group
+  = f.label :code, class: "form-label form-label-bold"
+  %span.form-hint The territory's ISO 3166-1 alpha3 code. Unique codes have been created for territories that don't have an existing ISO code.
+  = f.text_field :code, readonly: true, class: "form-control form-control-1-8 disabled"
+.form-group
+  = f.label :name, class: "form-label form-label-bold"
+  %span.form-hint The commonly-used name of a record.
+  = f.text_field :name, class: "form-control"
+.form-group
+  = f.label :official_name, class: "form-label form-label-bold"
+  %span.form-hint The official or technical name of a record.
+  = f.text_field :official_name, class: "form-control"
+.form-group
+  = f.label :start_date, class: "form-label form-label-bold"
+  %span.form-hint The date a record first became relevant to a register. For example, the date a territory was first recognised by the UK.
+  = f.text_field :start_date, class: "form-control"
+.form-group
+  = f.label :end_date, class: "form-label form-label-bold"
+  %span.form-hint The date a record stopped being applicable. For example, the date a school closed down.
+  = f.text_field :end_date, class: "form-control"

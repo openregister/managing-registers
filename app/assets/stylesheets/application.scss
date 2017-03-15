@@ -17,3 +17,19 @@ a:visited {
   border-color: $grey-2;
   color: $grey-2;
 }
+
+table {
+  margin-bottom: 20px;
+}
+
+.panel-change-notification {
+  background-color: rgba($yellow-50, 0.5);
+  border-color: $yellow-50;
+  border-width: 5px;
+  display: inline-block;
+  margin: 0 20px 0 0;
+}
+
+.notice {
+  margin: 30px 0;
+}

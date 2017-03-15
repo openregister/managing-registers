@@ -1,0 +1,57 @@
+%h1.heading-large Check details of the territory.
+
+%table
+  %thead
+    %tr
+      %th Fields
+      %th Existing values
+      %th New Values
+      %th
+
+  %tbody
+    %tr
+      %td Territory
+      %td= @territory.code_was
+      %td
+        - if  @territory.code_changed?
+          .panel.panel-change-notification
+            =  @territory.code_was
+      %td
+    %tr
+      %td Name
+      %td= @territory.name_was
+      %td
+        - if @territory.name_changed?
+          .panel.panel-change-notification
+            = @territory.name
+      %td
+    %tr
+      %td Official name
+      %td= @territory.official_name_was
+      %td
+        - if @territory.official_name_changed?
+          .panel.panel-change-notification
+            = @territory.official_name
+      %td
+    %tr
+      %td Start date
+      %td= @territory.start_date_was
+      %td
+        - if @territory.start_date_changed?
+          .panel.panel-change-notification
+            = @territory.start_date
+      %td
+    %tr
+      %td End date
+      %td= @territory.end_date_was
+      %td
+        - if @territory.end_date_changed?
+          .panel.panel-change-notification
+            = @territory.end_date
+      %td
+
+.notice
+  %i.icon.icon-important
+    %span.visually-hidden Warning
+  %strong.bold-small
+    Once you submit these changes will be sent to the RDA team for approval

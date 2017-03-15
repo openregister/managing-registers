@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'from@example.com'
+  default from: 'data-infrastructure@digital.cabinet-office.gov.uk'
   layout 'mailer'
 end

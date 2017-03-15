@@ -1,0 +1,65 @@
+%h1.heading-large Check details of the country.
+
+%table
+  %thead
+    %tr
+      %th Fields
+      %th Existing values
+      %th New Values
+      %th
+
+  %tbody
+    %tr
+      %td Country
+      %td= @country.code_was
+      %td
+        - if  @country.code_changed?
+          .panel.panel-change-notification
+            =  @country.code_was
+      %td
+    %tr
+      %td Name
+      %td= @country.name_was
+      %td
+        - if @country.name_changed?
+          .panel.panel-change-notification
+            = @country.name
+      %td
+    %tr
+      %td Official name
+      %td= @country.official_name_was
+      %td
+        - if @country.official_name_changed?
+          .panel.panel-change-notification
+            = @country.official_name
+      %td
+    %tr
+      %td Citizen names
+      %td= @country.citizen_name_was
+      %td
+        - if @country.citizen_name_changed?
+          .panel.panel-change-notification
+            @country.citizen_name
+      %td
+    %tr
+      %td Start date
+      %td= @country.start_date_was
+      %td
+        - if @country.start_date_changed?
+          .panel.panel-change-notification
+            = @country.start_date
+      %td
+    %tr
+      %td End date
+      %td= @country.end_date_was
+      %td
+        - if @country.end_date_changed?
+          .panel.panel-change-notification
+            = @country.end_date
+      %td
+
+.notice
+  %i.icon.icon-important
+    %span.visually-hidden Warning
+  %strong.bold-small
+    Once you submit these changes will be sent to the RDA team for approval

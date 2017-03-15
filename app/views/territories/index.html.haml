@@ -1,4 +1,4 @@
-= content_for :page_title, "Territory"
+= content_for :page_title, "Territory Register"
 
 %h1.heading-large Territory Register
 
@@ -6,11 +6,12 @@
   %thead
     %tr
       %th Territory
-      %th Offical name
+      %th Official name
       %th
+
   %tbody
     - @territories.each do |territory|
       %tr
-        %td= territory.territory
+        %td= territory.code
         %td= territory.official_name
-        %td= link_to "Update", edit_country_path(id: territory.territory)
+        %td= link_to 'Update', edit_territory_path(territory)
