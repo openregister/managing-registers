@@ -1,1 +1,22 @@
-<p>TODO: Something has changed but we don't know what</p>
+%h1
+  New entry for the
+  = @register_name
+
+%p
+  %strong Code:
+  = @register.try(:code)
+%p
+  %strong Name:
+  = @register.try(:name)
+%p
+  %strong Citizen names:
+  = @register.try(:citizen_name)
+%p
+  %strong Official name:
+  = @register.try(:official_name)
+%p
+  %strong Start date:
+  = @register.try(:start_date)
+%p
+  %strong End date:
+  = @register.try(:end_date)

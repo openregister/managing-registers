@@ -22,7 +22,7 @@ class TerritoriesController < ApplicationController
   def update
     @wizard = ModelWizard.new(@territory, session, params, territory_params).continue
     if @wizard.save
-      NotificationMailer.register_update_notification(@territory, "Territory Register").deliver_now
+      NotificationMailer.register_update_notification(@territory, "Territory Register", "tony.worron@fco.gov.uk").deliver_now
       redirect_to success_territory_path(@territory)
     else
       render :edit
