@@ -1,0 +1,8 @@
+---
+applications:
+- name: custodian-update-tool-worker
+  memory: 256MB
+  buildpack: ruby_buildpack
+  instances: 1
+  no-route: true
+  command: bundle exec sidekiq
