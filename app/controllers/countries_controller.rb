@@ -23,6 +23,7 @@ class CountriesController < ApplicationController
     @wizard = ModelWizard.new(@country, session, params, country_params).continue
     if @wizard.save
       NotificationMailer.register_update_notification(@country, "Country Register", "tony.worron@fco.gov.uk").deliver_now
+      NotificationMailer.register_update_confirmation("Country Register", "tony.worron@fco.gov.uk").deliver_now
       redirect_to success_country_path(@country)
     else
       render :edit

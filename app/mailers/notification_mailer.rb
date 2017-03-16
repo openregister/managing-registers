@@ -10,4 +10,16 @@ class NotificationMailer < GovukNotifyRails::Mailer
 
     mail(to: "data-infrastructure@digital.cabinet-office.gov.uk")
   end
+
+  def register_update_confirmation(register_name, user)
+    set_template('afb0d054-d872-447e-a551-d3103e49c65f')
+
+    set_personalisation(
+      user: user,
+      register: register_name
+    )
+
+    mail(to: user)
+
+  end
 end
