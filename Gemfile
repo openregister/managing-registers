@@ -34,7 +34,7 @@ gem 'openregister-ruby', git: 'https://github.com/robmckinnon/openregister-ruby.
 gem 'govuk_notify_rails'
 
 # Deploying jobs
-gem 'whenever', require: false
+gem 'sidekiq'
 
 group :development, :test do
   gem 'byebug', platform: :mri
