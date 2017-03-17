@@ -1,0 +1,14 @@
+= content_for :page_title, 'Forgot password?'
+
+= link_to "Back", new_user_session_path, class: "link-back"
+
+%h1.heading-xlarge Forgot password?
+%p Please enter your email address for the specific account that you need a password for.
+%p We'll then send you an email which you can use to set up a new password.
+= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+  = devise_error_messages!
+  .form-group
+    = f.label :email, class: "form-label"
+    = f.email_field :email, class: "form-control"
+  .form-group
+    = f.submit "Send email", class: "button"

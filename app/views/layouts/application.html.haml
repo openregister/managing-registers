@@ -13,8 +13,11 @@
       = link_to "Menu", "#proposition-links", class: "js-header-toggle menu"
       %nav{id: "proposition-menu"}
         %ul#proposition-links
-          %li
-            = link_to "Tony Worron", root_path
+          - if user_signed_in?
+            %li
+              = link_to current_user.email, edit_user_registration_path
+            %li
+              = link_to "Log out", destroy_user_session_path, method: :delete
 
 - content_for :head do
   = stylesheet_link_tag 'application'
@@ -26,6 +29,9 @@
       %p
         %strong.phase-tag ALPHA
         %span This is a new service – your #{link_to "feedback", "mailto:registerteam@digital.cabinet-office.gov.uk"} will help us to improve it.
+    - if alert
+      #validation-error-message-no-js.validation-message
+        %p.error= alert
     = content_for?(:main) ? yield(:main) : yield
 
 - content_for :body_end do

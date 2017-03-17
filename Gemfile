@@ -36,6 +36,9 @@ gem 'govuk_notify_rails'
 # Deploying jobs
 gem 'sidekiq'
 
+# User authentication
+gem 'devise'
+
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5'
