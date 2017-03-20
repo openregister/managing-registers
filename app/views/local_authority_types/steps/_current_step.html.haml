@@ -1,0 +1,6 @@
+= f.hidden_field :current_step, value: f.object.current_step
+
+= render "local_authority_types/steps/page#{f.object.current_step + 1}", f: f
+
+.form-group
+  = f.submit f.object.last_step? ?  "Submit" : "Continue", class: "button"
