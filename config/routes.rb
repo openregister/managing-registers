@@ -17,4 +17,8 @@ Rails.application.routes.draw do
   resources :territories, except: [:destroy, :new] do
     get 'success', on: :member
   end
+
+  resources :local_authority_engs, except: [:destroy, :new] do
+    get 'success', on: :member
+  end
 end

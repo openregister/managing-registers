@@ -1,0 +1,19 @@
+= content_for :page_title, "Local Authorities Eng Register"
+
+%h1.heading-large Local Authorities Eng Register
+
+%table
+  %thead
+    %tr
+      %th Local Authority Eng
+      %th Name
+      %th Official name
+      %th
+
+  %tbody
+    - @local_authority_engs.each do |local_authority_eng|
+      %tr
+        %td= local_authority_eng.code
+        %td= local_authority_eng.name
+        %td= local_authority_eng.official_name
+        %td= link_to 'Update', edit_local_authority_eng_path(local_authority_eng)

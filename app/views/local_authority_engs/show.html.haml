@@ -1,0 +1,43 @@
+= content_for :page_title, "Local Authoritie Eng Register"
+
+%h1.heading-large Manage register
+
+%table
+  %thead
+    %tr
+      %th Fields
+      %th Existing values
+      %th New Values
+      %th
+
+  %tbody
+    %tr
+      %td local_authority_eng
+      %td= @local_authority_eng.code
+      %td= @local_authority_eng.code_change
+      %td= link_to 'Update', edit_local_authority_eng_path(@local_authority_eng)
+    %tr
+      %td Name
+      %td= @local_authority_eng.name
+      %td
+      %td= link_to 'Update', edit_local_authority_eng_path(@local_authority_eng)
+    %tr
+      %td Official name
+      %td= @local_authority_eng.official_name
+      %td
+      %td= link_to 'Update', edit_local_authority_eng_path(@local_authority_eng)
+    %tr
+      %td Citizen names
+      %td= @local_authority_eng.local_authority_type
+      %td
+      %td= link_to 'Update', edit_local_authority_eng_path(@local_authority_eng)
+    %tr
+      %td Start date
+      %td= @local_authority_eng.start_date
+      %td
+      %td= link_to 'Update', edit_local_authority_eng_path(@local_authority_eng)
+    %tr
+      %td End date
+      %td= @local_authority_eng.end_date
+      %td
+      %td= link_to 'Update', edit_local_authority_eng_path(@local_authority_eng)
