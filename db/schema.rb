@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170320135153) do
+ActiveRecord::Schema.define(version: 20170321104204) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,10 +25,12 @@ ActiveRecord::Schema.define(version: 20170320135153) do
     t.boolean  "change_approved", default: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.integer  "user_id"
     t.index ["code"], name: "index_countries_on_code", unique: true, using: :btree
+    t.index ["user_id"], name: "index_countries_on_user_id", using: :btree
   end
 
-  create_table "local_authorities_engs", force: :cascade do |t|
+  create_table "local_authority_engs", force: :cascade do |t|
     t.string   "name"
     t.string   "official_name"
     t.string   "start_date"
@@ -38,7 +40,9 @@ ActiveRecord::Schema.define(version: 20170320135153) do
     t.boolean  "change_approved",      default: false
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
-    t.index ["code"], name: "index_local_authorities_engs_on_code", unique: true, using: :btree
+    t.integer  "user_id"
+    t.index ["code"], name: "index_local_authority_engs_on_code", unique: true, using: :btree
+    t.index ["user_id"], name: "index_local_authority_engs_on_user_id", using: :btree
   end
 
   create_table "local_authority_types", force: :cascade do |t|
@@ -49,7 +53,9 @@ ActiveRecord::Schema.define(version: 20170320135153) do
     t.boolean  "change_approved", default: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.integer  "user_id"
     t.index ["code"], name: "index_local_authority_types_on_code", unique: true, using: :btree
+    t.index ["user_id"], name: "index_local_authority_types_on_user_id", using: :btree
   end
 
   create_table "territories", force: :cascade do |t|
@@ -61,7 +67,9 @@ ActiveRecord::Schema.define(version: 20170320135153) do
     t.boolean  "change_approved", default: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.integer  "user_id"
     t.index ["code"], name: "index_territories_on_code", unique: true, using: :btree
+    t.index ["user_id"], name: "index_territories_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -77,8 +85,13 @@ ActiveRecord::Schema.define(version: 20170320135153) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "role"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "countries", "users"
+  add_foreign_key "local_authority_engs", "users"
+  add_foreign_key "local_authority_types", "users"
+  add_foreign_key "territories", "users"
 end
