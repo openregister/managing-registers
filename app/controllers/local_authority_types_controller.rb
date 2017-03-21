@@ -1,15 +1,7 @@
 class LocalAuthorityTypesController < ApplicationController
-  before_action :set_local_authority_type, only: [:show, :edit, :update, :success]
+  load_and_authorize_resource
 
   def index
-    @local_authority_types = LocalAuthorityType.all
-  end
-
-  def new
-    @local_authority_type = LocalAuthorityType.new
-  end
-
-  def show
   end
 
   def success
@@ -31,10 +23,6 @@ class LocalAuthorityTypesController < ApplicationController
   end
 
   private
-    def set_local_authority_type
-      @local_authority_type = LocalAuthorityType.find(params[:id])
-    end
-
     def local_authority_type_params
       return params unless params[:local_authority_type]
 

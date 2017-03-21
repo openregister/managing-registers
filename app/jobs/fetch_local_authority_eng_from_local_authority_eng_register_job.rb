@@ -4,12 +4,14 @@ class FetchLocalAuthorityEngFromLocalAuthorityEngRegisterJob < ApplicationJob
   def perform(*args)
     local_authority_engs.each do |c|
       local_authority_eng = LocalAuthorityEng.find_or_initialize_by(code: c[:code])
+      user = User.find_by(email: "stephen.mcallister@communities.gsi.gov.uk")
 
       local_authority_eng.name = c[:name]
       local_authority_eng.official_name = c[:official_name]
       local_authority_eng.local_authority_type = c[:local_authority_type]
       local_authority_eng.start_date = c[:start_date]
       local_authority_eng.end_date = c[:end_date]
+      local_authority_eng.user = user.id
 
       if local_authority_eng.changed? || local_authority_eng.new_record?
         local_authority_eng.save!

@@ -4,11 +4,13 @@ class FetchTerritoriesFromTerritoryRegisterJob < ApplicationJob
   def perform(*args)
     territories.each do |c|
       territory = Territory.find_or_initialize_by(code: c[:code])
+      user = User.find_by(email: "tony.worron@fco.gsi.gov.uk")
 
       territory.name = c[:name]
       territory.official_name = c[:official_names]
       territory.start_date = c[:start_date]
       territory.end_date = c[:end_date]
+      territory.user_id = user.id
 
       if territory.changed? || territory.new_record?
         territory.save!

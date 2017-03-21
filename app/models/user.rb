@@ -8,4 +8,16 @@ class User < ApplicationRecord
   has_many :territories
   has_many :local_authority_engs
   has_many :local_authority_types
+
+  def admin?
+    role == "admin"
+  end
+
+  def standard?
+    role == "standard"
+  end
+
+  def guest?
+    role == "guest"
+  end
 end

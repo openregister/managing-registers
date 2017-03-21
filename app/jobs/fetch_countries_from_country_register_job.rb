@@ -4,12 +4,14 @@ class FetchCountriesFromCountryRegisterJob < ApplicationJob
   def perform(*args)
     countries.each do |c|
       country = Country.find_or_initialize_by(code: c[:code])
+      user = User.find_by(email: "tony.worron@fco.gsi.gov.uk")
 
       country.name = c[:name]
       country.official_name = c[:official_names]
       country.citizen_name = c[:citizen_name]
       country.start_date = c[:start_date]
       country.end_date = c[:end_date]
+      country.user_id = user.id
 
       if country.changed? || country.new_record?
         country.save!

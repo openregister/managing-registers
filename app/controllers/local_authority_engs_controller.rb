@@ -1,15 +1,7 @@
 class LocalAuthorityEngsController < ApplicationController
-  before_action :set_local_authority_eng, only: [:show, :edit, :update, :success]
+  load_and_authorize_resource
 
   def index
-    @local_authority_engs = LocalAuthorityEng.all
-  end
-
-  def new
-    @local_authority_eng = LocalAuthorityEng.new
-  end
-
-  def show
   end
 
   def success
@@ -31,10 +23,6 @@ class LocalAuthorityEngsController < ApplicationController
   end
 
   private
-    def set_local_authority_eng
-      @local_authority_eng = LocalAuthorityEng.find(params[:id])
-    end
-
     def local_authority_eng_params
       return params unless params[:local_authority_eng]
 
@@ -45,7 +33,8 @@ class LocalAuthorityEngsController < ApplicationController
         :local_authority_type,
         :start_date,
         :end_date,
-        :change_approved
+        :change_approved,
+        :user_id
       )
     end
 end

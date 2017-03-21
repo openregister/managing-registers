@@ -1,15 +1,7 @@
 class CountriesController < ApplicationController
-  before_action :set_country, only: [:show, :edit, :update, :success]
+  load_and_authorize_resource
 
   def index
-    @countries = Country.all
-  end
-
-  def new
-    @country = Country.new
-  end
-
-  def show
   end
 
   def success
@@ -31,10 +23,6 @@ class CountriesController < ApplicationController
   end
 
   private
-    def set_country
-      @country = Country.find(params[:id])
-    end
-
     def country_params
       return params unless params[:country]
 
@@ -45,7 +33,8 @@ class CountriesController < ApplicationController
         :start_date,
         :end_date,
         :code,
-        :change_approved
+        :change_approved,
+        :user_id
       )
     end
 end
