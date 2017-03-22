@@ -11,7 +11,7 @@ class FetchLocalAuthorityEngFromLocalAuthorityEngRegisterJob < ApplicationJob
       local_authority_eng.local_authority_type = c[:local_authority_type]
       local_authority_eng.start_date = c[:start_date]
       local_authority_eng.end_date = c[:end_date]
-      local_authority_eng.user = user.id
+      local_authority_eng.user_id = user.id
 
       if local_authority_eng.changed? || local_authority_eng.new_record?
         local_authority_eng.save!
