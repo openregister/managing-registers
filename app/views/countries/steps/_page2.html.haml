@@ -13,9 +13,9 @@
       %td Country
       %td= @country.code_was
       %td
-        - if  @country.code_changed?
+        - if @country.code_changed?
           .panel.panel-change-notification
-            =  @country.code_was
+            = @country.code_was
       %td
     %tr
       %td Name
@@ -39,7 +39,7 @@
       %td
         - if @country.citizen_name_changed?
           .panel.panel-change-notification
-            @country.citizen_name
+            = @country.citizen_name
       %td
     %tr
       %td Start date

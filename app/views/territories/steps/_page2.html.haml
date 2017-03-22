@@ -13,9 +13,9 @@
       %td Territory
       %td= @territory.code_was
       %td
-        - if  @territory.code_changed?
+        - if @territory.code_changed?
           .panel.panel-change-notification
-            =  @territory.code_was
+            = @territory.code_was
       %td
     %tr
       %td Name

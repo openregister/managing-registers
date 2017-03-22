@@ -13,9 +13,9 @@
       %td Local authority type
       %td= @local_authority_type.code_was
       %td
-        - if  @local_authority_type.code_changed?
+        - if @local_authority_type.code_changed?
           .panel.panel-change-notification
-            =  @local_authority_type.code_was
+            = @local_authority_type.code_was
       %td
     %tr
       %td Name
