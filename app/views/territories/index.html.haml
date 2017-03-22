@@ -12,6 +12,6 @@
   %tbody
     - @territories.each do |territory|
       %tr
-        %td= territory.code
+        %td= link_to territory.code, territory_path(territory)
         %td= territory.official_name
         %td= link_to 'Update', edit_territory_path(territory)

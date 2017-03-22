@@ -1,4 +1,4 @@
-= content_for :page_title, "Local Authorities Type Register"
+= content_for :page_title, "Local Authority Type Register"
 
 %h1.heading-large Local Authorities Type Register
 
@@ -12,6 +12,6 @@
   %tbody
     - @local_authority_types.each do |local_authority_type|
       %tr
-        %td= local_authority_type.code
+        %td= link_to local_authority_type.code, local_authority_type_path(local_authority_type)
         %td= local_authority_type.name
         %td= link_to 'Update', edit_local_authority_type_path(local_authority_type)

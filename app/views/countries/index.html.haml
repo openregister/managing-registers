@@ -13,7 +13,7 @@
   %tbody
     - @countries.each do |country|
       %tr
-        %td= country.code
+        %td= link_to country.code, country_path(country)
         %td= country.name
         %td= country.official_name
         %td= link_to 'Update', edit_country_path(country)
