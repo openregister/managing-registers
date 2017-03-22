@@ -26,7 +26,8 @@ class LocalAuthorityEngsController < ApplicationController
     def local_authority_eng_params
       return params unless params[:local_authority_eng]
 
-      params.require(:local_authority_eng).permit(:current_step,
+      params.require(:local_authority_eng).permit(
+        :current_step,
         :code,
         :name,
         :official_name,

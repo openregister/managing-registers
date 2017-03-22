@@ -26,14 +26,14 @@ class LocalAuthorityTypesController < ApplicationController
     def local_authority_type_params
       return params unless params[:local_authority_type]
 
-      params.require(:local_authority_type).permit(:current_step,
+      params.require(:local_authority_type).permit(
+        :current_step,
         :code,
         :name,
-        :official_name,
-        :local_authority_type,
         :start_date,
         :end_date,
-        :change_approved
+        :change_approved,
+        :user_id
       )
     end
 end

@@ -26,12 +26,15 @@ class TerritoriesController < ApplicationController
     def territory_params
       return params unless params[:territory]
 
-      params.require(:territory).permit(:current_step,
+      params.require(:territory).permit(
+        :current_step,
         :name,
         :official_name,
         :start_date,
         :end_date,
         :code,
-        :change_approved)
+        :change_approved,
+        :user_id
+      )
     end
 end

@@ -26,7 +26,8 @@ class CountriesController < ApplicationController
     def country_params
       return params unless params[:country]
 
-      params.require(:country).permit(:current_step,
+      params.require(:country).permit(
+        :current_step,
         :name,
         :citizen_name,
         :official_name,
