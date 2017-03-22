@@ -17,6 +17,8 @@
           .panel.panel-change-notification
             = @local_authority_type.code_was
       %td
+        - if @local_authority_type.code_changed?
+          = f.submit "Change", name: "back_button", class: "inline-link"
     %tr
       %td Name
       %td= @local_authority_type.name_was
@@ -25,6 +27,8 @@
           .panel.panel-change-notification
             = @local_authority_type.name
       %td
+        - if @local_authority_type.name_changed?
+          = f.submit "Change", name: "back_button", class: "inline-link"
     %tr
       %td Start date
       %td= @local_authority_type.start_date_was
@@ -33,6 +37,8 @@
           .panel.panel-change-notification
             = @local_authority_type.start_date
       %td
+        - if @local_authority_type.start_date_changed?
+          = f.submit "Change", name: "back_button", class: "inline-link"
     %tr
       %td End date
       %td= @local_authority_type.end_date_was
@@ -41,6 +47,8 @@
           .panel.panel-change-notification
             = @local_authority_type.end_date
       %td
+        - if @local_authority_type.end_date_changed?
+          = f.submit "Change", name: "back_button", class: "inline-link"
 
 .notice
   %i.icon.icon-important

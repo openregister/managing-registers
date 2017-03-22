@@ -13,6 +13,16 @@ a:visited {
   color: $govuk-blue;
 }
 
+.inline-link {
+  background: none;
+  border: none;
+  color: $govuk-blue;
+  display: inline-block;
+  text-decoration: underline;
+  vertical-align: top;
+  -webkit-appearance: none;
+}
+
 .form-control.disabled {
   border-color: $grey-2;
   color: $grey-2;
@@ -28,6 +38,7 @@ table {
   border-width: 5px;
   display: inline-block;
   margin: 0 20px 0 0;
+  width: 100%;
 }
 
 .notice {
