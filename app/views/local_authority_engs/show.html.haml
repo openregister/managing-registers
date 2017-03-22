@@ -1,43 +1,35 @@
-= content_for :page_title, "Local Authoritie Eng Register"
+= content_for :page_title, "Local Authority Eng Register"
 
-%h1.heading-large Manage register
+= link_to "Back", local_authority_engs_path, class: "link-back"
+
+%h1.heading-large= @local_authority_eng.code
 
 %table
   %thead
     %tr
       %th Fields
-      %th Existing values
-      %th New Values
-      %th
+      %th Values
 
   %tbody
     %tr
-      %td local_authority_eng
+      %td Local Authority Eng
       %td= @local_authority_eng.code
       %td= @local_authority_eng.code_change
-      %td= link_to 'Update', edit_local_authority_eng_path(@local_authority_eng)
+      %td
     %tr
       %td Name
       %td= @local_authority_eng.name
-      %td
-      %td= link_to 'Update', edit_local_authority_eng_path(@local_authority_eng)
     %tr
       %td Official name
       %td= @local_authority_eng.official_name
-      %td
-      %td= link_to 'Update', edit_local_authority_eng_path(@local_authority_eng)
     %tr
       %td Citizen names
       %td= @local_authority_eng.local_authority_type
-      %td
-      %td= link_to 'Update', edit_local_authority_eng_path(@local_authority_eng)
     %tr
       %td Start date
       %td= @local_authority_eng.start_date
-      %td
-      %td= link_to 'Update', edit_local_authority_eng_path(@local_authority_eng)
     %tr
       %td End date
       %td= @local_authority_eng.end_date
-      %td
-      %td= link_to 'Update', edit_local_authority_eng_path(@local_authority_eng)
+
+= link_to 'Update', edit_local_authority_eng_path(@local_authority_eng), class: "button"

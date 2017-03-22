@@ -1,43 +1,33 @@
 = content_for :page_title, "Country Register"
 
-%h1.heading-large Manage register
+= link_to "Back", countries_path, class: "link-back"
+
+%h1.heading-large= @country.code
 
 %table
   %thead
     %tr
       %th Fields
-      %th Existing values
-      %th New Values
-      %th
+      %th Values
 
   %tbody
     %tr
       %td Country
       %td= @country.code
-      %td= @country.code_change
-      %td= link_to 'Update', edit_country_path(@country)
     %tr
       %td Name
       %td= @country.name
-      %td
-      %td= link_to 'Update', edit_country_path(@country)
     %tr
       %td Official name
       %td= @country.official_name
-      %td
-      %td= link_to 'Update', edit_country_path(@country)
     %tr
       %td Citizen names
       %td= @country.citizen_name
-      %td
-      %td= link_to 'Update', edit_country_path(@country)
     %tr
       %td Start date
       %td= @country.start_date
-      %td
-      %td= link_to 'Update', edit_country_path(@country)
     %tr
       %td End date
       %td= @country.end_date
-      %td
-      %td= link_to 'Update', edit_country_path(@country)
+
+= link_to 'Update', edit_country_path(@country), class: "button"

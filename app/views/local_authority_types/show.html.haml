@@ -1,33 +1,27 @@
 = content_for :page_title, "Local Authority Type Register"
 
-%h1.heading-large Manage register
+= link_to "Back", local_authority_types_path, class: "link-back"
+
+%h1.heading-large= @local_authority_type.code
 
 %table
   %thead
     %tr
       %th Fields
-      %th Existing values
-      %th New Values
-      %th
+      %th Values
 
   %tbody
     %tr
-      %td local_authority_type
+      %td Local Authority Type
       %td= @local_authority_type.code
-      %td= @local_authority_type.code_change
-      %td= link_to 'Update', edit_local_authority_type_path(@local_authority_type)
     %tr
       %td Name
       %td= @local_authority_type.name
-      %td
-      %td= link_to 'Update', edit_local_authority_type_path(@local_authority_type)
     %tr
       %td Start date
       %td= @local_authority_type.start_date
-      %td
-      %td= link_to 'Update', edit_local_authority_type_path(@local_authority_type)
     %tr
       %td End date
       %td= @local_authority_type.end_date
-      %td
-      %td= link_to 'Update', edit_local_authority_type_path(@local_authority_type)
+
+= link_to 'Update', edit_local_authority_type_path(@local_authority_type), class: "button"

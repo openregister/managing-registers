@@ -1,38 +1,30 @@
 = content_for :page_title, "Territory Register"
 
-%h1.heading-large Manage register
+= link_to "Back", territories_path, class: "link-back"
+
+%h1.heading-large= @territory.code
 
 %table
   %thead
     %tr
       %th Fields
-      %th Existing values
-      %th New Values
-      %th
+      %th Values
 
   %tbody
     %tr
       %td Territory
       %td= @territory.code
-      %td= @territory.code_change
-      %td= link_to 'Update', edit_territory_path(@territory)
     %tr
       %td Name
       %td= @territory.name
-      %td
-      %td= link_to 'Update', edit_territory_path(@territory)
     %tr
       %td Official name
       %td= @territory.official_name
-      %td
-      %td= link_to 'Update', edit_territory_path(@territory)
     %tr
       %td Start date
       %td= @territory.start_date
-      %td
-      %td= link_to 'Update', edit_territory_path(@territory)
     %tr
       %td End date
       %td= @territory.end_date
-      %td
-      %td= link_to 'Update', edit_territory_path(@territory)
+
+= link_to 'Update', edit_territory_path(@territory), class: "button"
