@@ -33,3 +33,10 @@ table {
 .notice {
   margin: 30px 0;
 }
+
+@media (min-width: 641px) {
+  .heading-xlarge {
+    margin-top: 1.25em;
+    margin-bottom: 0.625em;
+  }
+}
