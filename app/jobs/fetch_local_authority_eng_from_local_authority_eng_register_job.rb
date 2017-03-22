@@ -24,12 +24,12 @@ class FetchLocalAuthorityEngFromLocalAuthorityEngRegisterJob < ApplicationJob
   def local_authority_engs
     local_authority_eng_records = OpenRegister.register('local-authority-eng', :beta)._all_records
     local_authority_eng_records.map { |r| {
-      code: r.local_authority_eng,
-      official_name: r.official_name,
-      name: r.name,
-      local_authority_type: r.local_authority_type,
-      start_date: r.start_date,
-      end_date: r.end_date }
+      code: r.local_authority_eng || "",
+      official_name: r.official_name || "",
+      name: r.name || "",
+      local_authority_type: r.local_authority_type || "",
+      start_date: r.start_date || "",
+      end_date: r.end_date || "" }
     }
   end
 end

@@ -22,10 +22,10 @@ class FetchLocalAuthorityTypeFromLocalAuthorityTypeRegisterJob < ApplicationJob
   def local_authority_types
     local_authority_type_records = OpenRegister.register('local-authority-type', :beta)._all_records
     local_authority_type_records.map { |r| {
-      code: r.local_authority_type,
-      name: r.name,
-      start_date: r.start_date,
-      end_date: r.end_date }
+      code: r.local_authority_type || "",
+      name: r.name || "",
+      start_date: r.start_date || "",
+      end_date: r.end_date || "" }
     }
   end
 end

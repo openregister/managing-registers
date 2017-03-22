@@ -23,11 +23,11 @@ class FetchTerritoriesFromTerritoryRegisterJob < ApplicationJob
   def territories
     territory_records = OpenRegister.register('territory', :beta)._all_records
     territory_records.map { |r| {
-      code: r.territory,
-      official_names: r.official_name,
-      name: r.name,
-      start_date: r.start_date,
-      end_date: r.end_date }
+      code: r.territory || "",
+      official_names: r.official_name || "",
+      name: r.name || "",
+      start_date: r.start_date || "",
+      end_date: r.end_date || ""}
     }
   end
 end

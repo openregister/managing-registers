@@ -25,11 +25,11 @@ class FetchCountriesFromCountryRegisterJob < ApplicationJob
     country_records = OpenRegister.register('country', :beta)._all_records
     country_records.map { |r| {
       code: r.country,
-      official_names: r.official_name,
-      name: r.name,
-      citizen_name: r.citizen_names,
-      start_date: r.start_date,
-      end_date: r.end_date }
+      official_names: r.official_name || "",
+      name: r.name || "",
+      citizen_name: r.citizen_names || "",
+      start_date: r.start_date || "",
+      end_date: r.end_date || "" }
     }
   end
 end
