@@ -17,8 +17,8 @@ class LocalAuthorityEngsController < ApplicationController
   def update
     @wizard = ModelWizard.new(@local_authority_eng, session, params, local_authority_eng_params).continue
     if @wizard.save
-      NotificationMailer.register_update_notification(@local_authority_eng, "Local Authority Eng Register", "tony.worron@fco.gov.uk").deliver_now
-      NotificationMailer.register_update_confirmation("Local Authority Eng Register", "tony.worron@fco.gov.uk").deliver_now
+      NotificationMailer.register_update_notification(@local_authority_eng, "Local Authority Eng Register", current_user).deliver_now
+      NotificationMailer.register_update_confirmation("Local Authority Eng Register", current_user).deliver_now
       redirect_to success_local_authority_eng_path(@local_authority_eng)
     else
       render :edit
