@@ -1,4 +1,4 @@
-%h1.heading-large Update the details of the country.
+%h1.heading-large Update the details
 
 .form-group
   = f.label :code, class: "form-label form-label-bold"
@@ -10,9 +10,9 @@
   = f.text_field :name, class: "form-control"
 .form-group
   = f.label :start_date, class: "form-label form-label-bold"
-  %span.form-hint The date a record first became relevant to a register. For example, the date a country was first recognised by the UK.
+  %span.form-hint The date a record first became relevant to a register
   = f.text_field :start_date, class: "form-control"
 .form-group
   = f.label :end_date, class: "form-label form-label-bold"
-  %span.form-hint The date a record stopped being applicable. For example, the date a school closed down.
+  %span.form-hint The date a record stopped being applicable
   = f.text_field :end_date, class: "form-control"

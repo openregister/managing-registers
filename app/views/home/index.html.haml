@@ -1,8 +1,9 @@
 = content_for :page_title, 'Home'
 
-%h1.heading-xlarge= current_user.email
+%h1.heading-xlarge Manage registers
 
-%h3.heading-medium Available registers
+%h5.heading-medium Choose a register
+
 %ul
   - unless current_user.email == "stephen.mcallister@communities.gsi.gov.uk"
     %li= link_to "Country register", countries_path
