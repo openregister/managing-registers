@@ -30,8 +30,7 @@
         %strong.phase-tag ALPHA
         %span This is a new service – your #{link_to "feedback", "mailto:registerteam@digital.cabinet-office.gov.uk"} will help us to improve it.
     - if alert
-      #validation-error-message-no-js.validation-message
-        %p.error= alert
+      .banner-dangerous= alert
     = content_for?(:main) ? yield(:main) : yield
 
 - content_for :body_end do
