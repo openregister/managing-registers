@@ -1,6 +1,6 @@
 = content_for :page_title, "Local Authority Eng Register"
 
-%h1.heading-xlarge Manage Register
+= link_to "Back", root_path, class: "link-back"
 
 %h4.heading-medium Choose a local authority eng to update
 
@@ -15,7 +15,7 @@
   %tbody
     - @local_authority_engs.each do |local_authority_eng|
       %tr
-        %td= link_to local_authority_eng.code, local_authority_eng_path(local_authority_eng)
+        %td= local_authority_eng.code
         %td= local_authority_eng.name
         %td= local_authority_eng.official_name
         %td= link_to 'Update', edit_local_authority_eng_path(local_authority_eng)

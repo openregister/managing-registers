@@ -1,6 +1,6 @@
 = content_for :page_title, "Country Register"
 
-%h1.heading-xlarge Manage Register
+= link_to "Back", root_path, class: "link-back"
 
 %h4.heading-medium Choose a country to update
 
@@ -15,7 +15,7 @@
   %tbody
     - @countries.each do |country|
       %tr
-        %td= link_to country.code, country_path(country)
+        %td= country.code
         %td= country.name
         %td= country.official_name
         %td= link_to 'Update', edit_country_path(country)
