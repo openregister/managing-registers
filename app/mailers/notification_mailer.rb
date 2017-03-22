@@ -8,7 +8,7 @@ class NotificationMailer < GovukNotifyRails::Mailer
       register: register_name
     )
 
-    mail(to: "data-infrastructure@digital.cabinet-office.gov.uk")
+    mail(to: "registerteam@digital.cabinet-office.gov.uk")
   end
 
   def register_update_confirmation(register_name, current_user)
