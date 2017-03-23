@@ -25,4 +25,6 @@ Rails.application.routes.draw do
   resources :local_authority_types, except: [:destroy, :new] do
     get 'success', on: :member
   end
+
+  post 'select_register', to: "home#select_register"
 end

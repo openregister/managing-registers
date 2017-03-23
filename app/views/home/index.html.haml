@@ -4,10 +4,29 @@
 
 %h5.heading-medium Choose a register
 
-%ul
-  - unless current_user.email == "stephen.mcallister@communities.gsi.gov.uk"
-    %li= link_to "Country register", countries_path
-    %li= link_to "Territory register", territories_path
-  - unless current_user.email == "tony.worron@fco.gsi.gov.uk"
-    %li= link_to "Local Authority Eng Register", local_authority_engs_path
-    %li= link_to "Local Authority Type Register", local_authority_types_path
+= form_tag select_register_path do
+  .form-group
+    %fieldset
+      %legend.visually-hidden Choose a register
+      - unless current_user.email == "stephen.mcallister@communities.gsi.gov.uk"
+        .multiple-choice
+          = radio_button_tag :register, "countries"
+          = label_tag "register_country", "Country"
+        .multiple-choice
+          = radio_button_tag :register, "territories"
+          = label_tag "register_territory", "Territory"
+      - unless current_user.email == "tony.worron@fco.gsi.gov.uk"
+        .multiple-choice
+          = radio_button_tag :register, "local_authority_types"
+          = label_tag "register_local_authority_type", "Local Authority Type"
+        .multiple-choice
+          = radio_button_tag :register, "local_authority_engs"
+          = label_tag "register_local_authority_eng", "Local Authority Eng"
+  .form-group
+    = submit_tag "Continue", class: "button"
+
+- content_for :javascript do
+  :javascript
+    $(document).ready(function() {
+      $("input[name='register']:first").attr("checked", true)
+    });
