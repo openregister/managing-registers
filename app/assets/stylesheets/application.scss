@@ -46,7 +46,8 @@ table {
 }
 
 .flash {
-  border: 5px solid $white;
+  background-color: $grey-1;
+  color: $white;
   font-size: 16px;
   font-weight: 700;
   line-height: 1.25;
@@ -55,13 +56,11 @@ table {
 }
 
 .flash--dangerous {
-  border-color: $red;
-  color: $red;
+  background-color: $red;
 }
 
 .flash--notice {
-  border-color: $turquoise;
-  color: $turquoise;
+  background-color: $turquoise;
 }
 
 @media (min-width: 641px) {

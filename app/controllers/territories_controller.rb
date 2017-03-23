@@ -17,7 +17,7 @@ class TerritoriesController < ApplicationController
       NotificationMailer.register_update_notification(@territory, "Territory Register", current_user).deliver_now
       NotificationMailer.register_update_confirmation("Territory Register", current_user).deliver_now
       flash[:notice] = "Your update has been submitted, you'll recieve a confirmation email once the change is live"
-      redirect_to territories_path
+      redirect_to root_path
     else
       render :edit
     end

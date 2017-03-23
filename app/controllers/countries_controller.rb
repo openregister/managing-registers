@@ -17,7 +17,7 @@ class CountriesController < ApplicationController
       NotificationMailer.register_update_notification(@country, "Country Register", current_user).deliver_now
       NotificationMailer.register_update_confirmation("Country Register", current_user).deliver_now
       flash[:notice] = "Your update has been submitted, you'll recieve a confirmation email once the change is live"
-      redirect_to countries_path
+      redirect_to root_path
     else
       render :edit
     end

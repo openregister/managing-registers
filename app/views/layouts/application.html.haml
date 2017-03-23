@@ -30,9 +30,13 @@
         %strong.phase-tag ALPHA
         %span This is a new service – your #{link_to "feedback", "mailto:registerteam@digital.cabinet-office.gov.uk"} will help us to improve it.
     - if alert
-      .flash.flash--dangerous= alert
+      .grid-row
+        .column-two-thirds
+          .flash.flash--dangerous= alert
     - if notice
-      .flash.flash--notice= notice
+      .grid-row
+        .column-two-thirds
+          .flash.flash--notice= notice
     = content_for?(:main) ? yield(:main) : yield
 
 - content_for :body_end do

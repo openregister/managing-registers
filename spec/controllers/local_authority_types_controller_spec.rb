@@ -74,7 +74,7 @@ RSpec.describe LocalAuthorityTypesController, type: :controller do
         LocalAuthorityType = LocalAuthorityType.create! valid_attributes
         get :edit, params: {id: LocalAuthorityType.to_param}
         put :update, params: {id: LocalAuthorityType.to_param, LocalAuthorityType: valid_attributes}
-        expect(response).to redirect_to local_authority_types_path
+        expect(response).to redirect_to root_path
       end
     end
   end

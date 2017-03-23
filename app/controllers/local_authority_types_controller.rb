@@ -17,7 +17,7 @@ class LocalAuthorityTypesController < ApplicationController
       NotificationMailer.register_update_notification(@local_authority_type, "Local Authority Eng Register", current_user).deliver_now
       NotificationMailer.register_update_confirmation("Local Authority Eng Register", current_user).deliver_now
       flash[:notice] = "Your update has been submitted, you'll recieve a confirmation email once the change is live"
-      redirect_to local_authority_types_path
+      redirect_to root_path
     else
       render :edit
     end
