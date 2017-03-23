@@ -1,7 +1,7 @@
 %h1.heading-xlarge Update the details
 
 .form-group
-  = f.label :code, class: "form-label form-label-bold"
+  = f.label :code, "Territory", class: "form-label form-label-bold"
   %span.form-hint The territory's ISO 3166-1 alpha3 code. Unique codes have been created for territories that don't have an existing ISO code.
   = f.text_field :code, readonly: true, class: "form-control form-control-1-8 disabled"
 .form-group

@@ -1,7 +1,7 @@
 %h1.heading-xlarge Update the details
 
 .form-group
-  = f.label :code, class: "form-label form-label-bold"
+  = f.label :code, "Local authority type", class: "form-label form-label-bold"
   %span.form-hint The local authority's ISO 3166-1 alpha3 code.
   = f.text_field :code, readonly: true, class: "form-control form-control-1-8 disabled"
 .form-group
