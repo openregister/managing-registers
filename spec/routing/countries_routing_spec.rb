@@ -11,10 +11,6 @@ RSpec.describe CountriesController, type: :routing do
       expect(:get => "/countries/1").to route_to("countries#show", :id => "1")
     end
 
-    it "routes to #success" do
-      expect(:get => "/countries/1/success").to route_to("countries#success", :id => "1")
-    end
-
     it "routes to #edit" do
       expect(:get => "/countries/1/edit").to route_to("countries#edit", :id => "1")
     end

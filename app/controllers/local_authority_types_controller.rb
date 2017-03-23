@@ -7,9 +7,6 @@ class LocalAuthorityTypesController < ApplicationController
   def show
   end
 
-  def success
-  end
-
   def edit
     @wizard = ModelWizard.new(@local_authority_type, session, params).start
   end
@@ -19,7 +16,8 @@ class LocalAuthorityTypesController < ApplicationController
     if @wizard.save
       NotificationMailer.register_update_notification(@local_authority_type, "Local Authority Eng Register", current_user).deliver_now
       NotificationMailer.register_update_confirmation("Local Authority Eng Register", current_user).deliver_now
-      redirect_to success_local_authority_type_path(@local_authority_type)
+      flash[:notice] = "Your update has been submitted, you'll recieve a confirmation email once the change is live"
+      redirect_to local_authority_types_path
     else
       render :edit
     end

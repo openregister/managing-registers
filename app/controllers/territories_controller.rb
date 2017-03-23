@@ -7,9 +7,6 @@ class TerritoriesController < ApplicationController
   def show
   end
 
-  def success
-  end
-
   def edit
     @wizard = ModelWizard.new(@territory, session, params).start
   end
@@ -19,7 +16,8 @@ class TerritoriesController < ApplicationController
     if @wizard.save
       NotificationMailer.register_update_notification(@territory, "Territory Register", current_user).deliver_now
       NotificationMailer.register_update_confirmation("Territory Register", current_user).deliver_now
-      redirect_to success_territory_path(@territory)
+      flash[:notice] = "Your update has been submitted, you'll recieve a confirmation email once the change is live"
+      redirect_to territories_path
     else
       render :edit
     end

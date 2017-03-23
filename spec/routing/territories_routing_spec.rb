@@ -11,10 +11,6 @@ RSpec.describe TerritoriesController, type: :routing do
       expect(:get => "/territories/1").to route_to("territories#show", :id => "1")
     end
 
-    it "routes to #success" do
-      expect(:get => "/territories/1/success").to route_to("territories#success", :id => "1")
-    end
-
     it "routes to #edit" do
       expect(:get => "/territories/1/edit").to route_to("territories#edit", :id => "1")
     end

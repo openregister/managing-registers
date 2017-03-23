@@ -7,9 +7,6 @@ class CountriesController < ApplicationController
   def show
   end
 
-  def success
-  end
-
   def edit
     @wizard = ModelWizard.new(@country, session, params).start
   end
@@ -19,7 +16,8 @@ class CountriesController < ApplicationController
     if @wizard.save
       NotificationMailer.register_update_notification(@country, "Country Register", current_user).deliver_now
       NotificationMailer.register_update_confirmation("Country Register", current_user).deliver_now
-      redirect_to success_country_path(@country)
+      flash[:notice] = "Your update has been submitted, you'll recieve a confirmation email once the change is live"
+      redirect_to countries_path
     else
       render :edit
     end

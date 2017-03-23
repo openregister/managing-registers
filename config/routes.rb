@@ -10,21 +10,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :countries, except: [:destroy, :new] do
-    get 'success', on: :member
-  end
-
-  resources :territories, except: [:destroy, :new] do
-    get 'success', on: :member
-  end
-
-  resources :local_authority_engs, except: [:destroy, :new] do
-    get 'success', on: :member
-  end
-
-  resources :local_authority_types, except: [:destroy, :new] do
-    get 'success', on: :member
-  end
+  resources :countries, except: [:destroy, :new]
+  resources :territories, except: [:destroy, :new]
+  resources :local_authority_engs, except: [:destroy, :new]
+  resources :local_authority_types, except: [:destroy, :new]
 
   post 'select_register', to: "home#select_register"
 end

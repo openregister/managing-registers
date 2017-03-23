@@ -74,7 +74,7 @@ RSpec.describe TerritoriesController, type: :controller do
         territory = Territory.create! valid_attributes
         get :edit, params: {id: territory.to_param}
         put :update, params: {id: territory.to_param, territory: valid_attributes}
-        expect(response).to redirect_to success_territory_path(territory)
+        expect(response).to redirect_to territories_path
       end
     end
   end
