@@ -4,6 +4,11 @@
 
 %h4.heading-medium Choose a country to update
 
+.js-filter-list
+  %form{class: "js-filter-form"}
+    .form-group
+      %input{name: "search", id: "search", placeholder: "E.g. United Kingdom", class: "form-control"}
+
 %table
   %thead
     %tr
@@ -12,10 +17,16 @@
       %th Official name
       %th
 
-  %tbody
-    - @countries.each do |country|
-      %tr
+  %tbody{class: "js-filter-block"}
+    - @countries.order(:name).each do |country|
+      %tr{class: "js-filter-item", "data-filter-terms" => "#{country.official_name} #{country.name} #{country.citizen_name}"}
         %td= country.code
         %td= country.name
         %td= country.official_name
         %td= link_to 'Update', edit_country_path(country)
+
+= content_for :javascript do
+  :javascript
+    jQuery(function($) {
+      GOVUK.filterListItems.init();
+    });

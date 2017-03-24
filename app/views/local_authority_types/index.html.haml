@@ -4,6 +4,11 @@
 
 %h4.heading-medium Choose a local authority type to update
 
+.js-filter-list
+  %form{class: "js-filter-form"}
+    .form-group
+      %input{name: "search", id: "search", placeholder: "E.g. County", class: "form-control"}
+
 %table
   %thead
     %tr
@@ -11,9 +16,15 @@
       %th Name
       %th
 
-  %tbody
-    - @local_authority_types.each do |local_authority_type|
-      %tr
+  %tbody{class: "js-filter-block"}
+    - @local_authority_types.order(:name).each do |local_authority_type|
+      %tr{class: "js-filter-item", "data-filter-terms" => "#{local_authority_type.name}"}
         %td= local_authority_type.code
         %td= local_authority_type.name
         %td= link_to 'Update', edit_local_authority_type_path(local_authority_type)
+
+= content_for :javascript do
+  :javascript
+    jQuery(function($) {
+      GOVUK.filterListItems.init();
+    });
