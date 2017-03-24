@@ -1,25 +1,22 @@
 = content_for :page_title, 'Account'
 
 %h1.heading-xlarge
-  Edit #{resource_name.to_s.humanize}
+  Edit account
 = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
   = devise_error_messages!
   .form-group
     = f.label :email, class: "form-label"
     = f.email_field :email, class: "form-control"
-  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-    %div
-      Currently waiting confirmation for: #{resource.unconfirmed_email}
   .form-group
-    = f.label :password, class: "form-label"
+    = f.label :current_password, class: "form-label"
+    %span.form-hint We need your current password to make changes
+    = f.password_field :current_password, class: "form-control"
+  .form-group
+    = f.label :password, "New password", class: "form-label"
     %span.form-hint Leave blank if you don't want to change it
     = f.password_field :password, class: "form-control"
   .form-group
-    = f.label :password_confirmation, class: "form-label"
+    = f.label :password_confirmation, "Confirm new password", class: "form-label"
     = f.password_field :password_confirmation, class: "form-control"
-  .form-group
-    = f.label :current_password, class: "form-label"
-    %span.form-hint We need your current password to confirm your changes
-    = f.password_field :current_password, class: "form-control"
   .actions
     = f.submit "Update", class: "button"
