@@ -6,8 +6,10 @@
 
 .js-filter-list
   %form{class: "js-filter-form"}
-    .form-group
-      %input{name: "search", id: "search", placeholder: "E.g. Gibraltar", class: "form-control"}
+    %fieldset
+      .form-group
+        %label{class: "form-label", for: "search"} Search for a territory
+        %input{name: "search", id: "search", class: "form-control"}
 
 %table
   %thead
