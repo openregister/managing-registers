@@ -1,77 +1,113 @@
-%h1.heading-xlarge Confirm changes
+- if @local_authority_eng.persisted?
+  %h1.heading-xlarge Confirm changes
 
-%table
-  %thead
-    %tr
-      %th Fields
-      %th Existing values
-      %th New Values
-      %th
+  %table
+    %thead
+      %tr
+        %th Fields
+        %th Existing values
+        %th New Values
+        %th
 
-  %tbody
-    %tr
-      %td Local authority eng
-      %td= @local_authority_eng.code_was
-      %td
-        - if @local_authority_eng.code_changed?
-          .panel.panel-change-notification
-            = @local_authority_eng.code_was
-      %td
-        - if @local_authority_eng.code_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
-    %tr
-      %td Name
-      %td= @local_authority_eng.name_was
-      %td
-        - if @local_authority_eng.name_changed?
-          .panel.panel-change-notification
-            = @local_authority_eng.name
-      %td
-        - if @local_authority_eng.name_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
-    %tr
-      %td Official name
-      %td= @local_authority_eng.official_name_was
-      %td
-        - if @local_authority_eng.official_name_changed?
-          .panel.panel-change-notification
-            = @local_authority_eng.official_name
-      %td
-        - if @local_authority_eng.official_name_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
-    %tr
-      %td Local authority type
-      %td= @local_authority_eng.local_authority_type
-      %td
-        - if @local_authority_eng.local_authority_type_changed?
-          .panel.panel-change-notification
-            = @local_authority_eng.local_authority_type
-      %td
-        - if @local_authority_eng.local_authority_type_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
-    %tr
-      %td Start date
-      %td= @local_authority_eng.start_date_was
-      %td
-        - if @local_authority_eng.start_date_changed?
-          .panel.panel-change-notification
-            = @local_authority_eng.start_date
-      %td
-        - if @local_authority_eng.start_date_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
-    %tr
-      %td End date
-      %td= @local_authority_eng.end_date_was
-      %td
-        - if @local_authority_eng.end_date_changed?
-          .panel.panel-change-notification
-            = @local_authority_eng.end_date
-      %td
-        - if @local_authority_eng.end_date_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
+    %tbody
+      %tr
+        %td Local authority eng
+        %td= @local_authority_eng.code_was
+        %td
+          - if @local_authority_eng.code_changed?
+            .panel.panel-change-notification
+              = @local_authority_eng.code_was
+        %td
+          - if @local_authority_eng.code_changed?
+            = f.submit "Change", name: "back_button", class: "inline-link"
+      %tr
+        %td Name
+        %td= @local_authority_eng.name_was
+        %td
+          - if @local_authority_eng.name_changed?
+            .panel.panel-change-notification
+              = @local_authority_eng.name
+        %td
+          - if @local_authority_eng.name_changed?
+            = f.submit "Change", name: "back_button", class: "inline-link"
+      %tr
+        %td Official name
+        %td= @local_authority_eng.official_name_was
+        %td
+          - if @local_authority_eng.official_name_changed?
+            .panel.panel-change-notification
+              = @local_authority_eng.official_name
+        %td
+          - if @local_authority_eng.official_name_changed?
+            = f.submit "Change", name: "back_button", class: "inline-link"
+      %tr
+        %td Local authority type
+        %td= @local_authority_eng.local_authority_type
+        %td
+          - if @local_authority_eng.local_authority_type_changed?
+            .panel.panel-change-notification
+              = @local_authority_eng.local_authority_type
+        %td
+          - if @local_authority_eng.local_authority_type_changed?
+            = f.submit "Change", name: "back_button", class: "inline-link"
+      %tr
+        %td Start date
+        %td= @local_authority_eng.start_date_was
+        %td
+          - if @local_authority_eng.start_date_changed?
+            .panel.panel-change-notification
+              = @local_authority_eng.start_date
+        %td
+          - if @local_authority_eng.start_date_changed?
+            = f.submit "Change", name: "back_button", class: "inline-link"
+      %tr
+        %td End date
+        %td= @local_authority_eng.end_date_was
+        %td
+          - if @local_authority_eng.end_date_changed?
+            .panel.panel-change-notification
+              = @local_authority_eng.end_date
+        %td
+          - if @local_authority_eng.end_date_changed?
+            = f.submit "Change", name: "back_button", class: "inline-link"
 
-.notice
-  %i.icon.icon-important
-    %span.visually-hidden Warning
-  %strong.bold-small
-    All changes will be published to the Local Authority Eng register
+  .notice
+    %i.icon.icon-important
+      %span.visually-hidden Warning
+    %strong.bold-small
+      All changes will be published to the Local Authority Eng register
+
+- else
+  %h1.heading-xlarge Check the details of the new local authority eng
+
+  %table
+    %thead
+      %tr
+        %th Fields
+        %th
+
+    %tbody
+      %tr
+        %td Local authority eng
+        %td= @local_authority_eng.code
+      %tr
+        %td Name
+        %td= @local_authority_eng.name
+      %tr
+        %td Official name
+        %td= @local_authority_eng.official_name
+      %tr
+        %td Local authority type
+        %td= @local_authority_eng.local_authority_type
+      %tr
+        %td Start date
+        %td= @local_authority_eng.start_date
+      %tr
+        %td End date
+        %td= @local_authority_eng.end_date
+
+  .notice
+    %i.icon.icon-important
+      %span.visually-hidden Warning
+    %strong.bold-small
+      This new local authority eng will be published to the local authority eng register

@@ -7,6 +7,24 @@ class LocalAuthorityEngsController < ApplicationController
   def show
   end
 
+  def new
+    @wizard = ModelWizard.new(LocalAuthorityEng, session, params).start
+    @local_authority_eng = @wizard.object
+  end
+
+  def create
+    @wizard = ModelWizard.new(LocalAuthorityEng, session, params, local_authority_eng_params).continue
+    @local_authority_eng = @wizard.object
+    if @wizard.save
+      NotificationMailer.register_update_notification(@local_authority_eng, "Local authority eng Register", current_user).deliver_now
+      NotificationMailer.register_update_confirmation("Local authority eng Register", current_user).deliver_now
+      flash[:notice] = "Your new record has been submitted, you'll recieve a confirmation email once the change is live"
+      redirect_to root_path
+    else
+      render :new
+    end
+  end
+
   def edit
     @wizard = ModelWizard.new(@local_authority_eng, session, params).start
   end
