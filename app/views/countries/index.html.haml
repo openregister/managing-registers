@@ -2,7 +2,13 @@
 
 = link_to "Back", root_path, class: "link-back"
 
-%h4.heading-medium Choose a country to update
+%header.page-header
+  .grid-row
+    .column-two-thirds
+      %h1.heading-large Country register
+    .column-one-third
+      = link_to "Add a new country", new_country_path, class: "button align-with-heading"
+
 
 .js-filter-list
   %form{class: "js-filter-form"}

@@ -7,6 +7,24 @@ class CountriesController < ApplicationController
   def show
   end
 
+  def new
+    @wizard = ModelWizard.new(Country, session, params).start
+    @country = @wizard.object
+  end
+
+  def create
+    @wizard = ModelWizard.new(Country, session, params, country_params).continue
+    @country = @wizard.object
+    if @wizard.save
+      NotificationMailer.register_update_notification(@country, "Country Register", current_user).deliver_now
+      NotificationMailer.register_update_confirmation("Country Register", current_user).deliver_now
+      flash[:notice] = "Your new record has been submitted, you'll recieve a confirmation email once the change is live"
+      redirect_to root_path
+    else
+      render :new
+    end
+  end
+
   def edit
     @wizard = ModelWizard.new(@country, session, params).start
   end
