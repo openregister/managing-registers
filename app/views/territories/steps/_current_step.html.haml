@@ -4,3 +4,7 @@
 
 .form-group
   = f.submit f.object.last_step? ?  "Submit" : "Continue", class: "button"
+
+- if @territory.new_record? && f.object.last_step?
+  .form-group
+    = f.submit "Go back and change the details", name: "back_button", class: "inline-link"

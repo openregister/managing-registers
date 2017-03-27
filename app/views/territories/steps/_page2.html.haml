@@ -1,67 +1,100 @@
-%h1.heading-xlarge Confirm changes
+- if @territory.persisted?
+  %h1.heading-xlarge Confirm changes
 
-%table
-  %thead
-    %tr
-      %th Fields
-      %th Existing values
-      %th New Values
-      %th
+  %table
+    %thead
+      %tr
+        %th Fields
+        %th Existing values
+        %th New Values
+        %th
 
-  %tbody
-    %tr
-      %td Territory
-      %td= @territory.code_was
-      %td
-        - if @territory.code_changed?
-          .panel.panel-change-notification
-            = @territory.code_was
-      %td
-        - if @territory.code_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
-    %tr
-      %td Name
-      %td= @territory.name_was
-      %td
-        - if @territory.name_changed?
-          .panel.panel-change-notification
-            = @territory.name
-      %td
-        - if @territory.name_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
-    %tr
-      %td Official name
-      %td= @territory.official_name_was
-      %td
-        - if @territory.official_name_changed?
-          .panel.panel-change-notification
-            = @territory.official_name
-      %td
-        - if @territory.official_name_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
-    %tr
-      %td Start date
-      %td= @territory.start_date_was
-      %td
-        - if @territory.start_date_changed?
-          .panel.panel-change-notification
-            = @territory.start_date
-      %td
-        - if @territory.start_date_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
-    %tr
-      %td End date
-      %td= @territory.end_date_was
-      %td
-        - if @territory.end_date_changed?
-          .panel.panel-change-notification
-            = @territory.end_date
-      %td
-        - if @territory.end_date_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
+    %tbody
+      %tr
+        %td Territory
+        %td= @territory.code_was
+        %td
+          - if @territory.code_changed?
+            .panel.panel-change-notification
+              = @territory.code_was
+        %td
+          - if @territory.code_changed?
+            = f.submit "Change", name: "back_button", class: "inline-link"
+      %tr
+        %td Name
+        %td= @territory.name_was
+        %td
+          - if @territory.name_changed?
+            .panel.panel-change-notification
+              = @territory.name
+        %td
+          - if @territory.name_changed?
+            = f.submit "Change", name: "back_button", class: "inline-link"
+      %tr
+        %td Official name
+        %td= @territory.official_name_was
+        %td
+          - if @territory.official_name_changed?
+            .panel.panel-change-notification
+              = @territory.official_name
+        %td
+          - if @territory.official_name_changed?
+            = f.submit "Change", name: "back_button", class: "inline-link"
+      %tr
+        %td Start date
+        %td= @territory.start_date_was
+        %td
+          - if @territory.start_date_changed?
+            .panel.panel-change-notification
+              = @territory.start_date
+        %td
+          - if @territory.start_date_changed?
+            = f.submit "Change", name: "back_button", class: "inline-link"
+      %tr
+        %td End date
+        %td= @territory.end_date_was
+        %td
+          - if @territory.end_date_changed?
+            .panel.panel-change-notification
+              = @territory.end_date
+        %td
+          - if @territory.end_date_changed?
+            = f.submit "Change", name: "back_button", class: "inline-link"
 
-.notice
-  %i.icon.icon-important
-    %span.visually-hidden Warning
-  %strong.bold-small
-    All changes will be published to the Territory register
+  .notice
+    %i.icon.icon-important
+      %span.visually-hidden Warning
+    %strong.bold-small
+      All changes will be published to the Territory register
+
+- else
+  %h1.heading-xlarge Confirm changes
+
+  %table
+    %thead
+      %tr
+        %th Fields
+        %th
+
+    %tbody
+      %tr
+        %td Territory
+        %td= @territory.code
+      %tr
+        %td Name
+        %td= @territory.name
+      %tr
+        %td Official name
+        %td= @territory.official_name
+      %tr
+        %td Start date
+        %td= @territory.start_date
+      %tr
+        %td End date
+        %td= @territory.end_date
+
+  .notice
+    %i.icon.icon-important
+      %span.visually-hidden Warning
+    %strong.bold-small
+      This new territory will be published to the Territory register

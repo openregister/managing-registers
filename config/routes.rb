@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
 
   resources :countries, except: [:destroy]
-  resources :territories, except: [:destroy, :new]
+  resources :territories, except: [:destroy]
   resources :local_authority_engs, except: [:destroy, :new]
   resources :local_authority_types, except: [:destroy, :new]
 
