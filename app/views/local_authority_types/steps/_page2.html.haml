@@ -1,57 +1,87 @@
-%h1.heading-xlarge Confirm changes
+- if @local_authority_eng.persisted?
+  %h1.heading-xlarge Confirm changes
 
-%table
-  %thead
-    %tr
-      %th Fields
-      %th Existing values
-      %th New Values
-      %th
+  %table
+    %thead
+      %tr
+        %th Fields
+        %th Existing values
+        %th New Values
+        %th
 
-  %tbody
-    %tr
-      %td Local authority type
-      %td= @local_authority_type.code_was
-      %td
-        - if @local_authority_type.code_changed?
-          .panel.panel-change-notification
-            = @local_authority_type.code_was
-      %td
-        - if @local_authority_type.code_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
-    %tr
-      %td Name
-      %td= @local_authority_type.name_was
-      %td
-        - if @local_authority_type.name_changed?
-          .panel.panel-change-notification
-            = @local_authority_type.name
-      %td
-        - if @local_authority_type.name_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
-    %tr
-      %td Start date
-      %td= @local_authority_type.start_date_was
-      %td
-        - if @local_authority_type.start_date_changed?
-          .panel.panel-change-notification
-            = @local_authority_type.start_date
-      %td
-        - if @local_authority_type.start_date_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
-    %tr
-      %td End date
-      %td= @local_authority_type.end_date_was
-      %td
-        - if @local_authority_type.end_date_changed?
-          .panel.panel-change-notification
-            = @local_authority_type.end_date
-      %td
-        - if @local_authority_type.end_date_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
+    %tbody
+      %tr
+        %td Local authority type
+        %td= @local_authority_type.code_was
+        %td
+          - if @local_authority_type.code_changed?
+            .panel.panel-change-notification
+              = @local_authority_type.code_was
+        %td
+          - if @local_authority_type.code_changed?
+            = f.submit "Change", name: "back_button", class: "inline-link"
+      %tr
+        %td Name
+        %td= @local_authority_type.name_was
+        %td
+          - if @local_authority_type.name_changed?
+            .panel.panel-change-notification
+              = @local_authority_type.name
+        %td
+          - if @local_authority_type.name_changed?
+            = f.submit "Change", name: "back_button", class: "inline-link"
+      %tr
+        %td Start date
+        %td= @local_authority_type.start_date_was
+        %td
+          - if @local_authority_type.start_date_changed?
+            .panel.panel-change-notification
+              = @local_authority_type.start_date
+        %td
+          - if @local_authority_type.start_date_changed?
+            = f.submit "Change", name: "back_button", class: "inline-link"
+      %tr
+        %td End date
+        %td= @local_authority_type.end_date_was
+        %td
+          - if @local_authority_type.end_date_changed?
+            .panel.panel-change-notification
+              = @local_authority_type.end_date
+        %td
+          - if @local_authority_type.end_date_changed?
+            = f.submit "Change", name: "back_button", class: "inline-link"
 
-.notice
-  %i.icon.icon-important
-    %span.visually-hidden Warning
-  %strong.bold-small
-    All changes will be published to the Local Authority Type register
+  .notice
+    %i.icon.icon-important
+      %span.visually-hidden Warning
+    %strong.bold-small
+      All changes will be published to the Local Authority Type register
+
+- else
+  %h1.heading-xlarge Check the details of the new local authority eng
+
+  %table
+    %thead
+      %tr
+        %th Fields
+        %th
+
+    %tbody
+      %tr
+        %td Local authority type
+        %td= @local_authority_type.code
+      %tr
+        %td Name
+        %td= @local_authority_type.name
+      %tr
+        %td Start date
+        %td= @local_authority_type.start_date
+      %tr
+        %td End date
+        %td= @local_authority_type.end_date
+
+  .notice
+    %i.icon.icon-important
+      %span.visually-hidden Warning
+    %strong.bold-small
+      All changes will be published to the Local Authority Eng register

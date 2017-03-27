@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :countries, except: [:destroy]
   resources :territories, except: [:destroy]
   resources :local_authority_engs, except: [:destroy]
-  resources :local_authority_types, except: [:destroy, :new]
+  resources :local_authority_types, except: [:destroy]
 
   post 'select_register', to: "home#select_register"
 end
