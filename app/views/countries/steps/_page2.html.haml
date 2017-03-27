@@ -15,7 +15,7 @@
       %td
         - if @country.code_changed?
           .panel.panel-change-notification
-            = @country.code_was
+            = @country.code
       %td
         - if @country.code_changed?
           = f.submit "Change", name: "back_button", class: "inline-link"

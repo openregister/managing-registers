@@ -15,7 +15,7 @@
       %td
         - if @territory.code_changed?
           .panel.panel-change-notification
-            = @territory.code_was
+            = @territory.code
       %td
         - if @territory.code_changed?
           = f.submit "Change", name: "back_button", class: "inline-link"
