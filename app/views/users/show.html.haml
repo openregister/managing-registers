@@ -1,0 +1,18 @@
+= content_for :page_title, 'Profile'
+
+%h1.heading-large
+  Your account
+
+%table
+  %tbody
+    %tr
+      %td.bold Email
+      %td= @user.email
+    %tr
+      %td.bold Password
+      %td
+        Last updated on
+        = @user.updated_at.strftime("%d %B %Y at %H:%M")
+
+.form-group
+  = link_to "Update your account", edit_user_registration_path, class: "button"

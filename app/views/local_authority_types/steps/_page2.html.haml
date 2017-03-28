@@ -16,7 +16,7 @@
         %td
           - if @local_authority_type.code_changed?
             .panel.panel-change-notification
-              = @local_authority_type.code_was
+              = @local_authority_type.code
         %td
           - if @local_authority_type.code_changed?
             = f.submit "Change", name: "back_button", class: "inline-link"

@@ -32,8 +32,8 @@ class LocalAuthorityTypesController < ApplicationController
   def update
     @wizard = ModelWizard.new(@local_authority_type, session, params, local_authority_type_params).continue
     if @wizard.save
-      NotificationMailer.register_update_notification(@local_authority_type, "Local Authority Eng Register", current_user).deliver_now
-      NotificationMailer.register_update_confirmation("Local Authority Eng Register", current_user).deliver_now
+      NotificationMailer.register_update_notification(@local_authority_type, "Local Authority Type Register", current_user).deliver_now
+      NotificationMailer.register_update_confirmation("Local Authority Type Register", current_user).deliver_now
       flash[:notice] = "Your update has been submitted, you'll recieve a confirmation email once the change is live"
       redirect_to root_path
     else
