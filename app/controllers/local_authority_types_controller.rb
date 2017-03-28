@@ -7,6 +7,24 @@ class LocalAuthorityTypesController < ApplicationController
   def show
   end
 
+  def new
+    @wizard = ModelWizard.new(LocalAuthorityType, session, params).start
+    @local_authority_type = @wizard.object
+  end
+
+  def create
+    @wizard = ModelWizard.new(LocalAuthorityType, session, params, local_authority_type_params).continue
+    @local_authority_type = @wizard.object
+    if @wizard.save
+      NotificationMailer.register_update_notification(@local_authority_type, "Local authority type Register", current_user).deliver_now
+      NotificationMailer.register_update_confirmation("Local authority type Register", current_user).deliver_now
+      flash[:notice] = "Your new record has been submitted, you'll recieve a confirmation email once the change is live"
+      redirect_to root_path
+    else
+      render :new
+    end
+  end
+
   def edit
     @wizard = ModelWizard.new(@local_authority_type, session, params).start
   end

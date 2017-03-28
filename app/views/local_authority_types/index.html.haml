@@ -2,7 +2,12 @@
 
 = link_to "Back", root_path, class: "link-back"
 
-%h4.heading-medium Choose a local authority type to update
+%header.page-header
+  .grid-row
+    .column-two-thirds
+      %h1.heading-large Local authority type register
+    .column-one-third
+      = link_to "Add a new local authority type", new_local_authority_type_path, class: "button align-with-heading"
 
 .js-filter-list
   %form{class: "js-filter-form"}

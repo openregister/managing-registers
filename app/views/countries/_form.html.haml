@@ -1,2 +1,3 @@
 = form_for @country do |f|
+  = f.hidden_field :user_id, as: :hidden, value: User.find_by(email: "tony.worron@fco.gsi.gov.uk").id
   = render 'countries/steps/current_step', f: f

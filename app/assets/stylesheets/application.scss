@@ -63,9 +63,22 @@ table {
   background-color: $turquoise;
 }
 
+.page-header {
+  margin-bottom: 1.25em;
+
+  .heading-large {
+    margin-top: 13px;
+  }
+}
+
+.align-with-heading {
+  float: right;
+  margin-top: 13px;
+}
+
 @media (min-width: 641px) {
-  .heading-xlarge {
-    margin-top: 1.25em;
+  .heading-large {
+    margin-top: 0.625em;
     margin-bottom: 0.625em;
   }
 

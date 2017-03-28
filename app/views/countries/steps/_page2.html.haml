@@ -1,77 +1,124 @@
-%h1.heading-xlarge Confirm changes
+- if @country.persisted?
+  %h1.heading-large Confirm changes
 
-%table
-  %thead
-    %tr
-      %th Fields
-      %th Current values
-      %th New Values
-      %th
+  %table
+    %thead
+      %tr
+        %th Fields
+        %th
+          - if @country.persisted?
+            Current values
+          - else
+            Values
+        - if @country.persisted?
+          %th New Values
+        %th
 
-  %tbody
-    %tr
-      %td Country
-      %td= @country.code_was
-      %td
-        - if @country.code_changed?
-          .panel.panel-change-notification
-            = @country.code
-      %td
-        - if @country.code_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
-    %tr
-      %td Name
-      %td= @country.name_was
-      %td
-        - if @country.name_changed?
-          .panel.panel-change-notification
-            = @country.name
-      %td
-        - if @country.name_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
-    %tr
-      %td Official name
-      %td= @country.official_name_was
-      %td
-        - if @country.official_name_changed?
-          .panel.panel-change-notification
-            = @country.official_name
-      %td
-        - if @country.official_name_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
-    %tr
-      %td Citizen names
-      %td= @country.citizen_name_was
-      %td
-        - if @country.citizen_name_changed?
-          .panel.panel-change-notification
-            = @country.citizen_name
-      %td
-        - if @country.citizen_name_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
-    %tr
-      %td Start date
-      %td= @country.start_date_was
-      %td
-        - if @country.start_date_changed?
-          .panel.panel-change-notification
-            = @country.start_date
-      %td
-        - if @country.start_date_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
-    %tr
-      %td End date
-      %td= @country.end_date_was
-      %td
-        - if @country.end_date_changed?
-          .panel.panel-change-notification
-            = @country.end_date
-      %td
-        - if @country.end_date_changed?
-          = f.submit "Change", name: "back_button", class: "inline-link"
+    %tbody
+      %tr
+        %td Country
+        %td= @country.code_was
+        %td
+          - if @country.code_changed?
+            .panel.panel-change-notification
+              = @country.code
+        - if @country.persisted?
+          %td
+            - if @country.code_changed?
+              = f.submit "Change", name: "back_button", class: "inline-link"
+      %tr
+        %td Name
+        %td= @country.name_was
+        %td
+          - if @country.name_changed?
+            .panel.panel-change-notification
+              = @country.name
+        - if @country.persisted?
+          %td
+            - if @country.name_changed?
+              = f.submit "Change", name: "back_button", class: "inline-link"
+      %tr
+        %td Official name
+        %td= @country.official_name_was
+        %td
+          - if @country.official_name_changed?
+            .panel.panel-change-notification
+              = @country.official_name
+        - if @country.persisted?
+          %td
+            - if @country.official_name_changed?
+              = f.submit "Change", name: "back_button", class: "inline-link"
+      %tr
+        %td Citizen names
+        %td= @country.citizen_name_was
+        %td
+          - if @country.citizen_name_changed?
+            .panel.panel-change-notification
+              = @country.citizen_name
+        - if @country.persisted?
+          %td
+            - if @country.citizen_name_changed?
+              = f.submit "Change", name: "back_button", class: "inline-link"
+      %tr
+        %td Start date
+        %td= @country.start_date_was
+        %td
+          - if @country.start_date_changed?
+            .panel.panel-change-notification
+              = @country.start_date
+        - if @country.persisted?
+          %td
+            - if @country.start_date_changed?
+              = f.submit "Change", name: "back_button", class: "inline-link"
+      %tr
+        %td End date
+        %td= @country.end_date_was
+        %td
+          - if @country.end_date_changed?
+            .panel.panel-change-notification
+              = @country.end_date
+        - if @country.persisted?
+          %td
+            - if @country.end_date_changed?
+              = f.submit "Change", name: "back_button", class: "inline-link"
 
-.notice
-  %i.icon.icon-important
-    %span.visually-hidden Warning
-  %strong.bold-small
-    All changes will be published to the Country register
+  .notice
+    %i.icon.icon-important
+      %span.visually-hidden Warning
+    %strong.bold-small
+      All changes will be published to the Country register
+
+- else
+  %h1.heading-xlarge Check the details of the new country
+
+  %table
+    %thead
+      %tr
+        %th Fields
+        %th
+
+    %tbody
+      %tr
+        %td Country
+        %td= @country.code
+      %tr
+        %td Name
+        %td= @country.name
+      %tr
+        %td Official name
+        %td= @country.official_name
+      %tr
+        %td Citizen names
+        %td= @country.citizen_name
+      %tr
+        %td Start date
+        %td= @country.start_date
+      %tr
+        %td End date
+        %td= @country.end_date
+
+  .notice
+    %i.icon.icon-important
+      %span.visually-hidden Warning
+    %strong.bold-small
+      This new country will be published to the Country register

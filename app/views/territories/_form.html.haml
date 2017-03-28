@@ -1,2 +1,3 @@
 = form_for @territory do |f|
+  = f.hidden_field :user_id, as: :hidden, value: User.find_by(email: "tony.worron@fco.gsi.gov.uk").id
   = render 'territories/steps/current_step', f: f
