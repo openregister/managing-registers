@@ -20,4 +20,20 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  helpers:
+    label:
+      country:
+        code: Country
+        name: Name
+        official_name: Official name
+        citizen_name: Citizen name
+        start_date: Start date
+        end_date: End date
+    hint:
+      country:
+        code: "The country's 2-letter ISO 3166-2 alpha code"
+        name: The commonly used name for this record
+        official_name: The official or technical name for this record
+        citizen_name: "The name of the country's citizens"
+        start_date: The date a record first became relevant to a register
+        end_date: The date a record stopped being applicable to a register
