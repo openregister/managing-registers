@@ -1,0 +1,23 @@
+= content_for :page_title, 'Home'
+
+%h1.heading-xlarge Manage registers
+
+%h5.heading-medium Choose a register
+
+
+= form_tag select_register_path do
+  .form-group
+    %fieldset
+      %legend.visually-hidden Choose a register
+      - @registers.each do |register|
+        .multiple-choice{class: "js-filter-item", "data-filter-terms" => "#{register.key} #{register.phase} #{register.text}"}
+          = radio_button_tag :register, register.key
+          = label_tag "register_" + prepare_register_name(register.key).gsub(' ', '-').downcase, prepare_register_name(register.key)
+  .form-group
+    = submit_tag "Continue", class: "button"
+
+- content_for :javascript do
+  :javascript
+    jQuery(function($) {
+      $("input[name='register']:first").attr("checked", true)
+    });
