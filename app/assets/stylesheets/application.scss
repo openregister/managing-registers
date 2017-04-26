@@ -8,6 +8,11 @@ table th {
   font-size: 16px;
 }
 
+// Hide legend in fieldsets in favour of headings
+.form-group fieldset legend {
+  display: none;
+}
+
 // Override purple colour
 a:visited {
   color: $govuk-blue;
@@ -27,6 +32,10 @@ a:visited {
 .form-control.disabled {
   border-color: $grey-2;
   color: $grey-2;
+}
+
+.form-label {
+  font-weight: bold;
 }
 
 table {
