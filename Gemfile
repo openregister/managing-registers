@@ -26,7 +26,7 @@ gem 'haml-rails', '~> 0.9'
 gem 'govuk_template'
 gem 'govuk_frontend_toolkit'
 gem 'govuk_elements_rails'
-gem 'govuk_elements_form_builder', git: 'https://github.com/ministryofjustice/govuk_elements_form_builder.git'
+gem 'govuk_elements_form_builder', git: 'https://github.com/danmitchell-/govuk_elements_form_builder'
 
 # Ruby client for OpenRegisters
 gem 'openregister-ruby', git: 'https://github.com/openregister/openregister-ruby'
