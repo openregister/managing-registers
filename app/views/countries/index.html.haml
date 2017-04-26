@@ -26,9 +26,9 @@
       %th
 
   %tbody{class: "js-filter-block"}
-    - @countries.order(:name).each do |country|
-      %tr{class: "js-filter-item", "data-filter-terms" => "#{country.official_name} #{country.name} #{country.citizen_name}"}
-        %td= country.code
+    - @countries.each do |country|
+      %tr{class: "js-filter-item", "data-filter-terms" => "#{country.official_name} #{country.name} #{country.citizen_names}"}
+        %td= country.key
         %td= country.name
         %td= country.official_name
         %td= link_to 'Update', edit_country_path(country)

@@ -1,4 +1,4 @@
-class LocalAuthorityEng < ApplicationRecord
+class Register < ApplicationRecord
   include MultiStepModel
 
   belongs_to :user

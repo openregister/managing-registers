@@ -1,0 +1,29 @@
+- if @country.persisted?
+  %h1.heading-large Update the details
+- else
+  %h1.heading-large Add a new country
+
+.form-group
+  = f.label :code, "Country", class: "form-label form-label-bold"
+  %span.form-hint The country's 2-letter ISO 3166-2 alpha code
+  = f.text_field :code, readonly: @country.persisted?, class: "form-control form-control-1-8 #{@country.persisted? ? 'disabled' : ''}"
+.form-group
+  = f.label :name, class: "form-label form-label-bold"
+  %span.form-hint The commonly used name for this record
+  = f.text_field :name, class: "form-control"
+.form-group
+  = f.label :official_name, class: "form-label form-label-bold"
+  %span.form-hint The official or technical name for this record
+  = f.text_field :official_name, class: "form-control"
+.form-group
+  = f.label :citizen_name, class: "form-label form-label-bold"
+  %span.form-hint The name of the country's citizens
+  = f.text_field :citizen_name, class: "form-control"
+.form-group
+  = f.label :start_date, class: "form-label form-label-bold"
+  %span.form-hint The date a record first became relevant to a register
+  = f.text_field :start_date, class: "form-control"
+.form-group
+  = f.label :end_date, class: "form-label form-label-bold"
+  %span.form-hint The date a record stopped being applicable to a register
+  = f.text_field :end_date, class: "form-control"

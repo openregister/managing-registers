@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     authenticated :user do
-      root to: 'home#index'
+      root to: 'registers#index'
     end
     unauthenticated :user do
       root to: 'devise/sessions#new', as: :unauthenticated_root
@@ -16,5 +16,8 @@ Rails.application.routes.draw do
   resources :local_authority_engs, except: [:destroy]
   resources :local_authority_types, except: [:destroy]
 
-  post 'select_register', to: "home#select_register"
+  resources :register, except: [:destroy]
+  resources :registers, except: [:destroy]
+
+  post 'select_register', to: "registers#select_register"
 end
