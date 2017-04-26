@@ -3,13 +3,13 @@ class HomeController < ApplicationController
   end
 
   def select_register
-    if params[:register] == "countries"
+    if params[:register][:register] == "country"
       redirect_to countries_path
-    elsif params[:register] == "territories"
+    elsif params[:register][:register] == "territory"
       redirect_to territories_path
-    elsif params[:register] == "local_authority_engs"
+    elsif params[:register][:register] == "local_authority_eng"
       redirect_to local_authority_engs_path
-    elsif params[:register] == "local_authority_types"
+    elsif params[:register][:register] == "local_authority_type"
       redirect_to local_authority_types_path
     else
       redirect_to root_path
