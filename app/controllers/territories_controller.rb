@@ -1,7 +1,8 @@
 class TerritoriesController < ApplicationController
-  load_and_authorize_resource
+  before_action :set_territory
 
   def index
+    @territories = Territory.all
   end
 
   def show
@@ -42,6 +43,10 @@ class TerritoriesController < ApplicationController
   end
 
   private
+    def set_territory
+      @territory = Territory.find_by(id: params[:id])
+    end
+
     def territory_params
       return params unless params[:territory]
 

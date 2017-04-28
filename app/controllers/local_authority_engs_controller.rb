@@ -1,7 +1,8 @@
 class LocalAuthorityEngsController < ApplicationController
-  load_and_authorize_resource
+  before_action :set_local_authority_eng
 
   def index
+    @local_authority_engs = LocalAuthorityEng.all
   end
 
   def show
@@ -42,6 +43,10 @@ class LocalAuthorityEngsController < ApplicationController
   end
 
   private
+    def set_local_authority_eng
+      @local_authority_eng = LocalAuthorityEng.find_by(id: params[:id]
+    end
+
     def local_authority_eng_params
       return params unless params[:local_authority_eng]
 
