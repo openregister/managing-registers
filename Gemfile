@@ -39,7 +39,6 @@ gem 'sidekiq'
 
 # User authentication
 gem 'devise'
-gem 'cancancan'
 
 group :development, :test do
   gem 'byebug', platform: :mri
