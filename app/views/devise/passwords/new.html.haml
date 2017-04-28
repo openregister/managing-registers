@@ -6,8 +6,6 @@
 %p Enter your email and we'll send your instructions for setting up a new password
 = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
   = devise_error_messages!
-  .form-group
-    = f.label :email, label: "Email address", class: "form-label"
-    = f.email_field :email, class: "form-control"
+  = f.email_field :email
   .form-group
     = f.submit "Submit", class: "button"

@@ -2,12 +2,8 @@
 
 %h1.heading-xlarge Sign in
 = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .form-group
-    = f.label :email, class: "form-label"
-    = f.email_field :email, class: "form-control"
-  .form-group
-    = f.label :password, class: "form-label"
-    = f.password_field :password, class: "form-control"
+  = f.email_field :email
+  = f.password_field :password
   .form-group
     = f.submit "Continue", class: "button"
 = render "devise/shared/links"
