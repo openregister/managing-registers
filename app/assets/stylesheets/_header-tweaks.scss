@@ -46,6 +46,18 @@
   width: auto;
 }
 
+#global-header.with-proposition .header-wrapper .header-global {
+  @include media(desktop) {
+    width: 40%;
+  }
+}
+
+#global-header.with-proposition .header-wrapper .header-proposition {
+  @include media(desktop) {
+    width: 60%;
+  }
+}
+
 // Normal weight title like product pages
 .header-title {
   font-weight: normal;
@@ -54,5 +66,27 @@
 #proposition-menu {
   @include media(tablet) {
     float: right;
+  }
+}
+
+#product-name {
+  font-weight: normal;
+}
+
+.beta-badge {
+  background-color: $govuk-blue;
+  color: $white;
+  display: inline-block;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.14286;
+  letter-spacing: 1px;
+  margin: 10px 0 0 0;
+  padding: 2px 5px 0;
+  text-transform: uppercase;
+
+  @include media(tablet) {
+    font-size: 16px;
+    line-height: 1.25;
   }
 }

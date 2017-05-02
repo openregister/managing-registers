@@ -1,7 +1,9 @@
 - content_for :page_title, ' - GOV.UK Registers'
 
 - content_for :inside_header do
-  %h1.header-title Registers
+  %strong.beta-badge Beta
+
+- content_for :global_header_text, 'GOV.UK <span id="product-name">Registers</span>'.html_safe
 
 - content_for :homepage_url, "/"
 
@@ -13,6 +15,8 @@
       = link_to "Menu", "#proposition-links", class: "js-header-toggle menu"
       %nav{id: "proposition-menu"}
         %ul#proposition-links
+          %li
+            = link_to "Support", "https://registers.cloudapps.digital/support", target: :blank
           - if user_signed_in?
             %li
               = link_to current_user.email, current_user
@@ -25,10 +29,6 @@
 
 - content_for :content do
   %main#content{role:'main', tabindex: "-1"}
-    .phase-banner
-      %p
-        %strong.phase-tag ALPHA
-        %span This is a new service – your #{link_to "feedback", "https://registers.cloudapps.digital/support", target: :blank} will help us to improve it.
     - if alert
       .grid-row
         .column-two-thirds
