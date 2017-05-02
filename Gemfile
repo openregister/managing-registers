@@ -39,7 +39,7 @@ gem 'sidekiq'
 
 # User authentication
 gem 'devise'
-gem 'cancancan'
+gem 'devise_invitable'
 
 group :development, :test do
   gem 'byebug', platform: :mri
