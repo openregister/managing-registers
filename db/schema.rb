@@ -38,6 +38,9 @@ ActiveRecord::Schema.define(version: 20170502094348) do
     t.string   "local_authority_type"
     t.string   "code"
     t.boolean  "change_approved",      default: false
+    t.string   "full_name"
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["full_name"], name: "index_users_on_full_name", unique: true, using: :btree
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
     t.integer  "user_id"
