@@ -7,7 +7,7 @@
     .column-two-thirds
       %h1.heading-large #{@register_name} Register
     .column-one-third
-      = link_to "Add a new #{@register_name}", new_country_path, class: "button align-with-heading"
+      = link_to "Add a new #{@register_name}", new_register_path, class: "button align-with-heading"
 
 
 .js-filter-list
@@ -29,7 +29,7 @@
       %tr{class: "js-filter-item", "data-filter-terms" => "#{register.name} #{register.key}"}
         %td= register.key
         %td= register.name
-        %td= link_to 'Update', edit_country_path(register)
+        %td= link_to 'Update', edit_register_path(register)
 
 = content_for :javascript do
   :javascript

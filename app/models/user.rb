@@ -8,6 +8,4 @@ class User < ApplicationRecord
 
   has_many :register
   has_many :registers
-  has_many :countries
-
 end
