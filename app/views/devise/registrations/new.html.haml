@@ -1,0 +1,12 @@
+= content_for :page_title, 'Create and account'
+
+%h1.heading-large
+  Create an account
+
+= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+  = devise_error_messages!
+  = f.email_field :email, autofocus: true
+  = f.password_field :password, autocomplete: "off"
+  = f.password_field :password_confirmation, autocomplete: "off"
+  .form-group
+    = f.submit "Sign up", class: "button"
