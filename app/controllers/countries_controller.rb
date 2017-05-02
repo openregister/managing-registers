@@ -1,8 +1,8 @@
 class CountriesController < ApplicationController
-  before_action :set_country
 
   def index
-    @countries = Country.all
+    @countries = OpenRegister.register('country', :beta)._all_records
+    @countries = @countries.sort_by {|country| country.name}
   end
 
   def show
@@ -43,10 +43,6 @@ class CountriesController < ApplicationController
   end
 
   private
-    def set_country
-      @country = Country.find_by(id: params[:id])
-    end
-
     def country_params
       return params unless params[:country]
 
