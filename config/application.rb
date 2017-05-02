@@ -25,5 +25,9 @@ module CustodianUpdateTool
     config.active_job.queue_adapter = :sidekiq
 
     ActionView::Base.default_form_builder = GovukElementsFormBuilder::FormBuilder
+
+    config.to_prepare do
+      Devise::Mailer.layout "mailer"
+    end
   end
 end
