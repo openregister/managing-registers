@@ -5,11 +5,11 @@ This is the service used primarily by register custodians to manage their regist
 ### 1. Prerequisites
 Ruby 2.4
 
-### 2. Create database, migrate tables and seed user data
-`rake db:setup`
+### 2. Install Gems
+`bundle install`
 
-### 3. Load Country Data
-`rails runner "FetchCountriesFromCountryRegisterJob.perform_now"`
+### 3. Create database, migrate tables and seed user data
+`rake db:setup`
 
 ### 4. Run the application
 `rails s`

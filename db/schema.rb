@@ -10,70 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170502094348) do
+ActiveRecord::Schema.define(version: 20170502153806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "countries", force: :cascade do |t|
-    t.string   "name"
-    t.string   "citizen_name"
-    t.string   "official_name"
-    t.string   "start_date"
-    t.string   "end_date"
-    t.string   "code"
-    t.boolean  "change_approved", default: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.integer  "user_id"
-    t.index ["code"], name: "index_countries_on_code", unique: true, using: :btree
-    t.index ["user_id"], name: "index_countries_on_user_id", using: :btree
-  end
-
-  create_table "local_authority_engs", force: :cascade do |t|
-    t.string   "name"
-    t.string   "official_name"
-    t.string   "start_date"
-    t.string   "end_date"
-    t.string   "local_authority_type"
-    t.string   "code"
-    t.boolean  "change_approved",      default: false
-    t.string   "full_name"
-    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
-    t.index ["full_name"], name: "index_users_on_full_name", unique: true, using: :btree
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.integer  "user_id"
-    t.index ["code"], name: "index_local_authority_engs_on_code", unique: true, using: :btree
-    t.index ["user_id"], name: "index_local_authority_engs_on_user_id", using: :btree
-  end
-
-  create_table "local_authority_types", force: :cascade do |t|
-    t.string   "code"
-    t.string   "name"
-    t.string   "start_date"
-    t.string   "end_date"
-    t.boolean  "change_approved", default: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.integer  "user_id"
-    t.index ["code"], name: "index_local_authority_types_on_code", unique: true, using: :btree
-    t.index ["user_id"], name: "index_local_authority_types_on_user_id", using: :btree
-  end
-
-  create_table "territories", force: :cascade do |t|
-    t.string   "name"
-    t.string   "official_name"
-    t.string   "start_date"
-    t.string   "end_date"
-    t.string   "code"
-    t.boolean  "change_approved", default: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.integer  "user_id"
-    t.index ["code"], name: "index_territories_on_code", unique: true, using: :btree
-    t.index ["user_id"], name: "index_territories_on_user_id", using: :btree
-  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -97,15 +37,13 @@ ActiveRecord::Schema.define(version: 20170502094348) do
     t.string   "invited_by_type"
     t.integer  "invited_by_id"
     t.integer  "invitations_count",      default: 0
+    t.string   "full_name"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["full_name"], name: "index_users_on_full_name", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "countries", "users"
-  add_foreign_key "local_authority_engs", "users"
-  add_foreign_key "local_authority_types", "users"
-  add_foreign_key "territories", "users"
 end
