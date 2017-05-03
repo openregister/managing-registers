@@ -1,6 +1,15 @@
 = content_for :page_title, "Register"
 
-= link_to "Back", root_path, class: "link-back"
+%nav.service-navigation
+  .service-navigation__name
+    #{@register_name} Register
+  %ul.service-navigation__nav
+    %li.service-navigation__nav-item.active
+      = link_to "Update register", "#", class: 'service-navigation__link'
+    %li.service-navigation__nav-item
+      = link_to "Team", "#", class: 'service-navigation__link'
+    %li.service-navigation__nav-item
+      = link_to "Settings", "#", class: 'service-navigation__link'
 
 %header.page-header
   .grid-row
@@ -8,7 +17,6 @@
       %h1.heading-large #{@register_name} Register
     .column-one-third
       = link_to "Add a new #{@register_name}", new_register_path, class: "button align-with-heading"
-
 
 .js-filter-list
   %form{class: "js-filter-form"}
