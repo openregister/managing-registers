@@ -19,7 +19,7 @@
             = link_to "Support", "https://registers.cloudapps.digital/support", target: :blank
           - if user_signed_in?
             %li
-              = link_to current_user.email, current_user
+              = link_to "Account", current_user
             %li
               = link_to "Log out", destroy_user_session_path, method: :delete
 
