@@ -11,8 +11,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :register, except: [:destroy]
-  resources :registers, except: [:destroy]
+  resources :registers, except: [:destroy, :show]
+  get '/registers/:register_name', to: 'registers#show', as: 'register_records'
 
   post 'select_register', to: "registers#select_register"
 end
