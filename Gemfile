@@ -9,6 +9,9 @@ ruby '2.4.0'
 
 gem 'rails', '~> 5.0.1'
 
+#config
+gem 'config'
+
 # Database
 gem 'pg', '~> 0.18'
 

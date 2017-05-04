@@ -3,7 +3,7 @@
 = link_to "Back", new_user_session_path, class: "link-back"
 
 %h1.heading-large Reset your password
-%p Enter your email and we'll send your instructions for setting up a new password
+%p Enter your email and we'll send your instructions for setting up a form password
 = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
   = devise_error_messages!
   = f.email_field :email
