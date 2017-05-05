@@ -1,22 +1,22 @@
-= content_for :page_title, "#{@register_name} Register"
+= content_for :page_title, "#{params[:register]} Register"
 
-= link_to 'Back', "/#{@register_name}", class: 'link-back'
+= link_to 'Back', "/#{params[:register]}", class: 'link-back'
 
 
 
 - if params[:action] == 'edit'
   %h1.heading-large Update the details
 - else
-  %h1.heading-large Add a new #{prepare_register_name(@register_name)}
+  %h1.heading-large Add a new #{prepare_register_name(params[:register])}
 
-= form_for :create, url: "/#{@register_name}" do |f|
+= form_for :create, url: "/#{params[:register]}" do |f|
   - @register.fields.each do |field|
     .form-group
       = label_tag field, prepare_register_name(field), class: 'form-label form-label-bold'
       %span.form-hint #{get_description_for_register_field(field)}
-      - if params[:action] == 'edit' && field == @register_name
-        = text_field_tag field, field != @register_name ? @form.instance_variable_get(field) : @form.instance_variable_get('@key'), class: 'form-control disabled'
+      - if params[:action] == 'edit' && field == params[:register]
+        = text_field_tag field, field != params[:register] ? @form[field] : @form['key'], class: 'form-control disabled'
       - else
-        = text_field_tag field, @form.instance_variable_get("@#{field.gsub('-', '_')}"), class: 'form-control'
+        = text_field_tag field, @form[field], class: 'form-control'
   = f.submit 'Continue',:class => 'button'
 
