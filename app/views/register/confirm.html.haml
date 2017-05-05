@@ -1,7 +1,8 @@
-Check the details of your new #{prepare_register_name(@register_name)}
 
-#{params[:action]}
-The key is #{params[:key]}
+- if @current_register_record.nil?
+  %h1.heading-large Check the details of your new #{prepare_register_name(params[:register]).downcase}
+- else
+  %h1.heading-large Check the details of your change to #{prepare_register_name(params[:register]).downcase}
 
 %table
   %thead
@@ -9,18 +10,30 @@ The key is #{params[:key]}
       %th Fields
       - if @current_register_record.nil?
         %th Values
+        %th
       - else
         %th Current values
         %th New Values
+        %th
   %tbody
     - @register.fields.each do |field|
       %tr
         %td #{field}
-        %td #{@current_register_record.instance_variable_get("@#{field.gsub('-', '_')}")}
-        %td
-          - if !(@current_register_record.instance_variable_get("@#{field.gsub('-', '_')}") == nil && params[field.to_sym] == '')
-            - if @current_register_record.instance_variable_get("@#{field.gsub('-', '_')}") != params[field.to_sym]
-              .panel.panel-change-notification #{params[field.to_sym]}
+        - if !@current_register_record.nil?
+          %td #{@current_register_record[field]}
+          %td
+            - if !(@current_register_record[field] == nil && params[field.to_sym] == '')
+              - if @current_register_record[field] != params[field.to_sym]
+                .panel.panel-change-notification #{params[field.to_sym]}
+                %td
+                  = link_to 'Change', {action: 'new', anchor: field, params: params}
+              - else
+                %td
+            - else
+            %td
+        - else
+          %td #{params[field.to_sym]}
+
 
 .notice
   %i.icon.icon-important
@@ -28,4 +41,7 @@ The key is #{params[:key]}
   %strong.bold-small
     All changes will be published to the Country register
 
-= button_to "Submit", { action: "create", params: params, data_confirmed: true}, data: { accepted: true }
+= button_to 'Submit', { action: 'create', params: params, data_confirmed: true }, {class: 'button'}
+
+- if @current_register_record.nil?
+  = link_to 'Go back and change the details', {action: 'new', params: params}, class: 'link-back'

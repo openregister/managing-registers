@@ -6,4 +6,15 @@ module ApplicationHelper
     end
   end
 
+  def convert_register_json(register)
+    converted_json = JSON.parse(register.to_json)
+    converted_json.keys.each do |key|
+      if key.include? '_'
+        converted_json[key.gsub('_', '-')] = converted_json[key];
+        converted_json.delete(key);
+      end
+    end
+    converted_json
+  end
+
 end

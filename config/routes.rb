@@ -6,14 +6,14 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     authenticated :user do
-      root to: 'registers#index'
+      root to: 'home#index'
     end
     unauthenticated :user do
       root to: 'devise/sessions#form', as: :unauthenticated_root
     end
   end
 
-  post 'select_register', to: "registers#select_register"
+  post 'select_register', to: "home#select_register"
 
   get '/:register', to: 'register#index'
   get '/:register/:key/edit', to: 'register#edit'

@@ -1,3 +1,0 @@
-module RegisterHelper
-
-end
