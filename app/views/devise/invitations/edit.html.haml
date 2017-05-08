@@ -1,11 +1,11 @@
-= content_for :page_title, 'Set your password'
+= content_for :page_title, t('devise.invitations.edit.header')
 
-%h1.heading-large
-  = t 'devise.invitations.edit.header'
+%h1.heading-large= t('devise.invitations.edit.header')
 
 = form_for resource, as: resource_name, url: invitation_path(resource_name), html: {method: :put} do |f|
   = devise_error_messages!
   = f.hidden_field :invitation_token
+  = f.text_field :full_name
   = f.password_field :password
   = f.password_field :password_confirmation
   .form-group

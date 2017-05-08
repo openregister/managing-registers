@@ -1,0 +1,30 @@
+= form_for @user do |f|
+  = f.text_field :full_name, class: "disabled"
+  = f.text_field :email, class: "disabled"
+  - if current_user.admin?
+    = f.label :registers, class: "form-label"
+    .form-group
+      = f.select :registers, beta_registers_by_name, { }, { multiple: true, class: "form-control" }
+  %h3.heading-small= t('views.roles.heading')
+  .form-group
+    %fieldset
+      %legend.visually-hidden= t('views.roles.title')
+      .multiple-choice
+        = f.radio_button :role, "advanced"
+        = f.label :role, "Advanced", value: "advanced"
+      .user__permissions
+        %p.list-title Advanced can:
+        %ul.list.list-bullet
+          %li Change records
+          %li Submit changes for review
+          %li Approve and publish changes to records
+      .multiple-choice
+        = f.radio_button :role, "basic"
+        = f.label :role, "Basic", value: "basic"
+      .user__permissions
+        %p.list-title Basic users can:
+        %ul.list.list-bullet
+          %li Change records
+          %li Submit changes for review
+  .form-group
+    = f.submit "Submit", class: "button"

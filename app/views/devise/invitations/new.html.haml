@@ -1,11 +1,56 @@
-= content_for :page_title, 'Invite user'
+= content_for :page_title, t('devise.invitations.new.header')
 
-%h1.heading-large
-  = t 'devise.invitations.new.header'
+%h1.heading-large= t('devise.invitations.new.header')
 
-= form_for resource, as: resource_name, url: invitation_path(resource_name), html: {method: :post} do |f|
+= form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post } do |f|
   = devise_error_messages!
   - resource.class.invite_key_fields.each do |field|
     = f.text_field field
+  = f.hidden_field :registers, value: current_user.registers
+  - if current_user.admin?
+    .form-group
+      = f.label :registers, class: "form-label"
+      = f.select :registers, beta_registers_by_name, { }, { multiple: true, class: "form-control" }
+  %h3.heading-small= t('views.users.permission_title')
   .form-group
-    = f.submit t('devise.invitations.new.submit_button'), class: 'button'
+    %fieldset
+      %legend.visually-hidden= t('views.users.role')
+      .multiple-choice
+        = f.radio_button :role, "admin"
+        = f.label :role, "Admin", value: "admin"
+      .user__permissions
+        %p.list-title Admin can:
+        %ul.list.list-bullet
+          %li Manage RDA team
+          %li Manage custodian access
+          %li Change records
+          %li Submit changes for review
+          %li Approve and publish changes to records
+      .multiple-choice
+        = f.radio_button :role, "custodian"
+        = f.label :role, "Custodian", value: "custodian"
+      .user__permissions
+        %p.list-title Custodian can:
+        %ul.list.list-bullet
+          %li Manage team members
+          %li Can the user really publish in real-time
+          %li Change records
+      .multiple-choice
+        = f.radio_button :role, "advanced"
+        = f.label :role, "Advanced", value: "advanced"
+      .user__permissions
+        %p.list-title Advanced can:
+        %ul.list.list-bullet
+          %li Change records
+          %li Submit changes for review
+          %li Approve and publish changes to records
+      .multiple-choice
+        = f.radio_button :role, "basic"
+        = f.label :role, "Basic", value: "basic"
+      .user__permissions
+        %p.list-title Basic can:
+        %ul.list.list-bullet
+          %li Change records
+          %li Submit changes for review
+  .form-group
+    = f.submit "Send invite", class: 'button'

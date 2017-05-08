@@ -4,9 +4,13 @@
 @import "service-nav";
 
 // Override table font size
-table td,
-table th {
+.js-filter-block td,
+.js-filter-block th {
   font-size: 16px;
+}
+
+strong {
+  font-weight: 700;
 }
 
 // Hide legend in fieldsets in favour of headings
@@ -41,6 +45,15 @@ a:visited {
 
 table {
   margin-bottom: 20px;
+
+  tr:last-of-type td {
+    border-top: 1px solid $grey-2;
+  }
+
+  td:last-of-type {
+    padding-right: 0;
+    text-align: right;
+  }
 }
 
 .panel-change-notification {
@@ -85,6 +98,29 @@ table {
 .align-with-heading {
   float: right;
   margin-top: 13px;
+}
+
+.list-title {
+  margin-bottom: 0;
+}
+
+.user {
+  &__permissions {
+    color: $grey-1;
+  }
+
+  &__name {
+    font-weight: 700;
+  }
+
+  &__email {
+    color: $grey-1;
+  }
+}
+
+.user__permissions {
+  clear: left;
+  padding-left: 48px;
 }
 
 @media (min-width: 641px) {
