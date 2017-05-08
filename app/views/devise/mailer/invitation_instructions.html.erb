@@ -1,11 +1,25 @@
-<p><%= t("devise.mailer.invitation_instructions.hello", email: @resource.email) %></p>
+<h3><%= t("devise.mailer.invitation_instructions.hello", full_name: @resource.invited_by.full_name, register_name: "TODO") %></h3>
 
-<p><%= t("devise.mailer.invitation_instructions.someone_invited_you", url: root_url) %></p>
+<p>You have been given permissions to:</p>
 
-<p><%= link_to t("devise.mailer.invitation_instructions.accept"), accept_invitation_url(@resource, :invitation_token => @token) %></p>
+<% if @resource.role == "advanced" || @resource.role == "custodian" %>
+  <ul>
+    <li>Manage team members</li>
+    <li>Can the user really publish in real-time</li>
+    <li>Change records</li>
+  </ul>
+<% elsif @resource.role == "basic" %>
+  <ul>
+    <li>Change records</li>
+  </ul>
+<% end %>
+
+<p>Open this link to create an account on the Manage Registers platform:</p>
+
+<p><%= link_to accept_invitation_url(@resource, :invitation_token => @token), accept_invitation_url(@resource, :invitation_token => @token) %></p>
 
 <% if @resource.invitation_due_at %>
   <p><%= t("devise.mailer.invitation_instructions.accept_until", due_date: l(@resource.invitation_due_at, format: :'devise.mailer.invitation_instructions.accept_until_format')) %></p>
 <% end %>
 
-<p><%= t("devise.mailer.invitation_instructions.ignore").html_safe %></p>
+<p><%= t("devise.mailer.invitation_instructions.accept_until", register_name: "TODO") %></p>

@@ -1,0 +1,32 @@
+= content_for :page_title, t('views.users.index.page_title')
+
+%header.page-header
+  .grid-row
+    .column-two-thirds
+      %h1.heading-large= t('views.users.index.page_title')
+    .column-one-third
+      = link_to t('views.users.new.page_title'), new_user_invitation_path, class: "button align-with-heading"
+
+%h3.heading-medium Team members
+.user__permissions
+  %p.list-title All RDA team members can:
+  %ul.list.list-bullet
+    %li Manage RDA team
+    %li Manage custodian access
+    %li Change records
+    %li Submit changes for review
+    %li Approve and publish changes to records
+
+%table
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td
+          %span.user__name
+            = user.full_name
+            - if user == current_user
+              %span.user__email you
+            - else
+              %span.user__email= user.email
+        %td
+          = link_to "Remove team member", user_path(user), data: { confirm: 'Are you sure?' }, method: :delete

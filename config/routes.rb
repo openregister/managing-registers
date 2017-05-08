@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :users
+  resources :users
 
-  devise_for :users, controllers: {registrations: 'registrations'}
-
-  resources :users, only: [:show]
+  get '/team', to: 'users#team', as: 'team'
 
   devise_scope :user do
     authenticated :user do

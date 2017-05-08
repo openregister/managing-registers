@@ -8,15 +8,15 @@
   .form-group
     %fieldset
       %legend.visually-hidden Choose a register
-      - @registers.each do |register|
-        .multiple-choice{class: "js-filter-item", "data-filter-terms" => "#{register.key} #{register.phase} #{register.text}"}
-          = radio_button_tag :register, register.key
-          = label_tag "register_" + prepare_register_name(register.key).gsub(' ', '-').downcase, prepare_register_name(register.key)
+      - if current_user.admin?
+        - @registers.each do |register|
+          .multiple-choice
+            = radio_button_tag :register, register.key
+            = label_tag "register_" + prepare_register_name(register.key).gsub(' ', '-').downcase, prepare_register_name(register.key)
+      - else
+        - @registers.select{ |r| current_user.registers.include? r.key }.each do |register|
+          .multiple-choice
+            = radio_button_tag :register, register.key
+            = label_tag "register_" + prepare_register_name(register.key).gsub(' ', '-').downcase, prepare_register_name(register.key)
   .form-group
     = submit_tag "Continue", class: "button"
-
-- content_for :javascript do
-  :javascript
-    jQuery(function($) {
-      $("input[name='register']:first").attr("checked", true)
-    });
