@@ -26,10 +26,6 @@
   &__nav {
     font-size: 0;
     list-style-type: none;
-
-    @include media(tablet) {
-      float: right;
-    }
   }
 
   &__nav-item {
@@ -50,8 +46,10 @@
     }
 
     .active & {
+      color: $black;
+
       &:after {
-        background: $govuk-blue;
+        background: $black;
         bottom: -10px;
         content:  "";
         display: block;

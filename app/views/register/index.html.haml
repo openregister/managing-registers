@@ -1,16 +1,5 @@
 = content_for :page_title, "Register"
 
-%nav.service-navigation
-  .service-navigation__name
-    #{@register_name} Register
-  %ul.service-navigation__nav
-    %li.service-navigation__nav-item.active
-      = link_to "Update register", "#", class: 'service-navigation__link'
-    %li.service-navigation__nav-item
-      = link_to "Team", "#", class: 'service-navigation__link'
-    %li.service-navigation__nav-item
-      = link_to "Settings", "#", class: 'service-navigation__link'
-
 %header.page-header
   .grid-row
     .column-two-thirds
