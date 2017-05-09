@@ -1,9 +1,8 @@
 class RegisterController < ApplicationController
 
-  include ApplicationHelper
-  helper_method :prepare_register_name, :get_description_for_register_field
+  include ApplicationHelper, RegisterHelper
 
-  @register_phase = Settings.register_phase
+  @register_phase = Rails.configuration.register_phase
 
   before_action :confirm, only: [:create]
 
@@ -15,16 +14,14 @@ class RegisterController < ApplicationController
   def new
     @register = get_register(params[:register])
     @form = JSON.parse(params.to_json)
-    render 'form'
   end
 
   def edit
     @register = get_register(params[:register])
 
     @form = convert_register_json(
-        OpenRegister.record(params[:register].downcase, params[:key], @register_phase)
+        OpenRegister.record(params[:register].downcase, params[:id], @register_phase)
     ) if @form.nil?
-    render 'form'
   end
 
   def confirm
@@ -57,10 +54,6 @@ class RegisterController < ApplicationController
       flash[:notice] = 'Your update unfortunately failed, if the issue persists, please contact the register design authority'
       redirect_to controller: 'home', action: 'index'
     end
-  end
-
-  def get_description_for_register_field(field)
-    OpenRegister.record('field', field, @register_phase).text
   end
 
   def post_to_register(register_name, rsf_body)

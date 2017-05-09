@@ -1,14 +1,3 @@
-= content_for :page_title, "#{params[:register]} Register"
-
-= link_to 'Back', "/#{params[:register]}", class: 'link-back'
-
-
-
-- if params[:action] == 'edit'
-  %h1.heading-large Update the details
-- else
-  %h1.heading-large Add a new #{prepare_register_name(params[:register])}
-
 = form_for :create, url: "/#{params[:register]}" do |f|
   - @register.fields.each do |field|
     .form-group
@@ -18,5 +7,4 @@
         = text_field_tag field, field != params[:register] ? @form[field] : @form['key'], class: 'form-control disabled'
       - else
         = text_field_tag field, @form[field], class: 'form-control'
-  = f.submit 'Continue',:class => 'button'
-
+  = f.submit 'Continue', class: 'button'
