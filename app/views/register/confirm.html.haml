@@ -5,35 +5,37 @@
   %h1.heading-large Check the details of your change to #{prepare_register_name(params[:register]).downcase}
 
 %table
+
   %thead
     %tr
       %th Fields
       - if @current_register_record.nil?
         %th Values
-        %th
       - else
         %th Current values
         %th New Values
         %th
+
   %tbody
     - @register.fields.each do |field|
       %tr
         %td #{field}
         - if !@current_register_record.nil?
           %td #{@current_register_record[field]}
-          %td
-            - if !(@current_register_record[field] == nil && params[field.to_sym] == '')
-              - if @current_register_record[field] != params[field.to_sym]
-                .panel.panel-change-notification #{params[field.to_sym]}
-                %td
-                  = link_to 'Change', {action: 'new', anchor: field, params: params}
-              - else
-                %td
+          - if !(@current_register_record[field] == nil && params[field.to_sym] == '')
+            - if @current_register_record[field] != params[field.to_sym]
+              %td
+                %div.panel.panel-change-notification #{params[field.to_sym]}
+              %td
+                = link_to 'Change', {action: 'edit', id: params[params[:register].to_sym], anchor: field, params: params}
             - else
+              %td
+              %td
+          - else
+            %td
             %td
         - else
           %td #{params[field.to_sym]}
-
 
 .notice
   %i.icon.icon-important

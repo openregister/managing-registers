@@ -5,7 +5,7 @@
     .column-two-thirds
       %h1.heading-large #{prepare_register_name(params[:register])} Register
     .column-one-third
-      = link_to "Add a form #{prepare_register_name(params[:register])}", "#{params[:register]}/new", class: "button align-with-heading"
+      = link_to "Add a #{prepare_register_name(params[:register])}", "#{params[:register]}/new", class: "button align-with-heading"
 
 .js-filter-list
   %form{class: "js-filter-form"}
@@ -24,7 +24,7 @@
 
   %tbody{class: "js-filter-block"}
     - @register.each do |register|
-      %tr{class: "js-filter-item", "data-filter-terms" => "#{register.name if register.try(:name)} #{register.key}"}
+      %tr{class: "js-filter-item", "data-filter-terms" => "#{register.try(:name)} #{register.key}"}
         %td= register.key
         - if register.try(:name)
           %td= register.name

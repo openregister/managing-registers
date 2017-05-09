@@ -1,0 +1,6 @@
+= content_for :page_title, "New #{params[:register]}"
+= link_to 'Back', "/#{params[:register]}", class: 'link-back'
+
+%h1.heading-large Add a new #{prepare_register_name(params[:register])}
+
+= render partial: 'register/shared/form'
