@@ -44,11 +44,11 @@ class RegisterController < ApplicationController
   end
 
   def create
-    fields = @register = get_register(params[:register]).fields
+    fields = get_register(params[:register]).fields
 
     payload = generate_canonical_object(fields, params)
     rsf_body = create_rsf(payload, params)
-    response = post_to_register(rsf_body)
+    response = post_to_register(params[:register], rsf_body)
 
     if response.code == '200'
       flash[:notice] = 'Your update has been submitted, you\'ll recieve a confirmation email once the change is live'
@@ -63,13 +63,18 @@ class RegisterController < ApplicationController
     OpenRegister.record('field', field, @register_phase).text
   end
 
-  def post_to_register(rsf_body)
-    uri = URI('http://localhost:8080/load-rsf')
+  def post_to_register(register_name, rsf_body)
+    protocol = Rails.configuration.register_ssl ? protocol = 'https' : protocol = 'http'
+
+    (Rails.configuration.register_url.include? "localhost") ?
+        uri = URI(protocol + '://' + Rails.configuration.register_url) :
+        uri = URI(protocol + '://' + register_name + '.' + Rails.configuration.register_url)
+
     http = Net::HTTP.new(uri.host, uri.port)
-    # http.use_ssl = true
+    http.use_ssl = Rails.configuration.register_ssl
 
     request = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/uk-gov-rsf'})
-    request.basic_auth('foo', 'bar')
+    request.basic_auth(Rails.configuration.register_username, Rails.configuration.register_password)
     request.body = rsf_body
 
     http.request(request)
