@@ -1,18 +1,23 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { registrations: 'registrations' }
+
+  devise_for :users, controllers: {registrations: 'registrations'}
+
   resources :users, only: [:show]
 
   devise_scope :user do
     authenticated :user do
-      root to: 'registers#index'
+      root to: 'home#index'
     end
     unauthenticated :user do
-      root to: 'devise/sessions#new', as: :unauthenticated_root
+      root to: 'devise/sessions#form', as: :unauthenticated_root
     end
   end
 
-  resources :register, except: [:destroy]
-  resources :registers, except: [:destroy]
+  post 'select_register', to: "home#select_register"
 
-  post 'select_register', to: "registers#select_register"
+  get '/:register', to: 'register#index'
+  get '/:register/:id/edit', to: 'register#edit'
+  get '/:register/new', to: 'register#new'
+  post '/:register', to: 'register#create'
+
 end

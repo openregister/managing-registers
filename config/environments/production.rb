@@ -80,4 +80,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.action_mailer.default_url_options = { host: 'https://managing-registers.herokuapp.com/' }
+
+  # nil means to use register.gov.uk rather than :phase.openregisters.org
+  config.register_phase = nil
 end

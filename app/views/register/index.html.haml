@@ -3,30 +3,32 @@
 %header.page-header
   .grid-row
     .column-two-thirds
-      %h1.heading-large #{@register_name} Register
+      %h1.heading-large #{prepare_register_name(params[:register])} Register
     .column-one-third
-      = link_to "Add a new #{@register_name}", new_register_path, class: "button align-with-heading"
+      = link_to "Add a #{prepare_register_name(params[:register])}", "#{params[:register]}/new", class: "button align-with-heading"
 
 .js-filter-list
   %form{class: "js-filter-form"}
     %fieldset
       .form-group
-        %label{class: "form-label", for: "search"} Search for a #{@register_name}
+        %label{class: "form-label", for: "search"} Search for a #{prepare_register_name(params[:register])}
         %input{name: "search", id: "search", class: "form-control"}
 
 %table
   %thead
     %tr
-      %th #{@register_name.capitalize}
-      %th Name
+      %th #{params[:register].capitalize}
+      - if @register[0].try(:name)
+        %th Name
       %th
 
   %tbody{class: "js-filter-block"}
     - @register.each do |register|
-      %tr{class: "js-filter-item", "data-filter-terms" => "#{register.name} #{register.key}"}
+      %tr{class: "js-filter-item", "data-filter-terms" => "#{register.try(:name)} #{register.key}"}
         %td= register.key
-        %td= register.name
-        %td= link_to 'Update', edit_register_path(register)
+        - if register.try(:name)
+          %td= register.name
+        %td{style:"text-align:right"}= link_to 'Update', "#{params[:register]}/#{register.key}/edit"
 
 = content_for :javascript do
   :javascript

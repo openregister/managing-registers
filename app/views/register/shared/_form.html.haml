@@ -1,0 +1,10 @@
+= form_for :create, url: "/#{params[:register]}" do |f|
+  - @register.fields.each do |field|
+    .form-group
+      = label_tag field, prepare_register_name(field), class: 'form-label form-label-bold'
+      %span.form-hint #{get_description_for_register_field(field)}
+      - if params[:action] == 'edit' && field == params[:register]
+        = text_field_tag field, field != params[:register] ? @form[field] : @form['key'], class: 'form-control disabled'
+      - else
+        = text_field_tag field, @form[field], class: 'form-control'
+  = f.submit 'Continue', class: 'button'
