@@ -5,7 +5,4 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :full_name, presence: true, uniqueness: true
-
-  has_many :register
-  has_many :registers
 end
