@@ -1,39 +1,16 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
+---
 en:
-  helpers:
-    label:
-      country:
-        code: Country
-        name: Name
-        official_name: Official name
-        citizen_name: Citizen name
-        start_date: Start date
-        end_date: End date
-    hint:
-      country:
-        code: "The country's 2-letter ISO 3166-2 alpha code"
-        name: The commonly used name for this record
-        official_name: The official or technical name for this record
-        citizen_name: "The name of the country's citizens"
-        start_date: The date a record first became relevant to a register
-        end_date: The date a record stopped being applicable to a register
+  views:
+    users:
+      index:
+        page_title: RDA team
+      team:
+        page_title: Manage team
+      show:
+        page_title: Your account
+      new:
+        page_title: Invite team member
+    roles:
+      title: Role
+      change_role: Change permission
+      heading: Select permission

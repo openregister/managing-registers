@@ -1,7 +1,6 @@
-= content_for :page_title, 'Profile'
+= content_for :page_title, t('views.users.show.page_title')
 
-%h1.heading-large
-  Your account
+%h1.heading-large= t('views.users.show.page_title')
 
 %table
   %tbody
@@ -18,4 +17,4 @@
         = @user.updated_at.strftime("%d %B %Y at %H:%M")
 
 .form-group
-  = link_to "Update your account", edit_user_registration_path, class: "button"
+  = link_to t('views.users.show.update_account'), edit_user_registration_path, class: "button"
