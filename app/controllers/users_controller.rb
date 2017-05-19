@@ -10,6 +10,10 @@ class UsersController < ApplicationController
     @advanced_users = User.where(role: 'advanced')
   end
 
+  def custodians
+    @users = User.where(role: 'custodian')
+  end
+
   def show
   end
 

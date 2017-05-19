@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :users
 
   get '/team', to: 'users#team', as: 'team'
+  get '/custodians', to: 'users#custodians', as: 'custodians'
 
   devise_scope :user do
     authenticated :user do

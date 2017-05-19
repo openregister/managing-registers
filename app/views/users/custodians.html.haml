@@ -1,0 +1,28 @@
+= content_for :page_title, t('views.users.custodians.page_title')
+
+%header.page-header
+  .grid-row
+    .column-two-thirds
+      %h1.heading-large= t('views.users.custodians.page_title')
+    .column-one-third
+      = link_to t('views.users.custodians.invite'), new_user_invitation_path(role: "custodian"), class: "button align-with-heading"
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Email
+      %th Registers
+      %th
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td
+          %span.user__name
+            = user.full_name
+        %td= user.email
+        %td
+          - user.registers.each do |register|
+            %span.user__register-name= register
+        %td
+          = link_to "View team", "#"
