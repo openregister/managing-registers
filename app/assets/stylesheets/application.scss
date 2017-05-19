@@ -4,8 +4,8 @@
 @import "service-nav";
 
 // Override table font size
-.js-filter-block td,
-.js-filter-block th {
+table td,
+table th {
   font-size: 16px;
 }
 
@@ -115,6 +115,11 @@ table {
 
   &__email {
     color: $grey-1;
+    font-weight: 300;
+  }
+
+  &__register-name {
+    display: block;
   }
 }
 
