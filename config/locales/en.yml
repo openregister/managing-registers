@@ -2,8 +2,8 @@
 en:
   views:
     users:
-      index:
-        page_title: RDA team
+      admin:
+        page_title: Admin team
       team:
         page_title: Manage team
       custodians:

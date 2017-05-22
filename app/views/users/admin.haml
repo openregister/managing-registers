@@ -1,0 +1,36 @@
+= content_for :page_title, t('views.users.admin.page_title')
+
+%header.page-header
+  .grid-row
+    .column-two-thirds
+      %h1.heading-large= t('views.users.admin.page_title')
+    .column-one-third
+      = link_to t('views.users.new.page_title'), new_user_invitation_path(role: 'admin'), class: "button align-with-heading"
+
+%h3.heading-medium Team members
+.user__permissions
+  %p.list-title All Admin team members can:
+  %ul.list.list-bullet
+    %li Manage Admin team
+    %li Manage custodian access
+    %li Change records
+    %li Submit changes for review
+    %li Approve and publish changes to records
+
+%table
+  %tbody
+    %tr
+      %td
+        %span.user__name
+          = current_user.full_name
+          %span.user__email (you)
+      %td
+    - @users.reject{ |u| u == current_user }.each do |user|
+      %tr
+        %td
+          %span.user__name
+            = user.full_name
+            %span.user__email= user.email
+        %td
+          - unless user == current_user
+            = link_to "Remove team member", user_path(user), data: { confirm: 'Are you sure?' }, method: :delete
