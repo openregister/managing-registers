@@ -6,6 +6,9 @@ en:
         page_title: RDA team
       team:
         page_title: Manage team
+      custodians:
+        page_title: Custodians
+        invite: Invite custodian
       show:
         page_title: Your account
       new:
