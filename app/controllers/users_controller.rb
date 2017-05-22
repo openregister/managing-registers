@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user
 
-  def index
-    @users = User.all
+  def admin
+    @users = User.where(role: 'admin')
   end
 
   def team

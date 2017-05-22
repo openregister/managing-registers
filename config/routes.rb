@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :users
+  resources :users, except: :index
 
+  get '/admin', to: 'users#admin', as: 'admin'
   get '/team', to: 'users#team', as: 'team'
   get '/custodians', to: 'users#custodians', as: 'custodians'
 
