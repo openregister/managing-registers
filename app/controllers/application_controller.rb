@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :devise_configure_permitted_parameters, if: :devise_controller?
 
+  include CanCan::ControllerAdditions
+
   protected
 
   def devise_configure_permitted_parameters
