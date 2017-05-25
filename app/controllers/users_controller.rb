@@ -1,17 +1,19 @@
 class UsersController < ApplicationController
+
   before_action :set_user
 
-  def admin
-    @users = User.where(role: 'admin')
+  def index
+    @users = User.all
   end
 
   def team
-    @basic_users = User.where(role: 'basic')
-    @advanced_users = User.where(role: 'advanced')
+    @basic_users = User.joins(:team_members).where(team_members: { role: 'basic' })
+    @advanced_users = User.joins(:team_members).where(team_members: { role: 'advanced' })
   end
 
   def custodians
-    @users = User.where(role: 'custodian')
+    @users = User.joins(:team_members)
+                 .where(team_members: { role: 'custodian' })
   end
 
   def show
@@ -22,7 +24,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      flash[:notice] = "Your update has been successful"
+      flash[:notice] = 'Your update has been successful'
       redirect_to users_path
     else
       render :edit
@@ -43,4 +45,5 @@ private
   def user_params
     params.require(:user).permit(:full_name, :email, :role, :password, :password_confirmation, :current_password, registers: [])
   end
+
 end
