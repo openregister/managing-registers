@@ -1,24 +1,30 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :invitable, :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates :full_name, presence: true
+  has_many :team_members
+  has_many :teams, through: :team_members
 
   def admin?
-    role == "admin"
+    team_members.first.role == 'admin'
   end
 
   def custodian?
-    role == "custodian"
+    team_members.first.role == 'custodian'
   end
 
   def advanced?
-    role == "advanced"
+    team_members.first.role == 'advanced'
   end
 
   def basic?
-    role == "basic"
+    team_members.first.role == 'basic'
   end
+
+  def get_team_id
+
+  end
+
 end
