@@ -6,11 +6,7 @@ class CreateTeamMembers < ActiveRecord::Migration[5.0]
       t.references :team, index: true, foreign_key: true
       t.references :user, index: true, foreign_key: true
 
-      add_index :words, ["id", "language_id"], :unique => true
-
       t.timestamps
     end
-
-    add_index :team_members, [:team, :user], unique: true
   end
 end
