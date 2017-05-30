@@ -34,12 +34,16 @@
         %ul.service-navigation__nav
           %li{class: "service-navigation__nav-item #{'active' if current_page?(root_path)}"}
             = link_to "Manage registers", root_path, class: 'service-navigation__link'
-          %li{class: "service-navigation__nav-item #{'active' if current_page?(team_path)}"}
-            = link_to "Manage team", team_path, class: 'service-navigation__link'
-          %li{class: "service-navigation__nav-item #{'active' if current_page?(custodians_path)}"}
-            = link_to "Custodians", custodians_path, class: 'service-navigation__link'
-          %li{class: "service-navigation__nav-item #{'active' if current_page?(admin_path)}"}
-            = link_to "Admin team", admin_path, class: 'service-navigation__link'
+          - if current_user.custodian? || current_user.advanced?
+            %li{class: "service-navigation__nav-item #{'active' if current_page?(team_path)}"}
+              = link_to "Manage team", team_path, class: 'service-navigation__link'
+          - if current_user.admin?
+            %li{class: "service-navigation__nav-item #{'active' if current_page?(custodians_path)}"}
+              = link_to "Custodians", custodians_path, class: 'service-navigation__link'
+            %li{class: "service-navigation__nav-item #{'active' if current_page?(admin_path)}"}
+              = link_to "Admin team", admin_path, class: 'service-navigation__link'
+        - if Rails.env.development?
+          %span.service-navigation__role= current_user.try(:role)
     - if alert
       .grid-row
         .column-two-thirds
