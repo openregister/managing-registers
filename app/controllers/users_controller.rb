@@ -2,8 +2,8 @@ class UsersController < ApplicationController
 
   before_action :set_user
 
-  def index
-    @users = User.all
+  def admin
+    @users = User.joins(:team_members).where(team_members: { role: 'admin' })
   end
 
   def team
@@ -51,11 +51,6 @@ end
 
 class UsersController::InvitationsController < Devise::InvitationsController
 
-  def create
-    flash[:notice] = 'Invite sent to ' + resource_params[:email]
-    redirect_to '/team'
-  end
-
   def invite_resource(&block)
     ## skip sending emails on invite
     super do |u|
@@ -69,6 +64,7 @@ class UsersController::InvitationsController < Devise::InvitationsController
 
     # send email with injected params
     user.deliver_invitation
+    user
   end
 
 end
