@@ -9,6 +9,10 @@ class User < ApplicationRecord
 
   validates :full_name, presence: true
 
+  def role
+    team_members.first.role
+  end
+
   def admin?
     team_members.first.role == 'admin'
   end
