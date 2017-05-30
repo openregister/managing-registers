@@ -2,11 +2,11 @@
 
 You have been given permissions to:
 
-<% if @resource.role == "advanced" || @resource.role == "custodian" %>
+<% if @resource.team_members.first.role == "advanced" || @resource.team_members.first.role == "custodian" %>
   - Manage team members
   - Can the user really publish in real-time
   - Change records
-<% elsif @resource.role == "basic" %>
+<% elsif @resource.team_members.first.role == "basic" %>
   - Change records
 <% end %>
 

@@ -36,6 +36,7 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+
 private
 
   def set_user
@@ -44,6 +45,30 @@ private
 
   def user_params
     params.require(:user).permit(:full_name, :email, :role, :password, :password_confirmation, :current_password, registers: [])
+  end
+
+end
+
+class UsersController::InvitationsController < Devise::InvitationsController
+
+  def create
+    flash[:notice] = 'Invite sent to ' + resource_params[:email]
+    redirect_to '/team'
+  end
+
+  def invite_resource(&block)
+    ## skip sending emails on invite
+    super do |u|
+      u.skip_invitation = true
+    end
+
+    # update team_members because the invite save only saves user
+    user = User.find_by_email(resource_params[:email])
+    user.team_members.create(team_id: resource_params[:team_members][:team_id],
+                             role: resource_params[:team_members][:role]).save
+
+    # send email with injected params
+    user.deliver_invitation
   end
 
 end

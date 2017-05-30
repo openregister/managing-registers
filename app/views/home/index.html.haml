@@ -14,7 +14,7 @@
             = radio_button_tag :register, register.key
             = label_tag "register_" + prepare_register_name(register.key).gsub(' ', '-').downcase, prepare_register_name(register.key)
       - else
-        - @registers.select{ |r| current_user.registers.include? r.key }.each do |register|
+        - @registers.select{ |r| current_user.team_members.first.team.registers.include? r.key }.each do |register|
           .multiple-choice
             = radio_button_tag :register, register.key
             = label_tag "register_" + prepare_register_name(register.key).gsub(' ', '-').downcase, prepare_register_name(register.key)

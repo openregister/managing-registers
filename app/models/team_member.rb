@@ -1,7 +1,6 @@
 class TeamMember < ApplicationRecord
 
-  devise :database_authenticatable, :confirmable, :invitable
+  belongs_to :user, optional: true
+  belongs_to :team, optional: true
 
-  belongs_to :user
-  belongs_to :team
 end
