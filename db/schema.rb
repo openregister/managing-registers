@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170510202746) do
+ActiveRecord::Schema.define(version: 20170522135653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "team_members", force: :cascade do |t|
+    t.string   "role"
+    t.integer  "team_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_team_members_on_team_id", using: :btree
+    t.index ["user_id"], name: "index_team_members_on_user_id", using: :btree
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "registers",  default: [],              array: true
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -28,7 +44,6 @@ ActiveRecord::Schema.define(version: 20170510202746) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.string   "role"
     t.string   "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
@@ -38,7 +53,6 @@ ActiveRecord::Schema.define(version: 20170510202746) do
     t.integer  "invited_by_id"
     t.integer  "invitations_count",      default: 0
     t.string   "full_name"
-    t.string   "registers",              default: [],              array: true
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["full_name"], name: "index_users_on_full_name", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
@@ -47,4 +61,6 @@ ActiveRecord::Schema.define(version: 20170510202746) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "team_members", "teams"
+  add_foreign_key "team_members", "users"
 end

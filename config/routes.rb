@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users
+
+  devise_for :users, controllers: { invitations: 'users_controller/invitations' }
+
   resources :users, except: :index
 
   get '/admin', to: 'users#admin', as: 'admin'
