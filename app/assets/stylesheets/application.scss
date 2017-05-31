@@ -27,6 +27,11 @@ a[data-method='delete'] {
   color: $error-colour;
 }
 
+// Hide hint text because the form_builder gem doesnt support this
+.no-hint .form-hint {
+  display: none;
+}
+
 .inline-link {
   background: none;
   border: none;
