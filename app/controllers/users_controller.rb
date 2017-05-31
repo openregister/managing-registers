@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   def update
     if @user.update_attributes(user_params)
       flash[:notice] = 'Your update has been successful'
-      redirect_to users_path
+      redirect_to team_path
     else
       render :edit
     end
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to users_path
+    redirect_to team_path
   end
 
 
@@ -45,7 +45,7 @@ private
   end
 
   def user_params
-    params.require(:user).permit(:full_name, :email, :role, :password, :password_confirmation, :current_password, registers: [])
+    params.require(:user).permit(:full_name, :email, :role, :password, :password_confirmation, :current_password, team_members_attributes: [:role])
   end
 
 end

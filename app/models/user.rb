@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   validates :full_name, presence: true
 
+  accepts_nested_attributes_for :team_members
+
   def role
     team_members.first.role
   end
