@@ -22,7 +22,7 @@
             = user.full_name
         %td= user.email
         %td
-          - user.registers.each do |register|
+          - user.team_members.first.team.registers.each do |register|
             %span.user__register-name= register
         %td
           = link_to "View team", "#"
