@@ -6,6 +6,13 @@ class ApplicationController < ActionController::Base
 
   include CanCan::ControllerAdditions
 
+  rescue_from CanCan::AccessDenied do |exception|
+    respond_to do |format|
+      format.json { head :forbidden }
+      format.html { redirect_to main_app.root_url, alert: exception.message }
+    end
+  end
+
   protected
 
   def devise_configure_permitted_parameters
