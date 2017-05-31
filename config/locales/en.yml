@@ -17,3 +17,7 @@ en:
       title: Role
       change_role: Change permission
       heading: Select permission
+  helpers:
+    hint:
+      user:
+        password: At least 8 characters
