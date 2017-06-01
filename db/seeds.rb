@@ -4,6 +4,7 @@ User.create(email: 'tony.worron@fco.gsi.gov.uk', full_name: 'Tony Worron', passw
 User.create(email: 'stephen.mcallister@communities.gsi.gov.uk', full_name: 'Stephen McAllister', password: 'password123', password_confirmation: 'password123')
 User.create(email: 'jane.bloggs@gds.gov.uk', full_name: 'Jane Bloggs', password: 'password123', password_confirmation: 'password123')
 User.create(email: 'joe.bloggs@gds.gov.uk', full_name: 'Joe Bloggs', password: 'password123', password_confirmation: 'password123')
+User.create(email: 'jeremy.bloggs@gds.gov.uk', full_name: 'Jeremy Bloggs', password: 'password123', password_confirmation: 'password123')
 
 Team.create(registers:  ['country', 'territory'])
 Team.create(registers:  ['local-authority-eng', 'local-authority-type'])
@@ -15,3 +16,4 @@ TeamMember.create(role: 'advanced', user_id: 4, team_id: 1)
 TeamMember.create(role: 'advanced', user_id: 4, team_id: 2)
 TeamMember.create(role: 'basic', user_id: 5, team_id: 1)
 TeamMember.create(role: 'basic', user_id: 5, team_id: 2)
+TeamMember.create(role: 'basic', user_id: 6, team_id: 2)

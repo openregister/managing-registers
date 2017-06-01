@@ -7,52 +7,54 @@
   - resource.class.invite_key_fields.each do |field|
     = f.text_field field
   - if current_user.admin?
-    .form-group
-      = f.label :registers, class: "form-label"
-      = f.select :registers, beta_registers_by_name, { }, { multiple: true, class: "form-control" }
-
-  =f.fields_for :team_members do |tm|
-    =tm.hidden_field :team_id, value: current_user.get_team_id_with_highest_permissions
-    %h3.heading-small= t('views.users.permission_title')
-    .form-group
-      %fieldset
-        %legend.visually-hidden= t('views.users.role')
-        .multiple-choice
-          = tm.radio_button :role, "admin"
-          = tm.label :role, "Admin", value: "admin"
-        .user__permissions
-          %p.list-title Admin can:
-          %ul.list.list-bullet
-            %li Manage RDA team
-            %li Manage custodian access
-            %li Change records
-            %li Submit changes for review
-            %li Approve and publish changes to records
-        .multiple-choice
-          = tm.radio_button :role, "custodian"
-          = tm.label :role, "Custodian", value: "custodian"
-        .user__permissions
-          %p.list-title Custodian can:
-          %ul.list.list-bullet
-            %li Manage team members
-            %li Can the user really publish in real-time
-            %li Change records
-        .multiple-choice
-          = tm.radio_button :role, "advanced"
-          = tm.label :role, "Advanced", value: "advanced"
-        .user__permissions
-          %p.list-title Advanced can:
-          %ul.list.list-bullet
-            %li Change records
-            %li Submit changes for review
-            %li Approve and publish changes to records
-        .multiple-choice
-          = tm.radio_button :role, "basic"
-          = tm.label :role, "Basic", value: "basic"
-        .user__permissions
-          %p.list-title Basic can:
-          %ul.list.list-bullet
-            %li Change records
-            %li Submit changes for review
+    =f.fields_for :team_members do |tm|
+      .form-group
+        = tm.label :registers, class: "form-label"
+        -#= f.select 'register', 'register', beta_registers_by_name, { multiple: true, class: "form-control" }
+        = tm.select :team_id, beta_registers_by_name
+  - else
+    =f.fields_for :team_members do |tm|
+      =tm.hidden_field :team_id, value: team_id_for_high_permissions(current_user)
+      %h3.heading-small= t('views.users.permission_title')
+      .form-group
+        %fieldset
+          %legend.visually-hidden= t('views.users.role')
+          .multiple-choice
+            = tm.radio_button :role, "admin"
+            = tm.label :role, "Admin", value: "admin"
+          .user__permissions
+            %p.list-title Admin can:
+            %ul.list.list-bullet
+              %li Manage RDA team
+              %li Manage custodian access
+              %li Change records
+              %li Submit changes for review
+              %li Approve and publish changes to records
+          .multiple-choice
+            = tm.radio_button :role, "custodian"
+            = tm.label :role, "Custodian", value: "custodian"
+          .user__permissions
+            %p.list-title Custodian can:
+            %ul.list.list-bullet
+              %li Manage team members
+              %li Can the user really publish in real-time
+              %li Change records
+          .multiple-choice
+            = tm.radio_button :role, "advanced"
+            = tm.label :role, "Advanced", value: "advanced"
+          .user__permissions
+            %p.list-title Advanced can:
+            %ul.list.list-bullet
+              %li Change records
+              %li Submit changes for review
+              %li Approve and publish changes to records
+          .multiple-choice
+            = tm.radio_button :role, "basic"
+            = tm.label :role, "Basic", value: "basic"
+          .user__permissions
+            %p.list-title Basic can:
+            %ul.list.list-bullet
+              %li Change records
+              %li Submit changes for review
   .form-group
     = f.submit "Send invite", class: 'button'

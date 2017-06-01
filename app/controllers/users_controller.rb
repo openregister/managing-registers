@@ -1,20 +1,27 @@
 class UsersController < ApplicationController
 
+  include ElevatedPermissionsHelper
   before_action :set_user
 
   def admin
-    @users = User.joins(:team_members).where(team_members: { role: 'admin' })
+    @users = User.joins(:team_members)
+                 .where(team_members: { role: 'admin' })
     authorize! :admin, @users
   end
 
   def team
-    @basic_users = User.joins(:team_members).where(team_members: { role: 'basic' })
-    @advanced_users = User.joins(:team_members).where(team_members: { role: 'advanced' })
+    @basic_users = User.joins(:team_members)
+                       .where(team_members: { team_id: team_id_for_high_permissions(current_user) })
+                       .where(team_members: { role: 'basic' })
+
+    @advanced_users = User.joins(:team_members)
+                          .where(team_members: { team_id: team_id_for_high_permissions(current_user) })
+                          .where(team_members: { role: 'advanced' })
   end
 
   def custodians
-    @users = User.joins(:team_members)
-                 .where(team_members: { role: 'custodian' })
+    @custodians = User.joins(:team_members)
+                      .where(team_members: { role: 'custodian' })
   end
 
   def show
@@ -38,7 +45,7 @@ class UsersController < ApplicationController
   end
 
 
-private
+  private
 
   def set_user
     @user = User.find_by_id(params[:id])
@@ -51,6 +58,8 @@ private
 end
 
 class UsersController::InvitationsController < Devise::InvitationsController
+
+  include ElevatedPermissionsHelper
 
   def invite_resource(&block)
     ## skip sending emails on invite
