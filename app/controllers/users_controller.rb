@@ -10,12 +10,18 @@ class UsersController < ApplicationController
   end
 
   def team
+    if params[:team_id].present?
+      team_id = params[:team_id]
+    else
+      team_id = team_id_for_high_permissions(current_user)
+    end
+
     @basic_users = User.joins(:team_members)
-                       .where(team_members: { team_id: team_id_for_high_permissions(current_user) })
+                       .where(team_members: { team_id: team_id })
                        .where(team_members: { role: 'basic' })
 
     @advanced_users = User.joins(:team_members)
-                          .where(team_members: { team_id: team_id_for_high_permissions(current_user) })
+                          .where(team_members: { team_id: team_id })
                           .where(team_members: { role: 'advanced' })
   end
 
