@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   def admin
     @users = User.joins(:team_members)
                  .where(team_members: { role: 'admin' })
+
     authorize! :admin, @users
   end
 
