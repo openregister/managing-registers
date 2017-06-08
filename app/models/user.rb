@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :team_members
   has_many :teams, through: :team_members
+  accepts_nested_attributes_for :teams
 
   validates :full_name, presence: true
   validates :password, length: { minimum: 8 }
