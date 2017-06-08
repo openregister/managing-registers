@@ -75,8 +75,8 @@ class UsersController::InvitationsController < Devise::InvitationsController
 
     # update team_members because the invite save only saves user
     user = User.find_by_email(resource_params[:email])
-    user.team_members.create(team_id: resource_params[:team_members][:team_id],
-                             role: resource_params[:team_members][:role]).save
+    user.team_members.create(team_id: resource_params[:team_members_attributes]['0'][:team_id],
+                             role: resource_params[:team_members_attributes]['0'][:role]).save
 
     # send email with injected params
     user.deliver_invitation
