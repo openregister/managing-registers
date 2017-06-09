@@ -3,7 +3,7 @@ class AddApprovalsChangesTables < ActiveRecord::Migration[5.0]
     create_table :changes do |t|
       t.json 'payload'
       t.string 'register_name'
-      t.references :user, index: true, foreign_key: true
+      t.references :user, index: true, foreign_key: true, null: true
     end
   end
 end

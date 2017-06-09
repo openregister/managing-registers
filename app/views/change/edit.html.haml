@@ -14,7 +14,7 @@
     %strong.bold-small
       Once approved, these changes will be published.
 
-  = form_tag change_path do
+  = form_tag change_path, method: :put do
     .form-group
       = submit_tag 'Approve', class: 'button'
 
@@ -23,15 +23,12 @@
     .grid-row
       %h1.heading-large Decline changes
 
-  = form_tag change_url, method: :delete do
+  = form_tag change_path, method: :delete do
     %div.form-group
-      %label{ for: 'text_area', name: 'comment' } Add relevant information for why the changes haven't been accepted.
-      %textarea.form-control.form-control-3-4{ rows:'5' }
+      %label{ for: 'text_area'} Add relevant information for why the changes haven't been accepted.
+      = text_area_tag 'comments', nil, rows: 5, class: 'form-control form-control-3-4'
 
     %div.panel.panel-border-wide
       %p #{ @change_user.full_name } will be informed
 
     = submit_tag 'Decline', class: 'button'
-
-
-

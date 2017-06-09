@@ -22,13 +22,13 @@ ActiveRecord::Schema.define(version: 20170609031835) do
     t.index ["user_id"], name: "index_changes_on_user_id", using: :btree
   end
 
-  create_table "status", force: :cascade do |t|
+  create_table "statuses", force: :cascade do |t|
     t.string  "status"
     t.string  "comment"
     t.integer "reviewed_by_id"
-    t.integer "change_id"
-    t.index ["change_id"], name: "index_status_on_change_id", using: :btree
-    t.index ["reviewed_by_id"], name: "index_status_on_reviewed_by_id", using: :btree
+    t.integer "change_id",      null: false
+    t.index ["change_id"], name: "index_statuses_on_change_id", using: :btree
+    t.index ["reviewed_by_id"], name: "index_statuses_on_reviewed_by_id", using: :btree
   end
 
   create_table "team_members", force: :cascade do |t|
@@ -78,8 +78,8 @@ ActiveRecord::Schema.define(version: 20170609031835) do
   end
 
   add_foreign_key "changes", "users"
-  add_foreign_key "status", "changes"
-  add_foreign_key "status", "users", column: "reviewed_by_id"
+  add_foreign_key "statuses", "changes"
+  add_foreign_key "statuses", "users", column: "reviewed_by_id"
   add_foreign_key "team_members", "teams"
   add_foreign_key "team_members", "users"
 end
