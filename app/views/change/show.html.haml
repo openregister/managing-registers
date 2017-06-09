@@ -20,14 +20,14 @@
 
 %h5.heading-medium Do you want to approve these changes?
 
-= form_tag edit_change_path do
+= form_tag edit_change_path, method: :get do
   .form-group
     %fieldset
       .multiple-choice
-        = radio_button_tag :approve, 'Yes'
-        = label_tag 'yes'
+        = radio_button_tag :approve, 'yes'
+        = label_tag 'Yes'
       .multiple-choice
-        = radio_button_tag :approve, 'No'
+        = radio_button_tag :approve, 'no'
         = label_tag 'No'
   .form-group
     = submit_tag "Continue", class: "button"

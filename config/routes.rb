@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { invitations: 'users_controller/invitations' }
 
   resources :users, except: :index
+  resources :change, except: [:new, :create, :index]
 
   get '/admin', to: 'users#admin', as: 'admin'
   get '/team', to: 'users#team', as: 'team'
@@ -23,8 +24,5 @@ Rails.application.routes.draw do
   get '/:register/:id/edit', to: 'register#edit'
   get '/:register/new', to: 'register#new'
   post '/:register', to: 'register#create'
-
-  get '/change/:change_id', to: 'change#index', as: 'view_change'
-  post '/change/:change_id/review', to: 'change#edit', as: 'edit_change'
 
 end
