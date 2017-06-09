@@ -7,6 +7,26 @@
     .column-one-third
       = link_to "Add a #{prepare_register_name(params[:register])}", "#{params[:register]}/new", class: "button align-with-heading"
 
+%h1{class: "heading-medium"} Updates for index
+
+%table
+  %thead
+    %tr
+      %th #{params[:register].capitalize}
+      - if @register[0].try(:name)
+        %th Name
+      %th
+
+  %tbody
+    - @changes.each do |change|
+      %tr
+        %td= change.payload[params[:register].to_s]
+        %td= change.payload["name"]
+        %td{style:"text-align:right"}= link_to 'Review', "/change/#{change.id}"
+
+
+
+%h1{class: "heading-medium"}  #{prepare_register_name(params[:register].pluralize)} on this register
 .js-filter-list
   %form{class: "js-filter-form"}
     %fieldset

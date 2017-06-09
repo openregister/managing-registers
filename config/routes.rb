@@ -24,4 +24,7 @@ Rails.application.routes.draw do
   get '/:register/new', to: 'register#new'
   post '/:register', to: 'register#create'
 
+  get '/change/:change_id', to: 'change#index', as: 'view_change'
+  post '/change/:change_id/review', to: 'change#edit', as: 'edit_change'
+
 end

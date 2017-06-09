@@ -1,0 +1,33 @@
+= content_for :page_title, 'Review changes'
+= link_to 'Back', "/#{params[:register]}", class: 'link-back'
+
+%header.page-header
+  .grid-row
+    %h1.heading-large Review changes
+
+%ul.list.column-one-half
+  %li
+    %div.column-one-half Submitted by:
+    %div.column-one-half #{@change.user.full_name}
+  %li
+    %div.column-one-half Date:
+    %div.column-one-half #{@change.user.updated_at.strftime('%d %B %Y')}
+  %li
+    %div.column-one-half Time:
+    %div.column-one-half #{@change.user.updated_at.strftime('%I.%M %p')}
+
+= render partial: 'change/shared/difference'
+
+%h5.heading-medium Do you want to approve these changes?
+
+= form_tag edit_change_path do
+  .form-group
+    %fieldset
+      .multiple-choice
+        = radio_button_tag :approve, 'Yes'
+        = label_tag 'yes'
+      .multiple-choice
+        = radio_button_tag :approve, 'No'
+        = label_tag 'No'
+  .form-group
+    = submit_tag "Continue", class: "button"
