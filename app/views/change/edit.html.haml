@@ -1,0 +1,37 @@
+= content_for :page_title, 'Review changes'
+= link_to 'Back', "/#{params[:register]}", class: 'link-back'
+
+- if params[:approve] == 'yes'
+  %header.page-header
+    .grid-row
+      %h1.heading-large Approve changes
+
+  = render partial: 'change/shared/difference'
+
+  %div.notice
+    %i.icon.icon-important
+      %span.visually-hidden
+    %strong.bold-small
+      Once approved, these changes will be published.
+
+  = form_tag change_path do
+    .form-group
+      = submit_tag 'Approve', class: 'button'
+
+- else
+  %header.page-header
+    .grid-row
+      %h1.heading-large Decline changes
+
+  = form_tag change_url, method: :delete do
+    %div.form-group
+      %label{ for: 'text_area', name: 'comment' } Add relevant information for why the changes haven't been accepted.
+      %textarea.form-control.form-control-3-4{ rows:'5' }
+
+    %div.panel.panel-border-wide
+      %p #{ @change_user.full_name } will be informed
+
+    = submit_tag 'Decline', class: 'button'
+
+
+
