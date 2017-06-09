@@ -17,4 +17,8 @@ module ApplicationHelper
     converted_json
   end
 
+  def get_register(register_name)
+    OpenRegister.register(register_name.downcase, @register_phase)
+  end
+
 end

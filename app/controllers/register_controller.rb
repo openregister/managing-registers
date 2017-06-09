@@ -7,6 +7,7 @@ class RegisterController < ApplicationController
   before_action :confirm, only: [:create]
 
   def index
+    @changes = Change.where(register_name: params[:register])
     @register = get_register(params[:register])._all_records
     @register[0].try(:name) ? @register = @register.sort_by(&:name) : @register = @register.sort_by(&:key)
   end
@@ -60,10 +61,6 @@ class RegisterController < ApplicationController
       end
     end
     payload
-  end
-
-  def get_register(register_name)
-    OpenRegister.register(register_name.downcase, @register_phase)
   end
 
 end

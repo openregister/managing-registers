@@ -1,0 +1,25 @@
+%table
+  %thead
+    %tr
+      %th Fields
+      - if @current_register_record.nil?
+        %th Values
+      - else
+        %th Current values
+        %th New Values
+  %tbody
+    - @register.fields.each do |field|
+      %tr
+        %td #{field}
+        - if !@current_register_record.nil?
+          %td #{@current_register_record[field]}
+          - if !(@current_register_record[field] == nil && @new_register_record[field] == '')
+            - if @current_register_record[field] != @new_register_record[field]
+              %td
+                %div.panel.panel-change-notification #{@new_register_record[field]}
+            - else
+              %td
+          - else
+            %td
+        - else
+          %td #{@current_register_record[field.to_sym]}
