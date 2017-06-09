@@ -2,7 +2,7 @@
 
 %h1.heading-large= t('devise.invitations.new.header')
 
-= form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post } do |f|
+= form_for resource, url: invitation_path(resource_name), html: { method: :post } do |f|
   = devise_error_messages!
   - resource.class.invite_key_fields.each do |field|
     %div.grid-row
@@ -10,8 +10,8 @@
         = f.text_field field
 
   - if current_user.admin?
-  .form-group
-    = f.label :registers, class: "form-label"
+    .form-group
+      = f.label :registers, class: "form-label"
       = f.nested_fields_for :teams, f.object.teams.new do |team|
         %div.grid-row.form-group
           %div.column-one-half
@@ -21,29 +21,30 @@
 
       = f.add_nested_fields_link :teams, 'Add register'
 
-  =f.fields_for :team_members, TeamMember.new do |tm|
-    =tm.hidden_field :team_id, value: team_id_for_high_permissions(current_user)
-    %h3.heading-small= t('views.users.permission_title')
-    .form-group
-      %fieldset
-        %legend.visually-hidden= t('views.users.role')
-        .multiple-choice
-          = tm.radio_button :role, "advanced"
-          = tm.label :role, "Advanced", value: "advanced"
-        .user__permissions
-          %p.list-title Advanced can:
-          %ul.list.list-bullet
-            %li Change records
-            %li Submit changes for review
-            %li Approve and publish changes to records
-        .multiple-choice
-          = tm.radio_button :role, "basic"
-          = tm.label :role, "Basic", value: "basic"
-        .user__permissions
-          %p.list-title Basic can:
-          %ul.list.list-bullet
-            %li Change records
-            %li Submit changes for review
+  - else
+    =f.fields_for :team_members, TeamMember.new do |tm|
+      =tm.hidden_field :team_id, value: team_id_for_high_permissions(current_user)
+      %h3.heading-small= t('views.users.permission_title')
+      .form-group
+        %fieldset
+          %legend.visually-hidden= t('views.users.role')
+          .multiple-choice
+            = tm.radio_button :role, "advanced"
+            = tm.label :role, "Advanced", value: "advanced"
+          .user__permissions
+            %p.list-title Advanced can:
+            %ul.list.list-bullet
+              %li Change records
+              %li Submit changes for review
+              %li Approve and publish changes to records
+          .multiple-choice
+            = tm.radio_button :role, "basic"
+            = tm.label :role, "Basic", value: "basic"
+          .user__permissions
+            %p.list-title Basic can:
+            %ul.list.list-bullet
+              %li Change records
+              %li Submit changes for review
 
   .form-group
     = f.submit "Send invite", class: 'button'
