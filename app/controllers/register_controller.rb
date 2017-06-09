@@ -8,6 +8,9 @@ class RegisterController < ApplicationController
 
   def index
     @changes = Change.where(register_name: params[:register])
+                     .joins("LEFT OUTER JOIN statuses on statuses.change_id = changes.id")
+                     .where('statuses.id is null')
+
     @register = get_register(params[:register])._all_records
     @register[0].try(:name) ? @register = @register.sort_by(&:name) : @register = @register.sort_by(&:key)
   end
@@ -49,18 +52,10 @@ class RegisterController < ApplicationController
     Change.new(register_name: params[:register], payload: payload, user_id: current_user.id).save
 
     flash[:notice] = 'Your update has been submitted, you\'ll recieve a confirmation email once the change is live'
-    redirect_to controller: 'home', action: 'index'
+    redirect_to action: 'index', register: params[:register]
 
   end
 
-  def generate_canonical_object(fields, params)
-    payload = {}
-    fields.sort.each do |field|
-      if params[field.to_sym].nil? != true && params[field.to_sym].empty? != true
-        payload[field] = params[field.to_sym].to_s
-      end
-    end
-    payload
-  end
+
 
 end
