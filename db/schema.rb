@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170522135653) do
+ActiveRecord::Schema.define(version: 20170609031835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "changes", force: :cascade do |t|
+    t.json    "payload"
+    t.string  "register_name"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_changes_on_user_id", using: :btree
+  end
+
+  create_table "status", force: :cascade do |t|
+    t.string  "status"
+    t.string  "comment"
+    t.integer "reviewed_by_id"
+    t.integer "change_id"
+    t.index ["change_id"], name: "index_status_on_change_id", using: :btree
+    t.index ["reviewed_by_id"], name: "index_status_on_reviewed_by_id", using: :btree
+  end
 
   create_table "team_members", force: :cascade do |t|
     t.string   "role"
@@ -61,6 +77,9 @@ ActiveRecord::Schema.define(version: 20170522135653) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "changes", "users"
+  add_foreign_key "status", "changes"
+  add_foreign_key "status", "users", column: "reviewed_by_id"
   add_foreign_key "team_members", "teams"
   add_foreign_key "team_members", "users"
 end
