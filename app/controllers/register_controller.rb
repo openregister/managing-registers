@@ -53,6 +53,7 @@ class RegisterController < ApplicationController
     @change.save
 
     RegisterUpdatesMailer.register_update_request(@change, current_user).deliver_now
+    RegisterUpdatesMailer.register_update_receipt(@change, current_user).deliver_now
 
     flash[:notice] = 'Your update has been submitted, you\'ll recieve a confirmation email once the change is live'
     redirect_to action: 'index', register: params[:register]
