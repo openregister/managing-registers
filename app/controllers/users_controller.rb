@@ -73,20 +73,24 @@ class UsersController::InvitationsController < Devise::InvitationsController
     user = User.find_by_email(resource_params[:email])
 
     if current_user.admin?
-      registers = Array.new
+      if params[:user][:role] == 'custodian'
+        registers = Array.new
 
-      loop.with_index{|_, i|
-        register_name = resource_params[:teams_attributes][i.to_s][:registers]
+        loop.with_index{|_, i|
+          register_name = resource_params[:teams_attributes][i.to_s][:registers]
 
-        unless register_name.nil?
-          registers.push(register_name)
-        end
-        break if resource_params[:teams_attributes][(i + 1).to_s].nil?
-      }
+          unless register_name.nil?
+            registers.push(register_name)
+          end
+          break if resource_params[:teams_attributes][(i + 1).to_s].nil?
+        }
 
-      registers = registers.uniq
-      team = Team.new(registers: registers)
-      user.team_members.create(role: 'custodian', team: team).save
+        registers = registers.uniq
+        team = Team.new(registers: registers)
+        user.team_members.create(role: params[:user][:role], team: team).save
+      else
+        user.team_members.create(role: params[:user][:role]).save
+      end
     else
       # update team_members because the invite save only saves user
       user.team_members.create(team_id: resource_params[:team_members_attributes]['0'][:team_id],
