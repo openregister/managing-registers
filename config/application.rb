@@ -22,6 +22,9 @@ module CustodianUpdateTool
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    config.time_zone = 'London'
+    config.active_record.default_timezone = :local
+
     config.active_job.queue_adapter = :sidekiq
 
     ActionView::Base.default_form_builder = GovukElementsFormBuilder::FormBuilder

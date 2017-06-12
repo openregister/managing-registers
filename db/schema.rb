@@ -10,15 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170609031835) do
+ActiveRecord::Schema.define(version: 20170612142852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "changes", force: :cascade do |t|
-    t.json    "payload"
-    t.string  "register_name"
-    t.integer "user_id"
+    t.json     "payload"
+    t.string   "register_name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["user_id"], name: "index_changes_on_user_id", using: :btree
   end
 

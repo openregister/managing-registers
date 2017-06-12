@@ -49,13 +49,13 @@ class RegisterController < ApplicationController
 
     payload = generate_canonical_object(fields, params)
 
-    Change.new(register_name: params[:register], payload: payload, user_id: current_user.id).save
+    @change = Change.new(register_name: params[:register], payload: payload, user_id: current_user.id)
+    @change.save
+
+    RegisterUpdatesMailer.register_update_request(@change, current_user).deliver_now
 
     flash[:notice] = 'Your update has been submitted, you\'ll recieve a confirmation email once the change is live'
     redirect_to action: 'index', register: params[:register]
-
   end
-
-
 
 end
