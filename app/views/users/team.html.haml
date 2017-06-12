@@ -7,6 +7,10 @@
     .column-one-third
       = link_to t('views.users.new.page_title'), new_user_invitation_path, class: "button align-with-heading"
 
+%h3.heading-medium Registers managed by this team
+%ul.list.list-bullet
+  %li= @team.registers.join(', ')
+
 %h3.heading-medium Advanced
 .user__permissions
   %p.list-title Advanced can:
