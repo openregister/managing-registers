@@ -16,10 +16,16 @@ class UsersController < ApplicationController
     @basic_users = User.joins(:team_members)
                        .where(team_members: { team_id: team_id })
                        .where(team_members: { role: 'basic' })
+                       .where.not(invitation_accepted_at: nil)
 
     @advanced_users = User.joins(:team_members)
                           .where(team_members: { team_id: team_id })
                           .where(team_members: { role: 'advanced' })
+                          .where.not(invitation_accepted_at: nil)
+
+    @pending_users = User.joins(:team_members)
+                         .where(team_members: { team_id: team_id })
+                         .where(invitation_accepted_at: nil)
   end
 
   def custodians

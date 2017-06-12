@@ -53,3 +53,20 @@
         %td
           %span.user__email There are no team members with basic permissions
         %td
+
+%h3.heading-medium Pending invites
+%table
+  %tbody
+    - if @pending_users.present?
+      - @pending_users.each do |user|
+        %tr
+          %td
+            %span.user__name= user.full_name
+            %span.user__email= user.email
+          %td
+            = link_to t('views.roles.change_role'), edit_user_path(user)
+    - else
+      %tr
+        %td
+          %span.user__email There are no users with a pending invite
+        %td

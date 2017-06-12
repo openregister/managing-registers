@@ -15,14 +15,15 @@
       %th Registers
       %th
   %tbody
-    - @custodians.each do |custodian|
-      %tr
-        %td
-          %span.user__name
-            = custodian.full_name
-        %td= custodian.email
-        %td
-          - custodian.team_members.first.team.registers.each do |register|
-            %span.user__register-name= register
-        %td
-          = link_to "View team", team_path(team_id: custodian.team_members.first.team_id)
+    - if @custodians.present?
+      - @custodians.each do |custodian|
+        %tr
+          %td
+            %span.user__name
+              = custodian.full_name
+          %td= custodian.email
+          %td
+            - custodian.team_members.first.team.registers.each do |register|
+              %span.user__register-name= register
+          %td
+            = link_to "View team", team_path(team_id: custodian.team_members.first.team_id)
