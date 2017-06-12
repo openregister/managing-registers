@@ -1,8 +1,8 @@
 %h2{style: "font-weight: normal;"}
-  Updates to the
+  Your update to the
   %strong
     = @change.register_name
-  register have been submitted
+  register has been submitted
 
 %dl{style: "overflow: hidden"}
   %dt{style: "float: left; width: 30%; margin-bottom: 10px; margin-left: 0;"} Submitted by:
@@ -16,9 +16,9 @@
 
 = debug @change.payload
 
-%p This update requires approval before being published
+%p Your update requires approval before being published
 %p
   = link_to "Sign in", change_url(@change)
-  in to review the update to the
+  in to review your update to the
   = @change.register_name
   register

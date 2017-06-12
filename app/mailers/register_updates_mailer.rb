@@ -5,4 +5,10 @@ class RegisterUpdatesMailer < ApplicationMailer
     @approvers = @user.team_members.first.team.users.where('team_members.role' => 'advanced' || 'custodian').reject{ |u| u == @user }.map(&:email)
     mail(from: @user.email, to: @approvers, subject: "Register update request - #{@change.register_name}")
   end
+
+  def register_update_receipt(change, user)
+    @user = user
+    @change = change
+    mail(to: @user.email, subject: "Register update request - #{@change.register_name}")
+  end
 end
