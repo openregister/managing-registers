@@ -26,6 +26,8 @@ class UsersController < ApplicationController
     @pending_users = User.joins(:team_members)
                          .where(team_members: { team_id: team_id })
                          .where(invitation_accepted_at: nil)
+
+    @team = Team.find(team_id)
   end
 
   def custodians
