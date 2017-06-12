@@ -37,10 +37,10 @@ class ChangeController < ApplicationController
       comment: params[:comments],
       reviewed_by_id: current_user.id
     )
-    change = Change.find(params['id']).status = status
-    change.save
+    @change = Change.find(params['id']).status = status
+    @change.save
 
-    # TODO: Need to send email
+    RegisterUpdatesMailer.register_update_rejected(change, current_user).deliver_now
 
     flash[:notice] = 'An email has been sent to the user about the rejection.'
     redirect_to controller: 'register', action: 'index', register: Change.find(params['id']).register_name

@@ -11,4 +11,10 @@ class RegisterUpdatesMailer < ApplicationMailer
     @change = change
     mail(to: @user.email, subject: "Register update request - #{@change.register_name}")
   end
+
+  def register_update_rejected(change, user)
+    @user = user
+    @change = change
+    mail(from: @user.email, to: "foo.com", subject: "Register update request - #{@change.change.register_name}")
+  end
 end
