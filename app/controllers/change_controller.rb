@@ -62,7 +62,7 @@ class ChangeController < ApplicationController
       flash[:notice] = 'We had an issue updating the register, try again.'
     end
 
-    # TODO: Need to send email
+    RegisterUpdatesMailer.register_update_approved(change, current_user).deliver_now
 
     redirect_to controller: 'register', action: 'index', register: Change.find(params['id']).register_name
   end
