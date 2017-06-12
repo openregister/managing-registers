@@ -8,22 +8,28 @@
       = link_to "Add a #{prepare_register_name(params[:register])}", "#{params[:register]}/new", class: "button align-with-heading"
 
 - if !current_user.basic?
-  %h1{class: "heading-medium"} Updates for index
+  %h1.heading-medium Updates for approval
 
-  %table
-    %thead
-      %tr
-        %th #{params[:register].capitalize}
-        - if @register[0].try(:name)
-          %th Name
-        %th
-
-    %tbody
-      - @changes.each do |change|
+  - if @changes.length == 0
+    %table
+      %thead
         %tr
-          %td= change.payload[params[:register].to_s]
-          %td= change.payload["name"]
-          %td{style:"text-align:right"}= link_to 'Review', "/change/#{change.id}"
+          %td.text-secondary{style:'text-align:left'} There are no updates for approval
+  -else
+    %table
+      %thead
+        %tr
+          %th #{params[:register].capitalize}
+          - if @register[0].try(:name)
+            %th Name
+          %th
+
+      %tbody
+        - @changes.each do |change|
+          %tr
+            %td= change.payload[params[:register].to_s]
+            %td= change.payload['name']
+            %td= link_to 'Review', "/change/#{change.id}"
 
 
 
