@@ -17,13 +17,19 @@
 
 %table
   %tbody
-    - @advanced_users.each do |user|
+    - if @advanced_users.present?
+      - @advanced_users.each do |user|
+        %tr
+          %td
+            %span.user__name= user.full_name
+            %span.user__email= user.email
+          %td
+            = link_to t('views.roles.change_role'), edit_user_path(user)
+    - else
       %tr
         %td
-          %span.user__name= user.full_name
-          %span.user__email= user.email
+          %span.user__email There are no team members with advanced permissions
         %td
-          = link_to t('views.roles.change_role'), edit_user_path(user)
 
 %h3.heading-medium Basic
 .user__permissions
@@ -34,10 +40,16 @@
 
 %table
   %tbody
-    - @basic_users.each do |user|
+    - if @basic_users.present?
+      - @basic_users.each do |user|
+        %tr
+          %td
+            %span.user__name= user.full_name
+            %span.user__email= user.email
+          %td
+            = link_to t('views.roles.change_role'), edit_user_path(user)
+    - else
       %tr
         %td
-          %span.user__name= user.full_name
-          %span.user__email= user.email
+          %span.user__email There are no team members with basic permissions
         %td
-          = link_to t('views.roles.change_role'), edit_user_path(user)
