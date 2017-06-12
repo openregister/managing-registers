@@ -1,13 +1,22 @@
-<%= t("devise.mailer.invitation_instructions.hello", full_name: @resource.invited_by.full_name, register_name: @resource.team_members.first.team.registers.join(', ')) %>
+<% if @resource.team_members.first.role == "admin" %>
+  <%= @resource.invited_by.full_name %> has invited you to the register management tool.
+<% else %>
+  <%= t("devise.mailer.invitation_instructions.hello", full_name: @resource.invited_by.full_name, register_name: @resource.team_members.first.team.registers.join(', ')) %>
+<% end %>
 
 You have been given permissions to:
 
-<% if @resource.team_members.first.role == "advanced" || @resource.team_members.first.role == "custodian" %>
-  - Manage team members
-  - Can the user really publish in real-time
-  - Change records
-<% elsif @resource.team_members.first.role == "basic" %>
-  - Change records
+<% if @resource.team_members.first.role == "admin" %>
+  - Manage admin team members
+  - Manage custodians
+<% else %>
+  <% if @resource.team_members.first.role == "advanced" || @resource.team_members.first.role == "custodian" %>
+    - Manage team members
+    - Can the user really publish in real-time
+    - Change records
+  <% elsif @resource.team_members.first.role == "basic" %>
+    - Change records
+  <% end %>
 <% end %>
 
 Open this link to create an account on the Manage Registers platform:
@@ -18,4 +27,8 @@ Open this link to create an account on the Manage Registers platform:
   <%= t("devise.mailer.invitation_instructions.accept_until", due_date: l(@resource.invitation_due_at, format: :'devise.mailer.invitation_instructions.accept_until_format')) %>
 <% end %>
 
-<%= t("devise.mailer.invitation_instructions.accept_until", register_name: @resource.team_members.first.team.registers.join(', ')) %>
+<% if @resource.team_members.first.role == "admin" %>
+  This link will stop working in 24hours. This is to keep management of the register management tool secure.
+<% else %>
+  <%= t("devise.mailer.invitation_instructions.accept_until", register_name: @resource.team_members.first.team.registers.join(', ')) %>
+<% end %>
