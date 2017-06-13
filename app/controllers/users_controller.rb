@@ -4,8 +4,13 @@ class UsersController < ApplicationController
   before_action :set_user
 
   def admin
-    @users = User.joins(:team_members)
-                 .where(team_members: { role: 'admin' })
+    @admin_users = User.joins(:team_members)
+                       .where(team_members: { role: 'admin' })
+                       .where.not(invitation_accepted_at: nil)
+
+    @pending_users = User.joins(:team_members)
+                         .where(team_members: { role: 'admin' })
+                         .where(invitation_accepted_at: nil)
 
     authorize! :admin, @users
   end
