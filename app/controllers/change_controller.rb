@@ -51,9 +51,10 @@ class ChangeController < ApplicationController
     change = Change.find(params['id'])
 
     rsf_body = create_rsf(change.payload, change.register_name)
-    response = post_to_register(params[:register], rsf_body)
 
-    if response.code == '200'
+    Rails.env.development? || response = post_to_register(params[:register], rsf_body)
+
+    if Rails.env.development? || response.code == '200'
       status = Status.new(status: 'approved', reviewed_by_id: current_user.id)
       change.status = status
       change.save
