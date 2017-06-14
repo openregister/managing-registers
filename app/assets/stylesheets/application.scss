@@ -2,6 +2,7 @@
 @import "govuk-elements";
 @import "header-tweaks";
 @import "service-nav";
+@import "accessible-autocomplete.min";
 
 // Override table font size
 table td,
@@ -86,6 +87,11 @@ table {
   line-height: 1.25;
   margin: 15px 0;
   padding: 15px;
+
+  @include media(tablet) {
+    font-size: 19px;
+    line-height: 1.31579
+  }
 }
 
 .flash--dangerous {
@@ -138,14 +144,32 @@ table {
   padding-left: 48px;
 }
 
-@media (min-width: 641px) {
-  .heading-large {
-    margin-top: 0.625em;
-    margin-bottom: 0.625em;
-  }
+.heading-light {
+  color: $grey-1;
+  font-weight: normal;
+  margin-bottom: 10px;
+}
 
-  .flash {
-    font-size: 19px;
-    line-height: 1.31579
+.browse-list {
+  margin-bottom: 30px
+}
+
+.browse-list-item {
+  list-style: none;
+
+  @include media(tablet) {
+    margin-bottom: 5px
+  }
+}
+
+.browse-list-link {
+  font-weight: 700;
+  text-transform: none;
+  font-size: 18px;
+  line-height: 1.2;
+
+   @include media(tablet) {
+    font-size: 24px;
+    line-height: 1.25;
   }
 }

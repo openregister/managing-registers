@@ -7,6 +7,33 @@
     .column-one-third
       = link_to "Add a #{prepare_register_name(params[:register])}", "#{params[:register]}/new", class: "button align-with-heading"
 
+- if !current_user.basic?
+  %h1.heading-medium Updates for approval
+
+  - if @changes.length == 0
+    %table
+      %thead
+        %tr
+          %td.text-secondary{style:'text-align:left'} There are no updates for approval
+  -else
+    %table
+      %thead
+        %tr
+          %th #{params[:register].capitalize}
+          - if @register[0].try(:name)
+            %th Name
+          %th
+
+      %tbody
+        - @changes.each do |change|
+          %tr
+            %td= change.payload[params[:register].to_s]
+            %td= change.payload['name']
+            %td= link_to 'Review', "/change/#{change.id}"
+
+
+
+%h1{class: "heading-medium"}  #{prepare_register_name(params[:register].pluralize)} on this register
 .js-filter-list
   %form{class: "js-filter-form"}
     %fieldset

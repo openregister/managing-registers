@@ -42,6 +42,9 @@ gem 'devise'
 gem 'devise_invitable'
 gem 'cancancan'
 
+# form helpers
+gem 'nested_form_fields'
+
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5'

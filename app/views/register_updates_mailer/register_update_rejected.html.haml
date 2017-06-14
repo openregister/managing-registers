@@ -1,0 +1,26 @@
+%h2{style: "font-weight: normal;"}
+  Your update to the
+  %strong
+    = @change.register_name
+  register has been rejected
+
+%dl{style: "overflow: hidden"}
+  %dt{style: "float: left; width: 30%; margin-bottom: 10px; margin-left: 0;"} Submitted by:
+  %dd{style: "float: left; width: 70%; margin-bottom: 10px; margin-left: 0;"}= @user.full_name
+  %dt{style: "float: left; width: 30%; margin-bottom: 10px; margin-left: 0;"} Date:
+  %dd{style: "float: left; width: 70%; margin-bottom: 10px; margin-left: 0;"}= @change.created_at.strftime("%d %B %Y")
+  %dt{style: "float: left; width: 30%; margin-bottom: 10px; margin-left: 0;"} Time
+  %dd{style: "float: left; width: 70%; margin-bottom: 10px; margin-left: 0;"}= @change.created_at.strftime("%H:%m")
+
+%h3 This record was changed
+
+= debug @change.payload
+
+%h4 Reason for declining
+= @change.status.comment
+
+%p
+  = link_to "Sign in", change_url(@change)
+  in to submit new changes to the
+  = @change.register_name
+  register

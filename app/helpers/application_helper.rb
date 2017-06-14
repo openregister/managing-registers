@@ -17,4 +17,18 @@ module ApplicationHelper
     converted_json
   end
 
+  def get_register(register_name)
+    OpenRegister.register(register_name.downcase, @register_phase)
+  end
+
+  def generate_canonical_object(fields, params)
+    payload = {}
+    fields.sort.each do |field|
+      if params[field].nil? != true && params[field].empty? != true
+        payload[field] = params[field].to_s
+      end
+    end
+    payload
+  end
+
 end

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { invitations: 'users_controller/invitations' }
 
   resources :users, except: :index
+  resources :change, except: [:new, :create, :index]
 
   get '/admin', to: 'users#admin', as: 'admin'
   get '/team', to: 'users#team', as: 'team'

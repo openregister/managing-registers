@@ -2,57 +2,70 @@
 
 %h1.heading-large= t('devise.invitations.new.header')
 
-= form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post } do |f|
+= form_for resource, url: invitation_path(resource_name), html: { method: :post } do |f|
   = devise_error_messages!
   - resource.class.invite_key_fields.each do |field|
-    = f.text_field field
+    %div.grid-row
+      %div.column-full
+        = f.text_field field
+
   - if current_user.admin?
     .form-group
-      = f.label :registers, class: "form-label"
-      = f.select :registers, beta_registers_by_name, { }, { multiple: true, class: "form-control" }
+      = f.hidden_field :role, value: params[:role]
+      - if params[:role] == 'custodian'
+        = f.label :registers, class: "form-label"
+        = f.nested_fields_for :teams, f.object.teams.new do |team|
+          %div.grid-row.form-group
+            %div.column-one-half
+              = team.select :registers, beta_registers_by_name.collect{ |r| [prepare_register_name(r), r]}, {include_blank: "", multiple: true }, { class: "form-control autocomplete" }
+            %div.column-one-half
+              = team.remove_nested_fields_link 'Remove register'
 
-  =f.fields_for :team_members do |tm|
-    =tm.hidden_field :team_id, value: current_user.get_team_id_with_highest_permissions
-    %h3.heading-small= t('views.users.permission_title')
-    .form-group
-      %fieldset
-        %legend.visually-hidden= t('views.users.role')
-        .multiple-choice
-          = tm.radio_button :role, "admin"
-          = tm.label :role, "Admin", value: "admin"
-        .user__permissions
-          %p.list-title Admin can:
-          %ul.list.list-bullet
-            %li Manage RDA team
-            %li Manage custodian access
-            %li Change records
-            %li Submit changes for review
-            %li Approve and publish changes to records
-        .multiple-choice
-          = tm.radio_button :role, "custodian"
-          = tm.label :role, "Custodian", value: "custodian"
-        .user__permissions
-          %p.list-title Custodian can:
-          %ul.list.list-bullet
-            %li Manage team members
-            %li Can the user really publish in real-time
-            %li Change records
-        .multiple-choice
-          = tm.radio_button :role, "advanced"
-          = tm.label :role, "Advanced", value: "advanced"
-        .user__permissions
-          %p.list-title Advanced can:
-          %ul.list.list-bullet
-            %li Change records
-            %li Submit changes for review
-            %li Approve and publish changes to records
-        .multiple-choice
-          = tm.radio_button :role, "basic"
-          = tm.label :role, "Basic", value: "basic"
-        .user__permissions
-          %p.list-title Basic can:
-          %ul.list.list-bullet
-            %li Change records
-            %li Submit changes for review
+        = f.add_nested_fields_link :teams, 'Add register'
+
+  - else
+    =f.fields_for :team_members, TeamMember.new do |tm|
+      =tm.hidden_field :team_id, value: team_id_for_high_permissions(current_user)
+      %h3.heading-small= t('views.users.permission_title')
+      .form-group
+        %fieldset
+          %legend.visually-hidden= t('views.users.role')
+          .multiple-choice
+            = tm.radio_button :role, "advanced"
+            = tm.label :role, "Advanced", value: "advanced"
+          .user__permissions
+            %p.list-title Advanced can:
+            %ul.list.list-bullet
+              %li Change records
+              %li Submit changes for review
+              %li Approve and publish changes to records
+          .multiple-choice
+            = tm.radio_button :role, "basic"
+            = tm.label :role, "Basic", value: "basic"
+          .user__permissions
+            %p.list-title Basic can:
+            %ul.list.list-bullet
+              %li Change records
+              %li Submit changes for review
+
   .form-group
     = f.submit "Send invite", class: 'button'
+
+:javascript
+  window.onload = function () {
+
+    $('.autocomplete').each(function() {
+      accessibleAutocomplete.enhanceSelectElement({
+        defaultValue: '',
+        selectElement: document.querySelector('#' + this.id)
+      })
+    })
+
+    $(document).on("fields_added.nested_form_fields", function(event) {
+      accessibleAutocomplete.enhanceSelectElement({
+        defaultValue: '',
+        selectElement: document.querySelector('#' + jQuery(event.target).find("select")[0].id)
+      })
+    })
+
+  }

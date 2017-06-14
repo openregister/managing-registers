@@ -5,7 +5,7 @@
     .column-two-thirds
       %h1.heading-large= t('views.users.admin.page_title')
     .column-one-third
-      = link_to t('views.users.new.page_title'), new_user_invitation_path, class: "button align-with-heading"
+      = link_to t('views.users.new.page_title'), new_user_invitation_path(role: 'admin'), class: "button align-with-heading"
 
 %h3.heading-medium Team members
 .user__permissions
@@ -25,12 +25,28 @@
           = current_user.full_name
           %span.user__email (you)
       %td
-    - @users.reject{ |u| u == current_user }.each do |user|
+    - @admin_users.reject{ |u| u == current_user }.each do |user|
       %tr
         %td
           %span.user__name
             = user.full_name
             %span.user__email= user.email
         %td
-          - unless user == current_user
-            = link_to "Remove team member", user_path(user), data: { confirm: 'Are you sure?' }, method: :delete
+          = link_to "Remove team member", user_path(user), data: { confirm: 'Are you sure?' }, method: :delete unless user == current_user
+
+%h3.heading-medium Pending invites
+%table
+  %tbody
+    - if @pending_users.present?
+      - @pending_users.each do |user|
+        %tr
+          %td
+            %span.user__name= user.full_name
+            %span.user__email= user.email
+          %td
+            = link_to "Remove invite", user_path(user), data: { confirm: 'Are you sure?' }, method: :delete
+    - else
+      %tr
+        %td
+          %span.user__email There are no users with a pending invite
+        %td

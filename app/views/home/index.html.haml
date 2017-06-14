@@ -1,23 +1,20 @@
 = content_for :page_title, 'Home'
 
-%h1.heading-xlarge Manage register
+%h1.heading-large Registers
 
-%h5.heading-medium Choose a register
-
-= form_tag select_register_path do
-  .form-group
-    %fieldset
-      %legend.visually-hidden Choose a register
-      - if current_user.admin?
-        - @registers.each do |register|
-          .multiple-choice
-            = radio_button_tag :register, register.key
-            = label_tag "register_" + prepare_register_name(register.key).gsub(' ', '-').downcase, prepare_register_name(register.key)
+- if current_user.admin?
+  %ul.browse-list
+    - @registers.each do |register|
+      %li.browse-list-item
+        = link_to register.key, prepare_register_name(register.key).gsub(' ', '-').downcase, class: 'browse-list-link'
+- else
+  - current_user.team_members.each do |team_member|
+    %h5.heading-small.heading-light
+      - if team_member.team.custodian == current_user
+        Your Team
       - else
-        - current_user.team_members.each do |team_member|
-          - @registers.select{ |r| team_member.team.registers.include? r.key }.each do |register|
-            .multiple-choice
-              = radio_button_tag :register, register.key
-              = label_tag "register_" + prepare_register_name(register.key).gsub(' ', '-').downcase, prepare_register_name(register.key)
-  .form-group
-    = submit_tag "Continue", class: "button"
+        #{team_member.team.custodian.full_name}'s Team
+    %ul.browse-list
+      - @registers.select{ |r| team_member.team.registers.include? r.key }.each do |register|
+        %li.browse-list-item
+          = link_to register.key, prepare_register_name(register.key).gsub(' ', '-').downcase, class: 'browse-list-link'
