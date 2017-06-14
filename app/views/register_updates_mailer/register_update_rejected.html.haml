@@ -17,7 +17,7 @@
 = debug @change.payload
 
 %h4 Reason for declining
-= @change.comment
+= @change.status.comment
 
 %p
   = link_to "Sign in", change_url(@change)

@@ -37,7 +37,8 @@ class ChangeController < ApplicationController
       comment: params[:comments],
       reviewed_by_id: current_user.id
     )
-    @change = Change.find(params['id']).status = status
+    @change = Change.find(params['id'])
+    @change.status = status
     @change.save
 
     RegisterUpdatesMailer.register_update_rejected(@change, current_user).deliver_now
@@ -54,7 +55,7 @@ class ChangeController < ApplicationController
 
     if response.code == '200'
       status = Status.new(status: 'approved', reviewed_by_id: current_user.id)
-      change = change.status = status
+      change.status = status
       change.save
 
       flash[:notice] = 'The record has been published.'

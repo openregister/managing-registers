@@ -1,7 +1,7 @@
 %h2{style: "font-weight: normal;"}
   Your update to the
   %strong
-    = @change.change.register_name
+    = @change.register_name
   register has been approved
 
 %dl{style: "overflow: hidden"}
@@ -19,5 +19,5 @@
 %p
   = link_to "Sign in", change_url(@change)
   in to view approved changes to the
-  = @change.change.register_name
+  = @change.register_name
   register
