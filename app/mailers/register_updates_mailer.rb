@@ -15,12 +15,12 @@ class RegisterUpdatesMailer < ApplicationMailer
   def register_update_rejected(change, user)
     @user = user
     @change = change
-    mail(from: @user.email, to: User.find(@change.change.user_id).email, subject: "Register update rejected - #{@change.change.register_name}")
+    mail(from: @user.email, to: @change.user.email, subject: "Register update rejected - #{@change.register_name}")
   end
 
   def register_update_approved(change, user)
     @user = user
     @change = change
-    mail(from: @user.email, to: User.find(@change.change.user_id).email, subject: "Register update approved - #{@change.change.register_name}")
+    mail(from: @user.email, to: @change.user.email, subject: "Register update approved - #{@change.register_name}")
   end
 end
