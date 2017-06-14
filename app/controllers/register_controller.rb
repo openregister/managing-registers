@@ -52,7 +52,7 @@ class RegisterController < ApplicationController
     @change = Change.new(register_name: params[:register], payload: payload, user_id: current_user.id)
     @change.save
 
-    RegisterUpdatesMailer.register_update_request(@change, current_user).deliver_now
+    RegisterUpdatesMailer.register_update_notification(@change, current_user).deliver_now
     RegisterUpdatesMailer.register_update_receipt(@change, current_user).deliver_now
 
     flash[:notice] = 'Your update has been submitted, you\'ll recieve a confirmation email once the change is live'
