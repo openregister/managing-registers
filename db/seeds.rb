@@ -21,6 +21,7 @@ TeamMember.create(role: 'advanced', user_id: 4, team_id: 2)
 TeamMember.create(role: 'basic', user_id: 5, team_id: 1)
 TeamMember.create(role: 'basic', user_id: 5, team_id: 2)
 TeamMember.create(role: 'basic', user_id: 6, team_id: 2)
+TeamMember.create(role: 'basic', user_id: 2, team_id: 2)
 
 
 Change.create(
