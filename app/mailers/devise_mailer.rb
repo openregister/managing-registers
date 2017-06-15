@@ -13,4 +13,13 @@ class DeviseMailer < Devise::Mailer
     mail(to: record.email)
   end
 
+  def password_change(record, opts={})
+    set_template('7a4cd8d2-8a92-4dbd-84ed-9483ddf26dc4')
+
+    set_personalisation(
+      user_full_name: record.full_name
+    )
+
+    mail(to: record.email)
+  end
 end
