@@ -167,6 +167,13 @@ GEM
       jwt (~> 1.5)
     orm_adapter (0.5.0)
     pg (0.20.0)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-byebug (3.4.2)
+      byebug (~> 9.0)
+      pry (~> 0.10)
     public_suffix (2.0.5)
     puma (3.8.2)
     rack (2.0.2)
@@ -245,6 +252,7 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.3, >= 3.3.3)
+    slop (3.6.0)
     spring (2.0.1)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -284,7 +292,6 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
-  byebug
   cancancan
   database_cleaner
   devise
@@ -302,6 +309,7 @@ DEPENDENCIES
   nested_form_fields
   openregister-ruby!
   pg (~> 0.18)
+  pry-byebug
   puma (~> 3.0)
   rails (~> 5.0.1)
   rails-controller-testing
@@ -317,4 +325,4 @@ RUBY VERSION
    ruby 2.4.0p0
 
 BUNDLED WITH
-   1.14.6
+   1.15.0
