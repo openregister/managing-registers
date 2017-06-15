@@ -46,7 +46,7 @@ gem 'cancancan'
 gem 'nested_form_fields'
 
 group :development, :test do
-  gem 'byebug', platform: :mri
+  gem 'pry-byebug'
   gem 'rspec-rails', '~> 3.5'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
