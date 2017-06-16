@@ -28,45 +28,32 @@ class DeviseMailer < Devise::Mailer
 
     when 'admin'
       set_template('cca89657-03e4-4c88-9c9b-affd4c406ce6')
-
       set_personalisation(
         current_user_full_name: User.find(record.invited_by_id).full_name,
         invite_url: accept_invitation_url(record, invitation_token: token)
       )
 
-      mail(to: record.email)
-
     when 'custodian'
       set_template('a59b23da-049c-49e4-b4dc-ed2ee05cb363')
-
-      set_personalisation(
-        current_user_full_name: User.find(record.invited_by_id).full_name,
-        invite_url: accept_invitation_url(record, invitation_token: token),
-        registers: record.team_members.last.team.registers
-      )
-
-      mail(to: record.email)
+      set_standard_personalisations(record, token)
 
     when 'advanced'
       set_template('9ada2d3b-744d-4d8e-9285-3af133d55bac')
-
-      set_personalisation(
-        current_user_full_name: User.find(record.invited_by_id).full_name,
-        invite_url: accept_invitation_url(record, invitation_token: token),
-        registers: record.team_members.last.team.registers
-      )
-      mail(to: record.email)
+      set_standard_personalisations(record, token)
 
     when 'basic'
       set_template('cda8bcc4-c814-4042-b191-ab57dcf7f7ea')
-
-      set_personalisation(
-        current_user_full_name: User.find(record.invited_by_id).full_name,
-        invite_url: accept_invitation_url(record, invitation_token: token),
-        registers: record.team_members.last.team.registers
-      )
-
-      mail(to: record.email)
+      set_standard_personalisations(record, token)
     end
+
+    mail(to: record.email)
+  end
+
+  def set_standard_personalisations(record, token)
+    set_personalisation(
+      current_user_full_name: User.find(record.invited_by_id).full_name,
+      invite_url: accept_invitation_url(record, invitation_token: token),
+      registers: record.team_members.last.team.registers
+    )
   end
 end
