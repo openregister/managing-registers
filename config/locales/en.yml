@@ -4,13 +4,16 @@ en:
     users:
       admin:
         page_title: Admin team
-      team:
-        page_title: Manage team
       custodians:
         page_title: Custodians
         invite: Invite custodian
       show:
         page_title: Your account
+    teams:
+      index:
+        page_title: Teams
+      show:
+        page_title: Manage team
       new:
         page_title: Invite team member
     roles:

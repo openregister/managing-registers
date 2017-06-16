@@ -15,35 +15,9 @@ class UsersController < ApplicationController
     authorize! :admin, @users
   end
 
-  def team
-    params[:team_id].present? ? team_id = params[:team_id] : team_id = team_id_for_high_permissions(current_user)
-
-    @basic_users = User.joins(:team_members)
-                       .where(team_members: { team_id: team_id })
-                       .where(team_members: { role: 'basic' })
-                       .where.not(invitation_accepted_at: nil)
-
-    @advanced_users = User.joins(:team_members)
-                          .where(team_members: { team_id: team_id })
-                          .where(team_members: { role: 'advanced' })
-                          .where.not(invitation_accepted_at: nil)
-
-    @pending_users = User.joins(:team_members)
-                         .where(team_members: { team_id: team_id })
-                         .where(invitation_accepted_at: nil)
-
-    @team = Team.find(team_id)
-  end
-
   def custodians
     @custodians = User.joins(:team_members)
                       .where(team_members: { role: 'custodian' })
-  end
-
-  def show
-  end
-
-  def edit
   end
 
   def update
@@ -60,6 +34,9 @@ class UsersController < ApplicationController
     redirect_to team_path
   end
 
+  def show; end
+
+  def edit; end
 
   private
 
