@@ -4,9 +4,10 @@ Rails.application.routes.draw do
 
   resources :users, except: :index
   resources :change, except: [:new, :create, :index]
+  resources :teams, except: [:new, :create, :edit, :update, :destroy]
 
   get '/admin', to: 'users#admin', as: 'admin'
-  get '/team', to: 'users#team', as: 'team'
+
   get '/custodians', to: 'users#custodians', as: 'custodians'
 
   devise_scope :user do
@@ -17,8 +18,6 @@ Rails.application.routes.draw do
       root to: 'devise/sessions#new', as: :unauthenticated_root
     end
   end
-
-  post 'select_register', to: "home#select_register"
 
   get '/:register', to: 'register#index'
   get '/:register/:id/edit', to: 'register#edit'

@@ -25,7 +25,7 @@
 
   - else
     =f.fields_for :team_members, TeamMember.new do |tm|
-      =tm.hidden_field :team_id, value: team_id_for_high_permissions(current_user)
+      =tm.hidden_field :team_id, value: params[:team_id]
       %h3.heading-small= t('views.users.permission_title')
       .form-group
         %fieldset
