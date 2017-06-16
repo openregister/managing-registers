@@ -23,10 +23,8 @@ TeamMember.create(role: 'basic', user_id: 5, team_id: 2)
 TeamMember.create(role: 'basic', user_id: 6, team_id: 2)
 TeamMember.create(role: 'basic', user_id: 2, team_id: 2)
 
-
 Change.create(
   register_name: 'country',
   payload: JSON.parse('{"citizen-names":"Afghan","country":"AF","name":"Afghanistan","official-name":"The Islamic Republic of Afghanistan","start-date":"asd"}'),
   user_id: 2
 )
-
