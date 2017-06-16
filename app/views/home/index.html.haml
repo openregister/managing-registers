@@ -6,7 +6,7 @@
   %ul.browse-list
     - @registers.each do |register|
       %li.browse-list-item
-        = link_to register.key, prepare_register_name(register.key).gsub(' ', '-').downcase, class: 'browse-list-link'
+        = link_to prepare_register_name(register.key), register.key, class: 'browse-list-link'
 - else
   - current_user.team_members.each do |team_member|
     %h5.heading-small.heading-light
@@ -17,4 +17,4 @@
     %ul.browse-list
       - @registers.select{ |r| team_member.team.registers.include? r.key }.each do |register|
         %li.browse-list-item
-          = link_to register.key, prepare_register_name(register.key).gsub(' ', '-').downcase, class: 'browse-list-link'
+          = link_to prepare_register_name(register.key), register.key, class: 'browse-list-link'
