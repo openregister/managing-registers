@@ -46,8 +46,6 @@
               = link_to "Custodians", custodians_path, class: 'service-navigation__link'
             %li{class: "service-navigation__nav-item #{'active' if current_page?(admin_path)}"}
               = link_to "Admin team", admin_path, class: 'service-navigation__link'
-        - if Rails.env.development?
-          %span.service-navigation__role= current_user.try(:role)
     - if alert
       .grid-row
         .column-two-thirds
