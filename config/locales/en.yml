@@ -4,6 +4,7 @@ en:
     users:
       admin:
         page_title: Admin team
+        invite: Invite admin user
       custodians:
         page_title: Custodians
         invite: Invite custodian
