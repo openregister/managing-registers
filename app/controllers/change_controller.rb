@@ -52,9 +52,9 @@ class ChangeController < ApplicationController
 
     rsf_body = create_rsf(change.payload, change.register_name)
 
-    Rails.env.development? || response = post_to_register(params[:register], rsf_body)
+    Rails.env.development? || Rails.env.staging? || response = post_to_register(params[:register], rsf_body)
 
-    if Rails.env.development? || response.code == '200'
+    if Rails.env.development? || Rails.env.staging? || response.code == '200'
       status = Status.new(status: 'approved', reviewed_by_id: current_user.id)
       change.status = status
       change.save
