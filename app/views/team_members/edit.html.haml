@@ -1,0 +1,6 @@
+= link_to 'Back', @back_url, class: 'link-back'
+
+- if @team_member.role == 'custodian'
+  = render partial: 'change_custodian'
+- else
+  = render partial: 'change_team_member'

@@ -7,18 +7,20 @@ class TeamsController < ApplicationController
   def show
     team_id = params[:id]
 
-    @basic_users = User.joins(:team_members)
-                       .where(team_members: { team_id: team_id, role: 'basic' })
-                       .where.not(invitation_accepted_at: nil)
+    @custodian_team_member = TeamMember.where(team_id: team_id, role: 'custodian').last
 
-    @advanced_users = User.joins(:team_members)
-                          .where(team_members: { team_id: team_id,
-                                                 role: 'advanced' })
-                          .where.not(invitation_accepted_at: nil)
+    @advanced_team_members = TeamMember.joins(:user)
+                                       .where(team_id: team_id, role: 'advanced')
+                                       .where.not(users: {invitation_accepted_at: nil})
 
-    @pending_users = User.joins(:team_members)
-                         .where(invitation_accepted_at: nil)
-                         .where(team_members: { team_id: team_id })
+    @basic_team_members = TeamMember.joins(:user)
+                                    .where(team_members: { team_id: team_id, role: 'basic' })
+                                    .where.not(users: {invitation_accepted_at: nil})
+
+    @pending_team_members = TeamMember.joins(:user)
+                                      .where(team_id: team_id)
+                                      .where(users: {invitation_accepted_at: nil})
+
 
     @team = Team.find(team_id)
   end

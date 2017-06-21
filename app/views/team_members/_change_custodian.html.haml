@@ -1,0 +1,15 @@
+= content_for :page_title, t('views.roles.change_custodian')
+
+%h1.heading-large= t('views.roles.change_custodian')
+
+= form_tag team_member_url, method: :put do
+  %p Choose a custodian
+  .form-group
+    %fieldset
+      %legend.visually-hidden Do you already have a personal user account?
+      - @team_members.each do |team_member|
+        .multiple-choice
+          = radio_button_tag 'new_custodian_team_member_id', team_member.id, team_member.role == 'custodian'
+          = label_tag team_member.user.full_name
+  .form-group
+    = submit_tag 'Submit', class: 'button'

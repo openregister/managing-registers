@@ -2,9 +2,13 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { invitations: 'users_controller/invitations' }
 
-  resources :users, except: :index
+  resources :users, except: [:index, :edit]
   resources :change, except: [:new, :create, :index]
-  resources :teams, except: [:new, :create, :edit, :update, :destroy]
+  resources :team_members, only: :update
+
+  resources :teams, only: [:index, :show] do
+    resources :team_members, only: :edit
+  end
 
   get '/admin', to: 'users#admin', as: 'admin'
 

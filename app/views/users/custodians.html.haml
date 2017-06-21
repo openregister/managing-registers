@@ -26,4 +26,4 @@
             - custodian.team_members.first.team.registers.each do |register|
               %span.user__register-name= register
           %td
-            = link_to "View team", team_path(team_id: custodian.team_members.first.team_id)
+            = link_to 'View team', team_path(custodian.team_members.where(role: 'custodian').last.team_id)
