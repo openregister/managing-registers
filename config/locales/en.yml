@@ -19,7 +19,9 @@ en:
         page_title: Invite team member
     roles:
       title: Role
-      change_role: Change permission
+      change_team_member: Change team member
+      change_custodian: Change custodian
+      change_role: change
       heading: Select permission
   helpers:
     hint:

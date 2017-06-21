@@ -7,70 +7,108 @@
     .column-one-third
       = link_to t('views.teams.new.page_title'), new_user_invitation_path(team_id: @team.id), class: 'button align-with-heading' unless current_user.admin?
 
-%h3.heading-medium Registers managed by this team
-%ul.list.list-bullet
-  %li= @team.registers.join(', ')
-
-%h3.heading-medium Advanced
-.user__permissions
-  %p.list-title Advanced can:
+%div#registers
+  %h3.heading-medium Registers managed by this team
   %ul.list.list-bullet
-    %li Change records
-    %li Submit changes for review
-    %li Approve and publish changes to records
+    - @team.registers.each do |register|
+      %li= prepare_register_name(register)
 
-%table
-  %tbody
-    - if @advanced_users.present?
-      - @advanced_users.each do |user|
+%div#custodian
+  %h3.heading-medium Custodian
+
+  %table
+    %tbody
+      - if @custodian_team_member.present?
         %tr
           %td
-            %span.user__name= user.full_name
-            %span.user__email= user.email
+            %span.user__name= @custodian_team_member.user.full_name
+            %span.user__email= @custodian_team_member.user.email
           %td
-            = link_to t('views.roles.change_role'), edit_user_path(user) unless current_user.admin?
-    - else
-      %tr
-        %td
-          %span.user__email There are no team members with advanced permissions
-        %td
-
-%h3.heading-medium Basic
-.user__permissions
-  %p.list-title Basic can:
-  %ul.list.list-bullet
-    %li Change records
-    %li Submit changes for review
-
-%table
-  %tbody
-    - if @basic_users.present?
-      - @basic_users.each do |user|
+            = link_to t('views.roles.change_role'), edit_team_team_member_path(params[:id], @custodian_team_member) if current_user.admin?
+      - else
         %tr
           %td
-            %span.user__name= user.full_name
-            %span.user__email= user.email
+            %span.user__email There is no custodian on this team
           %td
-            = link_to t('views.roles.change_role'), edit_user_path(user) unless current_user.admin?
-    - else
-      %tr
-        %td
-          %span.user__email There are no team members with basic permissions
-        %td
 
-%h3.heading-medium Pending invites
-%table
-  %tbody
-    - if @pending_users.present?
-      - @pending_users.each do |user|
+  %details
+    %summary
+      %span.summary Learn about custodian permissions
+    %div.panel.panel-border-narrow
+      %ul.list.list-bullet
+        %li Change records
+        %li Submit changes for review
+        %li Approve and publish changes to records
+
+%div#advanced
+  %h3.heading-medium Advanced
+
+  %table
+    %tbody
+      - if @advanced_team_members.present?
+        - @advanced_team_members.each do |team_member|
+          %tr
+            %td
+              %span.user__name= team_member.user.full_name
+              %span.user__email= team_member.user.email
+            %td
+              = link_to t('views.roles.change_role'), edit_team_team_member_path(params[:id], team_member)
+      - else
         %tr
           %td
-            %span.user__name= user.full_name
-            %span.user__email= user.email
+            %span.user__email There are no team members with advanced permissions
           %td
-            = link_to t('views.roles.change_role'), edit_user_path(user) unless current_user.admin?
-    - else
-      %tr
-        %td
-          %span.user__email There are no users with a pending invite
-        %td
+
+  %details
+    %summary
+      %span.summary Learn about advanced permissions
+    %div.panel.panel-border-narrow
+      %ul.list.list-bullet
+        %li Change records
+        %li Submit changes for review
+        %li Approve and publish changes to records
+
+%div#basic
+  %h3.heading-medium Basic
+
+  %table
+    %tbody
+      - if @basic_team_members.present?
+        - @basic_team_members.each do |team_member|
+          %tr
+            %td
+              %span.user__name= team_member.user.full_name
+              %span.user__email= team_member.user.email
+            %td
+              = link_to t('views.roles.change_role'), edit_team_team_member_path(params[:id], team_member)
+      - else
+        %tr
+          %td
+            %span.user__email There are no team members with basic permissions
+          %td
+  %details
+    %summary
+      %span.summary Learn about basic permissions
+    %div.panel.panel-border-narrow
+
+      %ul.list.list-bullet
+        %li Change records
+        %li Submit changes for review
+
+%div#pending
+  %h3.heading-medium Pending invites
+  %table
+    %tbody
+      - if @pending_team_members.present?
+        - @pending_team_members.each do |team_member|
+          %tr
+            %td
+              %span.user__name= team_member.user.full_name
+              %span.user__email= team_member.user.email
+            %td
+              = link_to t('views.roles.change_role'), edit_team_team_member_path(params[:id], team_member)
+      - else
+        %tr
+          %td
+            %span.user__email There are no users with a pending invite
+          %td

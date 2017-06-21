@@ -1,0 +1,32 @@
+= content_for :page_title, t('views.roles.change_team_member')
+
+%h1.heading-large= t('views.roles.change_team_member')
+
+= form_for @team_member do |tm|
+  = tm.fields_for :user do |user|
+    = user.text_field :full_name, class: 'disabled', disabled: true
+    = user.text_field :email, class: 'disabled', disabled: true
+
+  %h3.heading-small= t('views.users.permission_title')
+  .form-group
+    %fieldset
+      %legend.visually-hidden= t('views.users.role')
+      .multiple-choice
+        = tm.radio_button :role, "advanced"
+        = tm.label :role, "Advanced", value: "advanced"
+      .user__permissions
+        %p.list-title Advanced can:
+        %ul.list.list-bullet
+          %li Change records
+          %li Submit changes for review
+          %li Approve and publish changes to records
+      .multiple-choice
+        = tm.radio_button :role, "basic"
+        = tm.label :role, "Basic", value: "basic"
+      .user__permissions
+        %p.list-title Basic can:
+        %ul.list.list-bullet
+          %li Change records
+          %li Submit changes for review
+  .form-group
+    = tm.submit "Submit", class: "button"
