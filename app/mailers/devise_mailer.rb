@@ -3,7 +3,7 @@ class DeviseMailer < Devise::Mailer
   include Devise::Controllers::UrlHelpers # Optional. eg. `confirmation_url`
 
   def reset_password_instructions(record, token, opts={})
-    set_template(Rails.application.secrets.notify_password_reset_mailer_template)
+    set_template(Rails.application.secrets.notify_password_reset_template)
 
     set_personalisation(
       user_full_name: record.full_name,
@@ -14,7 +14,7 @@ class DeviseMailer < Devise::Mailer
   end
 
   def password_change(record, opts={})
-    set_template(Rails.application.secrets.notify_password_change_mailer_template)
+    set_template(Rails.application.secrets.notify_password_change_template)
 
     set_personalisation(
       user_full_name: record.full_name
