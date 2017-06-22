@@ -1,30 +1,79 @@
+Change.destroy_all
 TeamMember.destroy_all
 Team.destroy_all
 User.destroy_all
-Change.destroy_all
 
-User.create(email: 'admin@gov.uk', password: 'password123', full_name: 'Admin', password_confirmation: 'password123', invitation_accepted_at: Date.today)
-User.create(email: 'tony.worron@fco.gsi.gov.uk', full_name: 'Tony Worron', password: 'password123', password_confirmation: 'password123', invitation_accepted_at: Date.today)
-User.create(email: 'stephen.mcallister@communities.gsi.gov.uk', full_name: 'Stephen McAllister', password: 'password123', password_confirmation: 'password123', invitation_accepted_at: Date.today)
-User.create(email: 'jane.bloggs@gds.gov.uk', full_name: 'Jane Bloggs', password: 'password123', password_confirmation: 'password123', invitation_accepted_at: Date.today)
-User.create(email: 'joe.bloggs@gds.gov.uk', full_name: 'Joe Bloggs', password: 'password123', password_confirmation: 'password123', invitation_accepted_at: Date.today)
-User.create(email: 'jeremy.bloggs@gds.gov.uk', full_name: 'Jeremy Bloggs', password: 'password123', password_confirmation: 'password123', invitation_accepted_at: Date.today)
+user1 = User.create(
+  email: 'admin@gov.uk',
+  full_name: 'Admin',
+  password: 'password123',
+  password_confirmation: 'password123',
+  invitation_accepted_at: Date.today
+)
+user2 = User.create(
+  email: 'tony.worron@fco.gsi.gov.uk',
+  full_name: 'Tony Worron',
+  password: 'password123',
+  password_confirmation: 'password123',
+  invitation_accepted_at: Date.today,
+  invited_by: user1
+)
+user3 = User.create(
+  email: 'stephen.mcallister@communities.gsi.gov.uk',
+  full_name: 'Stephen McAllister',
+  password: 'password123',
+  password_confirmation: 'password123',
+  invitation_accepted_at: Date.today,
+  invited_by: user1
+)
+user4 = User.create(
+  email: 'jane.bloggs@gds.gov.uk',
+  full_name: 'Jane Bloggs',
+  password: 'password123',
+  password_confirmation: 'password123',
+  invitation_accepted_at: Date.today,
+  invited_by: user1
+)
+user5 = User.create(
+  email: 'joe.bloggs@gds.gov.uk',
+  full_name: 'Joe Bloggs',
+  password: 'password123',
+  password_confirmation: 'password123',
+  invitation_accepted_at: Date.today,
+  invited_by: user1
+)
+user6 = User.create(
+  email: 'jeremy.bloggs@gds.gov.uk',
+  full_name: 'Jeremy Bloggs',
+  password: 'password123',
+  password_confirmation: 'password123',
+  invitation_accepted_at: Date.today,
+  invited_by: user1
+)
 
-Team.create(registers:  ['country', 'territory'])
-Team.create(registers:  ['local-authority-eng', 'local-authority-type'])
+team1 = Team.create(registers:  ['country', 'territory'])
+team2 = Team.create(registers:  ['local-authority-eng', 'local-authority-type'])
 
-TeamMember.create(role: 'admin', user_id: 1)
-TeamMember.create(role: 'custodian', user_id: 2, team_id: 1)
-TeamMember.create(role: 'custodian', user_id: 3, team_id: 2)
-TeamMember.create(role: 'advanced', user_id: 4, team_id: 1)
-TeamMember.create(role: 'advanced', user_id: 4, team_id: 2)
-TeamMember.create(role: 'basic', user_id: 5, team_id: 1)
-TeamMember.create(role: 'basic', user_id: 5, team_id: 2)
-TeamMember.create(role: 'basic', user_id: 6, team_id: 2)
-TeamMember.create(role: 'basic', user_id: 2, team_id: 2)
+TeamMember.create(role: 'admin', user: user1)
+TeamMember.create(role: 'custodian', user: user2, team: team1)
+TeamMember.create(role: 'custodian', user: user3, team: team2)
+TeamMember.create(role: 'advanced', user: user4, team: team1)
+TeamMember.create(role: 'advanced', user: user4, team: team2)
+TeamMember.create(role: 'basic', user: user5, team: team1)
+TeamMember.create(role: 'basic', user: user5, team: team2)
+TeamMember.create(role: 'basic', user: user6, team: team2)
+TeamMember.create(role: 'basic', user: user2, team: team2)
 
 Change.create(
   register_name: 'country',
-  payload: JSON.parse('{"citizen-names":"Afghan","country":"AF","name":"Afghanistan","official-name":"The Islamic Republic of Afghanistan","start-date":"asd"}'),
-  user_id: 2
+  payload: JSON.parse('
+    {
+      "citizen-names":"Afghan",
+      "country":"AF",
+      "name":"Afghanistan",
+      "official-name":"The Islamic Republic of Afghanistan",
+      "start-date":"asd"
+    }
+  '),
+  user: user2
 )
