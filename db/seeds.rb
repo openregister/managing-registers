@@ -8,7 +8,8 @@ user1 = User.create(
   full_name: 'Admin',
   password: 'password123',
   password_confirmation: 'password123',
-  invitation_accepted_at: Date.today
+  invitation_accepted_at: Date.today,
+  admin: true
 )
 user2 = User.create(
   email: 'tony.worron@fco.gsi.gov.uk',
