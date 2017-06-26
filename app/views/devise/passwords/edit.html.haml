@@ -1,8 +1,8 @@
-= content_for :page_title, 'Change password'
+= content_for :page_title, 'Update password'
 
 = link_to "Back", new_user_session_path, class: "link-back"
 
-%h1.heading-xlarge Change your password
+%h1.heading-xlarge Update your password
 = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
   = devise_error_messages!
   = f.hidden_field :reset_password_token

@@ -1,10 +1,9 @@
-= content_for :page_title, 'Review changes'
+= content_for :page_title, 'Review updates'
 = link_to 'Back', "/#{params[:register]}", class: 'link-back'
 
 - if params[:approve] == 'yes'
   %header.page-header
-    .grid-row
-      %h1.heading-large Approve changes
+    %h1.heading-large Approve update
 
   = render partial: 'change/shared/difference'
 
@@ -12,7 +11,7 @@
     %i.icon.icon-important
       %span.visually-hidden
     %strong.bold-small
-      Once approved, these changes will be published.
+      Once approved, these updates will be published.
 
   = form_tag change_path, method: :put do
     .form-group
@@ -20,15 +19,14 @@
 
 - else
   %header.page-header
-    .grid-row
-      %h1.heading-large Decline changes
+    %h1.heading-large Decline updates
 
   = form_tag change_path, method: :delete do
     %div.form-group
-      %label{ for: 'text_area'} Add relevant information for why the changes haven't been accepted.
+      %label{ for: 'text_area'} Add details to explain your reasons
       = text_area_tag 'comments', nil, rows: 5, class: 'form-control form-control-3-4'
 
     %div.panel.panel-border-wide
-      %p #{ @change_user.full_name } will be informed
+      %p Comments will be emailed to #{@change_user.full_name}
 
-    = submit_tag 'Decline', class: 'button'
+    = submit_tag 'Submit', class: 'button'
