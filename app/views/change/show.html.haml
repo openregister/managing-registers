@@ -1,9 +1,8 @@
-= content_for :page_title, 'Review changes'
+= content_for :page_title, 'Review updates'
 = link_to 'Back', "/#{params[:register]}", class: 'link-back'
 
 %header.page-header
-  .grid-row
-    %h1.heading-large Review changes
+  %h1.heading-large Review updates
 
 %ul.list.column-one-half
   %li
@@ -18,16 +17,16 @@
 
 = render partial: 'change/shared/difference'
 
-%h5.heading-medium Do you want to approve these changes?
+%h5.heading-medium Do you want to approve these updates?
 
 = form_tag edit_change_path, method: :get do
   .form-group
     %fieldset
       .multiple-choice
         = radio_button_tag :approve, 'yes'
-        = label_tag 'Yes'
+        = label_tag 'Approve updates'
       .multiple-choice
         = radio_button_tag :approve, 'no'
-        = label_tag 'No'
+        = label_tag 'Decline updates'
   .form-group
     = submit_tag "Continue", class: "button"

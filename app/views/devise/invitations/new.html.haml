@@ -39,17 +39,17 @@
             .user__permissions
               %p.list-title Advanced can:
               %ul.list.list-bullet
-                %li Change records
-                %li Submit changes for review
-                %li Approve and publish changes to records
+                %li Update records
+                %li Submit updates for review
+                %li Approve and publish updates to records
             .multiple-choice
               = tm.radio_button :role, "basic"
               = tm.label :role, "Basic", value: "basic"
             .user__permissions
               %p.list-title Basic can:
               %ul.list.list-bullet
-                %li Change records
-                %li Submit changes for review
+                %li Update records
+                %li Submit updates for review
 
   .form-group
     = f.submit "Send invite", class: 'button'

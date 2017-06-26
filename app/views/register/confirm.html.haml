@@ -27,7 +27,7 @@
               %td
                 %div.panel.panel-change-notification #{params[field.to_sym]}
               %td
-                = link_to 'Change', {action: 'edit', id: params[params[:register].to_sym], anchor: field, params: params}
+                = link_to 'Update', {action: 'edit', id: params[params[:register].to_sym], anchor: field, params: params}
             - else
               %td
               %td
@@ -41,9 +41,9 @@
   %i.icon.icon-important
     %span.visually-hidden Warning
   %strong.bold-small
-    All changes will be published to the Country register
+    All updates will be published to the Country register
 
 = button_to 'Submit', { action: 'create', params: params, data_confirmed: true }, {class: 'button'}
 
 - if @current_register_record.nil?
-  = link_to 'Go back and change the details', {action: 'new', params: params}, class: 'link-back'
+  = link_to 'Go back and update the details', {action: 'new', params: params}, class: 'link-back'
