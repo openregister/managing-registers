@@ -52,7 +52,12 @@ class RegisterController < ApplicationController
     @change = Change.new(register_name: params[:register], payload: payload, user_id: current_user.id)
     @change.save
 
-    RegisterUpdatesMailer.register_update_notification(@change, current_user).deliver_now
+    @change_approvers = current_user.team_members.first.team.users.where.not('team_members.role' => 'basic').reject{ |u| u == current_user }
+
+    unless @change_approvers.empty?
+      RegisterUpdatesMailer.register_update_notification(@change, current_user, @change_approvers).deliver_now
+    end
+
     RegisterUpdatesMailer.register_update_receipt(@change, current_user).deliver_now
 
     flash[:notice] = 'Your update has been submitted, you\'ll recieve a confirmation email once the change is live'

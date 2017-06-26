@@ -1,5 +1,5 @@
 class RegisterUpdatesMailer < GovukNotifyRails::Mailer
-  def register_update_notification(change, user)
+  def register_update_notification(change, user, change_approvers)
     set_template('cd3c0bbc-9dca-4a93-927b-55bca56943a8')
 
     set_personalisation(
@@ -9,11 +9,7 @@ class RegisterUpdatesMailer < GovukNotifyRails::Mailer
       request_date: Date.today
     )
 
-    @approvers = user.team_members.first.team.users.where.not('team_members.role' => 'basic').reject{ |u| u == user }.map(&:email)
-
-    binding.pry
-
-    mail(to: @approvers)
+    mail(to: change_approvers)
   end
 
   def register_update_receipt(change, user)
