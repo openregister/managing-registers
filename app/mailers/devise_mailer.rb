@@ -24,28 +24,26 @@ class DeviseMailer < Devise::Mailer
   end
 
   def invitation_instructions(record, token, opts={})
-    case record.team_members.last.role
-
-    when 'admin'
+    if record.admin?
       set_template(Rails.application.secrets.notify_admin_invite_template)
       set_personalisation(
         current_user_full_name: User.find(record.invited_by_id).full_name,
         invite_url: accept_invitation_url(record, invitation_token: token)
       )
+    else
+      if record.team_members.last.role == 'custodian'
+        set_template(Rails.application.secrets.notify_custodian_invite_template)
+        set_standard_personalisations(record, token)
 
-    when 'custodian'
-      set_template(Rails.application.secrets.notify_custodian_invite_template)
-      set_standard_personalisations(record, token)
+      elsif record.team_members.last.role == 'advanced'
+        set_template(Rails.application.secrets.notify_advanced_invite_template)
+        set_standard_personalisations(record, token)
 
-    when 'advanced'
-      set_template(Rails.application.secrets.notify_advanced_invite_template)
-      set_standard_personalisations(record, token)
-
-    when 'basic'
-      set_template(Rails.application.secrets.notify_basic_invite_template)
-      set_standard_personalisations(record, token)
+      elsif record.team_members.last.role == 'basic'
+        set_template(Rails.application.secrets.notify_basic_invite_template)
+        set_standard_personalisations(record, token)
+      end
     end
-
     mail(to: record.email)
   end
 

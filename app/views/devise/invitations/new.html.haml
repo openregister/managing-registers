@@ -9,44 +9,47 @@
       %div.column-full
         = f.text_field field
 
-  - if current_user.admin?
-    .form-group
-      = f.hidden_field :role, value: params[:role]
-      - if params[:role] == 'custodian'
-        = f.label :registers, class: "form-label"
-        = f.nested_fields_for :teams, f.object.teams.new do |team|
-          %div.grid-row.form-group
-            %div.column-one-half
-              = team.select :registers, beta_registers_by_name.collect{ |r| [prepare_register_name(r), r]}, {include_blank: "", multiple: true }, { class: "form-control autocomplete" }
-            %div.column-one-half
-              = team.remove_nested_fields_link 'Remove register'
-
-        = f.add_nested_fields_link :teams, 'Add register'
-
+  - if params[:role] == 'admin'
+    = f.hidden_field :admin, value: true
   - else
-    =f.fields_for :team_members, TeamMember.new do |tm|
-      =tm.hidden_field :team_id, value: params[:team_id]
-      %h3.heading-small= t('views.users.permission_title')
+    - if current_user.admin?
       .form-group
-        %fieldset
-          %legend.visually-hidden= t('views.users.role')
-          .multiple-choice
-            = tm.radio_button :role, "advanced"
-            = tm.label :role, "Advanced", value: "advanced"
-          .user__permissions
-            %p.list-title Advanced can:
-            %ul.list.list-bullet
-              %li Change records
-              %li Submit changes for review
-              %li Approve and publish changes to records
-          .multiple-choice
-            = tm.radio_button :role, "basic"
-            = tm.label :role, "Basic", value: "basic"
-          .user__permissions
-            %p.list-title Basic can:
-            %ul.list.list-bullet
-              %li Change records
-              %li Submit changes for review
+        = f.hidden_field :role, value: params[:role]
+        - if params[:role] == 'custodian'
+          = f.label :registers, class: "form-label"
+          = f.nested_fields_for :teams, f.object.teams.new do |team|
+            %div.grid-row.form-group
+              %div.column-one-half
+                = team.select :registers, beta_registers_by_name.collect{ |r| [prepare_register_name(r), r]}, {include_blank: "", multiple: true }, { class: "form-control autocomplete" }
+              %div.column-one-half
+                = team.remove_nested_fields_link 'Remove register'
+
+          = f.add_nested_fields_link :teams, 'Add register'
+
+    - else
+      = f.fields_for :team_members, TeamMember.new do |tm|
+        = tm.hidden_field :team_id, value: params[:team_id]
+        %h3.heading-small= t('views.users.permission_title')
+        .form-group
+          %fieldset
+            %legend.visually-hidden= t('views.users.role')
+            .multiple-choice
+              = tm.radio_button :role, "advanced"
+              = tm.label :role, "Advanced", value: "advanced"
+            .user__permissions
+              %p.list-title Advanced can:
+              %ul.list.list-bullet
+                %li Change records
+                %li Submit changes for review
+                %li Approve and publish changes to records
+            .multiple-choice
+              = tm.radio_button :role, "basic"
+              = tm.label :role, "Basic", value: "basic"
+            .user__permissions
+              %p.list-title Basic can:
+              %ul.list.list-bullet
+                %li Change records
+                %li Submit changes for review
 
   .form-group
     = f.submit "Send invite", class: 'button'

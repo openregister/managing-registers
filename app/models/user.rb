@@ -13,23 +13,19 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 8 }
 
   def role
-    team_members.first.role
-  end
-
-  def admin?
-    team_members.first.role == 'admin'
+    team_members.first.try(:role)
   end
 
   def custodian?
-    team_members.first.role == 'custodian'
+    team_members.first.try(:role) == 'custodian'
   end
 
   def advanced?
-    team_members.first.role == 'advanced'
+    team_members.first.try(:role) == 'advanced'
   end
 
   def basic?
-    team_members.first.role == 'basic'
+    team_members.first.try(:role) == 'basic'
   end
 
 end
