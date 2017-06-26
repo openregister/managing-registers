@@ -173,3 +173,33 @@ table {
     line-height: 1.25;
   }
 }
+
+.banner-dangerous {
+  @include bold-19;
+  background: $white;
+  color: $error-colour;
+  border: 5px solid $error-colour;
+  margin: 15px 0;
+  padding: 15px;
+  text-align: left;
+
+  &:focus {
+    outline: 3px solid $yellow;
+  }
+
+  .button {
+    @include button($error-colour);
+    margin-top: 10px;
+  }
+
+  a {
+    &:link,
+    &:visited {
+      color: $error-colour;
+    }
+
+    &:hover {
+      color: $mellow-red;
+    }
+  }
+}
