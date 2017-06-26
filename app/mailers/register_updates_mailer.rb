@@ -9,7 +9,9 @@ class RegisterUpdatesMailer < GovukNotifyRails::Mailer
       request_date: Date.today
     )
 
-    @approvers = user.team_members.first.team.users.where('team_members.role' => 'advanced' || 'custodian').reject{ |u| u == user }.map(&:email)
+    @approvers = user.team_members.first.team.users.where.not('team_members.role' => 'basic').reject{ |u| u == user }.map(&:email)
+
+    binding.pry
 
     mail(to: @approvers)
   end
