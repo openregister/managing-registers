@@ -1,3 +1,4 @@
-.banner-dangerous
-  Are you sure you want to remove #{object.class}?
+.destroy-confirmation{tabindex: '-1', role: 'group'}
+  %p.destroy-confirmation__message Are you sure you want to remove #{object.class}?
   = button_to 'Yes, remove', object, method: :delete, class: 'button'
+  = link_to 'Cancel', return_path
