@@ -20,7 +20,7 @@
           = f.nested_fields_for :teams, f.object.teams.new do |team|
             %div.grid-row.form-group
               %div.column-one-half
-                = team.select :registers, beta_registers_by_name.collect{ |r| [prepare_register_name(r), r]}, {include_blank: "", multiple: true }, { class: "form-control autocomplete" }
+                = team.select :registers, beta_registers_by_name.collect{ |r| [prepare_register_name(r), r]}.reject {|register|  Register.all.collect{|stored_register| stored_register.key unless stored_register.team_id.nil?}.include? register[1]}, {include_blank: "", multiple: true }, { class: "form-control autocomplete" }
               %div.column-one-half
                 = team.remove_nested_fields_link 'Remove register'
 
@@ -53,22 +53,3 @@
 
   .form-group
     = f.submit "Send invite", class: 'button'
-
-:javascript
-  window.onload = function () {
-
-    $('.autocomplete').each(function() {
-      accessibleAutocomplete.enhanceSelectElement({
-        defaultValue: '',
-        selectElement: document.querySelector('#' + this.id)
-      })
-    })
-
-    $(document).on("fields_added.nested_form_fields", function(event) {
-      accessibleAutocomplete.enhanceSelectElement({
-        defaultValue: '',
-        selectElement: document.querySelector('#' + jQuery(event.target).find("select")[0].id)
-      })
-    })
-
-  }

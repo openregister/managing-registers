@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   resources :change, except: [:new, :create, :index]
   resources :team_members, only: :update
 
-  resources :teams, only: [:index, :show] do
-    resources :team_members
+  resources :teams, only: [:index, :show, :edit, :update] do
+    resources :team_members, only: :edit
   end
 
   get '/admin', to: 'users#admin', as: 'admin'

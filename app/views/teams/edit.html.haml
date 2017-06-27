@@ -1,0 +1,15 @@
+%h1.heading-large= t('views.teams.edit.page_title')
+
+= form_for @team do |team|
+  .form-group
+    %span= t('views.teams.edit.registers.field_title')
+    = team.nested_fields_for :registers do |register|
+      %div.grid-row.form-group
+        %div.column-one-half
+          = register.select :key, beta_registers_by_name.collect{ |r| [prepare_register_name(r), r]}, {include_blank: "", multiple: true }, { class: "form-control autocomplete" }
+        %div.column-one-half
+          = register.remove_nested_fields_link t('views.teams.edit.registers.remove')
+
+    = team.add_nested_fields_link :registers, t('views.teams.edit.registers.add')
+  .form-group
+  = submit_tag t('views.teams.edit.registers.submit'), class: 'button'
