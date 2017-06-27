@@ -54,7 +54,7 @@ class RegisterController < ApplicationController
 
     @change_approvers = current_user.team_members.first.team.users.where.not('team_members.role' => 'basic').reject{ |u| u == current_user }
 
-    unless @change_approvers.empty?
+    if @change_approvers.present?
       RegisterUpdatesMailer.register_update_notification(@change, current_user, @change_approvers).deliver_now
     end
 
