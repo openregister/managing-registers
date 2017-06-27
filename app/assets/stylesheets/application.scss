@@ -175,32 +175,31 @@ table {
   }
 }
 
-.banner-dangerous {
-  @include bold-19;
-  background: $white;
-  color: $error-colour;
-  border: 5px solid $error-colour;
-  margin: 15px 0;
-  padding: 15px;
-  text-align: left;
+.destroy-confirmation {
+  @extend .error-summary;
+  margin: 0;
+  overflow: hidden;
 
   &:focus {
     outline: 3px solid $yellow;
   }
 
+  &__message {
+    color: $error-colour;
+    font-weight: 700;
+    margin-top: 0;
+  }
+
+  .button_to {
+    float: left;
+  }
+
   .button {
     @include button($error-colour);
-    margin-top: 10px;
   }
 
   a {
-    &:link,
-    &:visited {
-      color: $error-colour;
-    }
-
-    &:hover {
-      color: $mellow-red;
-    }
+    display: inline-block;
+    margin: 7px 20px;
   }
 }
