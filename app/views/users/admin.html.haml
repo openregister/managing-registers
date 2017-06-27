@@ -7,6 +7,11 @@
     .column-one-third
       = link_to t('views.users.admin.invite'), new_user_invitation_path(role: 'admin'), class: "button align-with-heading"
 
+- if params[:delete_user]
+  .grid-row
+    .column-two-thirds
+      = render partial: "layouts/destroy", locals: { object: User.find(params[:delete_user]), return_path: admin_path }
+
 %h3.heading-medium Team members
 .user__permissions
   %p.list-title All Admin team members can:
@@ -32,7 +37,7 @@
             = user.full_name
             %span.user__email= user.email
         %td
-          = link_to "Remove team member", user_path(user), data: { confirm: 'Are you sure?' }, method: :delete unless user == current_user
+          = link_to "Remove team member", admin_path(delete_user: user) unless user == current_user
 
 %h3.heading-medium Pending invites
 %table

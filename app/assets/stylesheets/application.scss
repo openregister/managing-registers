@@ -174,3 +174,32 @@ table {
     line-height: 1.25;
   }
 }
+
+.destroy-confirmation {
+  @extend .error-summary;
+  margin: 0;
+  overflow: hidden;
+
+  &:focus {
+    outline: 3px solid $yellow;
+  }
+
+  &__message {
+    color: $error-colour;
+    font-weight: 700;
+    margin-top: 0;
+  }
+
+  .button_to {
+    float: left;
+  }
+
+  .button {
+    @include button($error-colour);
+  }
+
+  a {
+    display: inline-block;
+    margin: 7px 20px;
+  }
+}
