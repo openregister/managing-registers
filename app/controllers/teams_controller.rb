@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
 
   include ElevatedPermissionsHelper
+  before_action :set_team, only: [:show, :edit, :update]
 
   def index; end
 
@@ -20,9 +21,25 @@ class TeamsController < ApplicationController
     @pending_team_members = TeamMember.joins(:user)
                                       .where(team_id: team_id)
                                       .where(users: {invitation_accepted_at: nil})
+  end
 
+  def edit; end
 
-    @team = Team.find(team_id)
+  def update
+    updated_registers = params[:team][:registers_attributes]
+                            .reject{ |index, register| register[:_destroy] }
+                            .collect{ |index, register| register[:key] }
+
+    @team.update_registers(updated_registers).save
+
+    flash[:notice] = 'Registers updated successfully'
+    redirect_to team_path
+  end
+
+  private
+
+  def set_team
+    @team = Team.find(params[:id])
   end
 
 end

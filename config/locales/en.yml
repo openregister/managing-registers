@@ -17,11 +17,19 @@ en:
         page_title: Manage team
       new:
         page_title: Invite team member
+      edit:
+        page_title: Change registers
+        registers:
+          field_title: Registers managed by this team
+          remove: Remove register
+          add: Add another register
+          submit: Change
     roles:
       title: Role
       change_team_member: Change team member
       change_custodian: Change custodian
-      change_role: change
+      change_role: Change
+      change_registers: Change registers
       heading: Select permission
   helpers:
     hint:

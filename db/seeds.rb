@@ -1,4 +1,5 @@
 Change.destroy_all
+Register.destroy_all
 TeamMember.destroy_all
 Team.destroy_all
 User.destroy_all
@@ -52,8 +53,8 @@ user6 = User.create(
   invited_by: user1
 )
 
-team1 = Team.create(registers:  ['country', 'territory'])
-team2 = Team.create(registers:  ['local-authority-eng', 'local-authority-type'])
+team1 = Team.create
+team2 = Team.create
 
 TeamMember.create(role: 'admin', user: user1)
 TeamMember.create(role: 'custodian', user: user2, team: team1)
@@ -64,6 +65,11 @@ TeamMember.create(role: 'basic', user: user5, team: team1)
 TeamMember.create(role: 'basic', user: user5, team: team2)
 TeamMember.create(role: 'basic', user: user6, team: team2)
 TeamMember.create(role: 'basic', user: user2, team: team2)
+
+Register.create(key: 'country', team: team1)
+Register.create(key: 'territory', team: team1)
+Register.create(key: 'local-authority-eng', team: team2)
+Register.create(key: 'local-authority-type', team: team2)
 
 Change.create(
   register_name: 'country',
