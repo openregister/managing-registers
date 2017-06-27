@@ -24,6 +24,15 @@ ActiveRecord::Schema.define(version: 20170622164850) do
     t.index ["user_id"], name: "index_changes_on_user_id", using: :btree
   end
 
+  create_table "registers", force: :cascade do |t|
+    t.string   "key",        null: false
+    t.integer  "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_registers_on_key", unique: true, using: :btree
+    t.index ["team_id"], name: "index_registers_on_team_id", using: :btree
+  end
+
   create_table "statuses", force: :cascade do |t|
     t.string  "status"
     t.string  "comment"
@@ -44,9 +53,8 @@ ActiveRecord::Schema.define(version: 20170622164850) do
   end
 
   create_table "teams", force: :cascade do |t|
-    t.string   "registers",  default: [],              array: true
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -81,6 +89,7 @@ ActiveRecord::Schema.define(version: 20170622164850) do
   end
 
   add_foreign_key "changes", "users"
+  add_foreign_key "registers", "teams"
   add_foreign_key "statuses", "changes"
   add_foreign_key "statuses", "users", column: "reviewed_by_id"
   add_foreign_key "team_members", "teams"

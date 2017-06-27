@@ -24,6 +24,6 @@
           %td= custodian.email
           %td
             - custodian.team_members.first.team.registers.each do |register|
-              %span.user__register-name= register
+              %span.user__register-name= prepare_register_name(register.key)
           %td
             = link_to 'View team', team_path(custodian.team_members.where(role: 'custodian').last.team_id)

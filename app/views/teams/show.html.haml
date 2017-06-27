@@ -11,7 +11,9 @@
   %h3.heading-medium Registers managed by this team
   %ul.list.list-bullet
     - @team.registers.each do |register|
-      %li= prepare_register_name(register)
+      %li= prepare_register_name(register.key)
+
+  = link_to t('views.roles.change_registers'), edit_team_path(params[:id]) if current_user.admin?
 
 %div#custodian
   %h3.heading-medium Custodian

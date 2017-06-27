@@ -64,19 +64,14 @@ class UsersController::InvitationsController < Devise::InvitationsController
     unless user.admin?
       if current_user.admin?
         if params[:user][:role] == 'custodian'
-          registers = Array.new
 
-          loop.with_index{|_, i|
-            register_name = resource_params[:teams_attributes][i.to_s][:registers]
+          registers = resource_params[:teams_attributes].collect do |index, field|
+            field['registers'].strip unless field['registers'].nil?
+          end
 
-            unless register_name.nil?
-              registers.push(register_name)
-            end
-            break if resource_params[:teams_attributes][(i + 1).to_s].nil?
-          }
+          registers = registers.uniq{|register| register.key}
+          team = Team.new.update_registers(registers)
 
-          registers = registers.uniq
-          team = Team.new(registers: registers)
           user.team_members.create(role: params[:user][:role], team: team).save
         else
           user.team_members.create(role: params[:user][:role]).save
