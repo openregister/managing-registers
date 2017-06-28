@@ -52,7 +52,7 @@ class RegisterController < ApplicationController
     @change = Change.new(register_name: params[:register], payload: payload, user_id: current_user.id)
     @change.save
 
-    @change_approvers = current_user.team_members.first.team.users.where.not('team_members.role' => 'basic').reject{ |u| u == current_user }
+    @change_approvers = Register.find_by(key: params[:register]).team.team_members.where.not(role: 'basic', user_id: current_user)
 
     if @change_approvers.present?
       RegisterUpdatesMailer.register_update_notification(@change, current_user, @change_approvers).deliver_now
