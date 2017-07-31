@@ -121,3 +121,6 @@ build-iPhoneSimulator/
 # .ruby-gemset
 
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
+
+#travis builds a vendor folder which we dont want ignored when sending to cloud foundry
+vendor
