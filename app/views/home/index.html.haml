@@ -2,19 +2,13 @@
 
 %h1.heading-large Registers
 
-- if current_user.admin?
-  %ul.browse-list
+%ul.browse-list
+  - if current_user.admin?
     - @registers.each do |register|
       %li.browse-list-item
         = link_to prepare_register_name(register.key), register.key, class: 'browse-list-link'
-- else
-  - current_user.teams.each do |team|
-    %h5.heading-small.heading-light
-      - if team.custodian == current_user
-        Your Team
-      - else
-        #{team.custodian.full_name}'s Team
-    %ul.browse-list
+  - else
+    - current_user.teams.each do |team|
       - team.registers.each do |register|
         %li.browse-list-item
           = link_to prepare_register_name(register.key), register.key, class: 'browse-list-link'
