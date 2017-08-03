@@ -1,25 +1,35 @@
-%table
+%table.change-table
   %thead
     %tr
-      %th Fields
-      - if @current_register_record.nil?
-        %th Values
-      - else
-        %th Current values
-        %th New Values
+      %th Field
+      %th Current value
+      %th New value
   %tbody
     - @register.fields.each do |field|
       %tr
-        %td #{field}
+        %td
+          = field
         - if !@current_register_record.nil?
-          %td #{@current_register_record[field]}
+          %td
+            - if @current_register_record[field].present?
+              = @current_register_record[field]
+            - elsif @new_register_record[field]
+              %span.no-data-found No previous data
           - if !(@current_register_record[field] == nil && @new_register_record[field] == '')
             - if @current_register_record[field] != @new_register_record[field]
               %td
-                %div.panel.panel-change-notification #{@new_register_record[field]}
+                %span.panel.panel-change-notification
+                  = @new_register_record[field]
             - else
               %td
           - else
             %td
+              %span.no-data-found No original data
         - else
-          %td{style:"text-align:left"} #{@new_register_record[field]}
+          %td
+            - if @new_register_record[field].present?
+              %span.no-data-found No original data
+          %td
+            - if @new_register_record[field].present?
+              %span.panel.panel-change-notification
+                = @new_register_record[field]

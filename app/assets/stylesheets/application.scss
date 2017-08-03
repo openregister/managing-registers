@@ -8,6 +8,7 @@
 table td,
 table th {
   font-size: 16px;
+  padding: 15px 40px 15px 0;
 }
 
 strong {
@@ -66,14 +67,23 @@ table {
   }
 }
 
+.change-table td:last-of-type {
+  text-align: left;
+}
+
 .panel-change-notification {
   background-color: rgba($yellow-50, 0.5);
   border-color: $yellow-50;
   border-width: 5px;
   display: inline-block;
-  margin: 0 20px 0 0;
+  margin: -7px 20px -7px 0;
+  padding: 7px;
   text-align: left;
   width: 100%;
+}
+
+.no-data-found {
+  color: $grey-2;
 }
 
 .notice {
