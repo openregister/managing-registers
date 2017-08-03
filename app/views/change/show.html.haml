@@ -4,16 +4,13 @@
 %header.page-header
   %h1.heading-large Review updates
 
-%ul.list.column-one-half
-  %li
-    %div.column-one-half Submitted by:
-    %div.column-one-half #{@change.user.full_name}
-  %li
-    %div.column-one-half Date:
-    %div.column-one-half #{@change.user.updated_at.strftime('%d %B %Y')}
-  %li
-    %div.column-one-half Time:
-    %div.column-one-half #{@change.user.updated_at.strftime('%I.%M %p')}
+%dl
+  %dt Submitted by:
+  %dd #{@change.user.full_name}
+  %dt Date:
+  %dd #{@change.user.updated_at.strftime('%d %B %Y')}
+  %dt Time:
+  %dd #{@change.user.updated_at.strftime('%I.%M %p')}
 
 = render partial: 'change/shared/difference'
 
@@ -22,6 +19,7 @@
 = form_tag edit_change_path, method: :get do
   .form-group
     %fieldset
+      %legend.visually-hidden Do you want to approve these updates?
       .multiple-choice
         = radio_button_tag :approve, 'yes'
         = label_tag 'Approve updates'
