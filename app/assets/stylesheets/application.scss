@@ -15,6 +15,29 @@ strong {
   font-weight: 700;
 }
 
+dl {
+  margin-bottom: 20px;
+  overflow: hidden;
+
+  dt {
+    clear: left;
+    float: left;
+    max-width: 150px;
+    padding-bottom: 0.5rem;
+    padding-right: 1%;
+    width: 20%;
+  }
+
+  dd {
+    float: left;
+    margin: 0;
+    max-width: 480px;
+    padding-bottom: 0.5rem;
+    width: 78%;
+
+  }
+}
+
 // Hide legend in fieldsets in favour of headings
 .form-group fieldset legend {
   display: none;
