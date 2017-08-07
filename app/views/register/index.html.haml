@@ -7,58 +7,44 @@
     .column-one-third
       = link_to "Add a new #{prepare_register_name(params[:register])}", "#{params[:register]}/new", class: "button align-with-heading"
 
-- if !current_user.basic?
-  %h2.heading-medium Updates to review
+- if current_user.basic?
+  = render partial: 'register/shared/records'
+- else
+  .tabs-container
+    .js-tabs.nav-tabs
+      %ul
+        %li
+          = link_to 'Records', '#records'
+        %li
+          = link_to '#updates' do
+            Updates to review
+            - if @changes.present?
+              %span.change-count= @changes.count
+    .js-tab-content.tab-content
+      #records.js-tab-pane.tab-pane
+        = render partial: 'register/shared/records'
+      #updates.js-tab-pane.tab-pane
+        - if @changes.present?
+          %table
+            %thead
+              %tr
+                %th #{params[:register].capitalize}
+                - if @register[0].try(:name)
+                  %th Name
+                %th
 
-  - if @changes.length == 0
-    %table
-      %thead
-        %tr
-          %td.text-secondary{style:'text-align:left'} There are no updates for approval
-  -else
-    %table
-      %thead
-        %tr
-          %th #{params[:register].capitalize}
-          - if @register[0].try(:name)
-            %th Name
-          %th
-
-      %tbody
-        - @changes.each do |change|
-          %tr
-            %td= change.payload[params[:register].to_s]
-            %td= change.payload['name']
-            %td= link_to 'Review', "/change/#{change.id}"
-
-
-
-%h3{class: "heading-medium"}  #{prepare_register_name(params[:register].pluralize)} on this register
-.js-filter-list
-  %form{class: "js-filter-form"}
-    %fieldset
-      .form-group
-        %label{class: "form-label", for: "search"} Search for a #{prepare_register_name(params[:register])}
-        %input{name: "search", id: "search", class: "form-control"}
-
-%table
-  %thead
-    %tr
-      %th #{params[:register].capitalize}
-      - if @register[0].try(:name)
-        %th Name
-      %th
-
-  %tbody{class: "js-filter-block"}
-    - @register.each do |register|
-      %tr{class: "js-filter-item", "data-filter-terms" => "#{register.try(:name)} #{register.key}"}
-        %td= register.key
-        - if register.try(:name)
-          %td= register.name
-        %td{style:"text-align:right"}= link_to 'Update', "#{params[:register]}/#{register.key}/edit"
+            %tbody
+              - @changes.each do |change|
+                %tr
+                  %td= change.payload[params[:register].to_s]
+                  %td= change.payload['name']
+                  %td= link_to 'Review', "/change/#{change.id}"
+        - else
+          %p There are no updates for approval
 
 = content_for :javascript do
   :javascript
     jQuery(function($) {
       GOVUK.filterListItems.init();
+      $('.tabs-container').tabs();
     });

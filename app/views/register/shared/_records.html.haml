@@ -1,0 +1,22 @@
+.js-filter-list
+  %form{class: "js-filter-form"}
+    %fieldset
+      .form-group
+        %label{class: "form-label", for: "search"} Search for a record
+        %input{name: "search", id: "search", class: "form-control"}
+
+%table
+  %thead
+    %tr
+      %th #{params[:register].capitalize}
+      - if @register[0].try(:name)
+        %th Name
+      %th
+
+  %tbody{class: "js-filter-block"}
+    - @register.each do |register|
+      %tr{class: "js-filter-item", "data-filter-terms" => "#{register.try(:name)} #{register.key}"}
+        %td= register.key
+        - if register.try(:name)
+          %td= register.name
+        %td{style:"text-align:right"}= link_to 'Update', "#{params[:register]}/#{register.key}/edit"
