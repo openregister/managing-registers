@@ -3,6 +3,7 @@
 @import "header-tweaks";
 @import "service-nav";
 @import "accessible-autocomplete.min";
+@import "tabs";
 
 // Override table font size
 table td,
@@ -235,4 +236,15 @@ table {
     display: inline-block;
     margin: 7px 20px;
   }
+}
+
+.change-count {
+  background-color: $govuk-blue;
+  color: $white;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1;
+  padding: 4px 8px 2px 8px;
+  margin-left: 10px;
+  vertical-align: middle;
 }
