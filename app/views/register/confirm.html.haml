@@ -1,3 +1,4 @@
+= content_for :page_title, "Confirm new record"
 
 - if @current_register_record.nil?
   %h1.heading-large Check the details of your new #{prepare_register_name(params[:register]).downcase}
@@ -9,19 +10,19 @@
   %thead
     %tr
       %th Fields
-      - if @current_register_record.nil?
-        %th Values
-      - else
-        %th Current values
-        %th New Values
-        %th
+      %th Current Values
+      %th New Values
+      %th
 
   %tbody
     - @register.fields.each do |field|
       %tr
         %td #{field}
         - if !@current_register_record.nil?
-          %td #{@current_register_record[field]}
+          %td
+            = @current_register_record[field]
+            - if params[field].present? && params[field] != @current_register_record[field]
+              %span.no-data-found No original data
           - if !(@current_register_record[field] == nil && params[field.to_sym] == '')
             - if @current_register_record[field] != params[field.to_sym]
               %td
@@ -35,7 +36,16 @@
             %td
             %td
         - else
-          %td #{params[field.to_sym]}
+          - if params[field].present?
+            %td
+              %span.no-data-found No original data
+            %td
+              %span.panel.panel-change-notification= params[field.to_sym]
+            %td= link_to 'Update', {action: 'new', params: params}
+          - else
+            %td
+            %td
+            %td
 
 .notice
   %i.icon.icon-important
@@ -44,6 +54,3 @@
     All updates will be published to the Country register
 
 = button_to 'Submit', { action: 'create', params: params, data_confirmed: true }, {class: 'button'}
-
-- if @current_register_record.nil?
-  = link_to 'Go back and update the details', {action: 'new', params: params}, class: 'link-back'
