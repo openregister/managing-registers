@@ -33,19 +33,19 @@
       %nav.service-navigation
         %ul.service-navigation__nav
           %li{class: "service-navigation__nav-item #{'active' if current_page?(root_path)}"}
-            = link_to "Registers", root_path, class: 'service-navigation__link'
+            = link_to "Manage Registers", root_path, class: 'service-navigation__link'
           - unless current_user.admin?
             - if current_user.teams.count == 1
               %li{class: "service-navigation__nav-item #{'active' if current_page?(team_path(current_user.teams.first.id))}"}
-                = link_to "Team", team_path(current_user.teams.first.id), class: 'service-navigation__link'
+                = link_to "Manage Team", team_path(current_user.teams.first.id), class: 'service-navigation__link'
             - else
               %li{class: "service-navigation__nav-item #{'active' if current_page?(teams_path)}"}
-                = link_to "Teams", teams_path, class: 'service-navigation__link'
+                = link_to "Manage Teams", teams_path, class: 'service-navigation__link'
           - if current_user.admin?
             %li{class: "service-navigation__nav-item #{'active' if current_page?(custodians_path)}"}
               = link_to "Custodians", custodians_path, class: 'service-navigation__link'
             %li{class: "service-navigation__nav-item #{'active' if current_page?(admin_path)}"}
-              = link_to "Admin team", admin_path, class: 'service-navigation__link'
+              = link_to "Manage Admin Team", admin_path, class: 'service-navigation__link'
     - if alert
       .grid-row
         .column-two-thirds
