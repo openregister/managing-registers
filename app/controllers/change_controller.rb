@@ -15,7 +15,6 @@ class ChangeController < ApplicationController
   end
 
   def edit
-    puts "hello"
     if params[:approve] == 'yes'
       @change = Change.find(params['id'])
       @register = get_register(@change.register_name)
@@ -48,25 +47,30 @@ class ChangeController < ApplicationController
   end
 
   def update
-    change = Change.find(params['id'])
+    if params[:confirm_approve] == '1'
+      @change = Change.find(params['id'])
 
-    rsf_body = create_rsf(change.payload, change.register_name)
+      rsf_body = create_rsf(@change.payload, @change.register_name)
 
-    Rails.env.development? || Rails.env.staging? || response = post_to_register(params[:register], rsf_body)
+      Rails.env.development? || Rails.env.staging? || response = post_to_register(params[:register], rsf_body)
 
-    if Rails.env.development? || Rails.env.staging? || response.code == '200'
-      status = Status.new(status: 'approved', reviewed_by_id: current_user.id)
-      change.status = status
-      change.save
+      if Rails.env.development? || Rails.env.staging? || response.code == '200'
+        status = Status.new(status: 'approved', reviewed_by_id: current_user.id)
+        @change.status = status
+        @change.save
 
-      flash[:notice] = 'The record has been published.'
+        flash[:notice] = 'The record has been published.'
+      else
+        flash[:notice] = 'We had an issue updating the register, try again.'
+      end
+
+      RegisterUpdatesMailer.register_update_approved(@change, current_user).deliver_now
+
+      redirect_to controller: 'register', action: 'index', register: Change.find(params['id']).register_name
     else
-      flash[:notice] = 'We had an issue updating the register, try again.'
+      flash[:notice] = 'Please confirm that you wish to approve this update'
+      redirect_to :back
     end
-
-    RegisterUpdatesMailer.register_update_approved(change, current_user).deliver_now
-
-    redirect_to controller: 'register', action: 'index', register: Change.find(params['id']).register_name
   end
 
   def post_to_register(register_name, rsf_body)
