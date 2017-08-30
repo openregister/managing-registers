@@ -7,13 +7,10 @@
 
   = render partial: 'change/shared/difference'
 
-  %div.notice
-    %i.icon.icon-important
-      %span.visually-hidden
-    %strong.bold-small
-      Once approved, these updates will be published.
-
   = form_tag change_path, method: :put do
+    .multiple-choice
+      = check_box_tag 'confirm_approve'
+      = label_tag 'confirm_approve', "These changes will be published on the live #{params[:register]} register."
     .form-group
       = submit_tag 'Approve', class: 'button'
 
