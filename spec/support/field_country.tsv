@@ -1,0 +1,2 @@
+index-entry-number	entry-number	entry-timestamp	key	field	datatype	phase	register	cardinality	text
+24	24	2017-01-10T17:16:07Z	country	country	string	beta	country	1	The country's 2-letter ISO 3166-2 alpha2 code.

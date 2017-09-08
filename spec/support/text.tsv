@@ -1,0 +1,2 @@
+index-entry-number	entry-number	entry-timestamp	key	field	datatype	phase	register	cardinality	text
+38	38	2017-01-10T17:16:07Z	text	text	text	beta		1	Notes and other additional information about a record in a register.

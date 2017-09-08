@@ -1,8 +1,41 @@
-describe "managing registers", :type => :feature do
+require 'rails_helper'
+
+RSpec.feature "Publish Record", type: :feature do
+
+  def stub(url, file_path)
+    host = URI.parse(url).host
+    stub_request(:get, url)
+      .with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>host})
+      .to_return(status: 200, body: File.open(file_path) { |f| f.read }, headers: {})
+  end
+
+  before do
+
+    stub_request(:get, 'https://country.beta.openregister.org/record/zz.tsv')
+      .with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip, deflate', 'Host'=>'country.beta.openregister.org',})
+      .to_return(status: 404, headers: {})
+
+    stub('https://register.beta.openregister.org/record/register.tsv', './spec/support/register_register.tsv')
+    stub('https://field.beta.openregister.org/record/register.tsv', './spec/support/field_register.tsv')
+    stub('https://field.beta.openregister.org/record/text.tsv', './spec/support/text.tsv')
+    stub('https://field.beta.openregister.org/record/phase.tsv', './spec/support/phase.tsv')
+    stub('https://field.beta.openregister.org/record/registry.tsv', './spec/support/registry.tsv')
+    stub('https://field.beta.openregister.org/record/copyright.tsv', './spec/support/copyright.tsv')
+    stub('https://field.beta.openregister.org/record/fields.tsv', './spec/support/fields.tsv')
+    stub('https://register.beta.openregister.org/records.tsv', './spec/support/register_records.tsv')
+    stub('https://register.beta.openregister.org/record/country.tsv', './spec/support/country.tsv')
+    stub('https://field.beta.openregister.org/record/country.tsv', './spec/support/field_country.tsv')
+    stub('https://field.beta.openregister.org/record/name.tsv', './spec/support/field_name.tsv')
+    stub('https://field.beta.openregister.org/record/official-name.tsv', './spec/support/field_official_name.tsv')
+    stub('https://field.beta.openregister.org/record/citizen-names.tsv', './spec/support/field_citizen_name.tsv')
+    stub('https://field.beta.openregister.org/record/start-date.tsv', './spec/support/field_start_date.tsv')
+    stub('https://field.beta.openregister.org/record/end-date.tsv', './spec/support/field_end_date.tsv')
+  end
+
   before :each do
-    create(:user)
+    create(:user, email: 'testuser@gov.uk')
     expect(User.count).to eq(1)
-    
+
     visit '/'
     expect(page).to have_content 'Sign in'
     fill_in 'Email', with: 'testuser@gov.uk'
@@ -10,9 +43,8 @@ describe "managing registers", :type => :feature do
     click_button 'Continue'
     expect(page).to have_content 'Signed in successfully.'
   end
-    
-    
-  it "publishes an update to the register" do
+
+  scenario "publishes an update to the register" do
     visit 'country/new'
     expect(page).to have_content 'Country'
     fill_in 'country', with: 'zz'
@@ -21,22 +53,22 @@ describe "managing registers", :type => :feature do
     fill_in 'start-date', with: '2014-05'
     fill_in 'end-date', with: '2014-05'
     click_button 'Continue'
-    
+
     expect(page).to have_content 'Check the details of your new country'
     click_button 'Submit'
-      
+
     visit '/country#updates'
     expect(page).to have_content 'zz'
     review_items = page.all(:xpath, '//a[contains(text(), "Review")]')
     review_items[0].click
-    expect(page).to have_content 'zz'  
-    choose('approve_yes')  
+    expect(page).to have_content 'zz'
+    choose('approve_yes')
     click_button 'Continue'
-      
+
     expect(page).to have_content 'Approve update'
-    check 'confirm_approve'  
+    check 'confirm_approve'
     click_button 'Approve'
-    expect(page).to have_content 'The record has been published.'  
-    
+
+    expect(page).to have_content 'The record has been published.'
   end
 end
