@@ -8,7 +8,7 @@ class ChangeController < ApplicationController
     @new_register_record = @change.payload
     @current_register_record = OpenRegister.record(@change.register_name,
                                                    @change.payload[@change.register_name],
-                                                   @register_phase)
+                                                   :beta)
     if @current_register_record != nil
       @current_register_record = convert_register_json(@current_register_record)
     end
@@ -21,7 +21,7 @@ class ChangeController < ApplicationController
       @new_register_record = @change.payload
       @current_register_record = OpenRegister.record(@change.register_name,
                                                      @change.payload[@change.register_name],
-                                                     @register_phase)
+                                                     :beta)
       if @current_register_record != nil
         @current_register_record = convert_register_json(@current_register_record)
       end
