@@ -48,9 +48,15 @@ gem 'nested_form_fields'
 group :development, :test do
   gem 'pry-byebug'
   gem 'rspec-rails', '~> 3.5'
-  gem 'factory_girl_rails'
-  gem 'database_cleaner'
+  gem 'capybara'
   gem 'rails-controller-testing'
+  gem 'factory_girl_rails'
+end
+
+group :test do
+  gem 'database_cleaner'
+  gem 'faker'
+  gem 'webmock'
 end
 
 group :development do
@@ -61,8 +67,4 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'letter_opener'
-end
-
-group :test do
-    gem 'capybara'
 end
