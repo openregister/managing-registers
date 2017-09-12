@@ -41,7 +41,7 @@
               %span.no-data-found No original data
             %td
               %span.panel.panel-change-notification= params[field.to_sym]
-            %td= link_to 'Update', {action: 'new', params: params}
+            %td= link_to 'Update', {action: 'new', params: params.permit!.to_h}
           - else
             %td
             %td
@@ -53,4 +53,4 @@
   %strong.bold-small
     Once you submit, these changes will be reviewed by another team member
 
-= button_to 'Submit', { action: 'create', params: params, data_confirmed: true }, {class: 'button'}
+= button_to 'Submit', { action: 'create', params: params.permit!.to_h, data_confirmed: true }, {class: 'button'}
