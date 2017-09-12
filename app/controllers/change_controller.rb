@@ -52,7 +52,7 @@ class ChangeController < ApplicationController
 
       rsf_body = create_rsf(@change.payload, @change.register_name)
 
-      Rails.env.development? || Rails.env.staging? || response = post_to_register(params[:register], rsf_body)
+      Rails.env.development? || Rails.env.staging? || response = post_to_register(@change.register_name, rsf_body)
 
       if Rails.env.development? || Rails.env.staging? || response.code == '200'
         status = Status.new(status: 'approved', reviewed_by_id: current_user.id)
@@ -75,7 +75,6 @@ class ChangeController < ApplicationController
 
   def post_to_register(register_name, rsf_body)
     protocol = Rails.configuration.register_ssl ? protocol = 'https' : protocol = 'http'
-
     (Rails.configuration.register_url.include? "localhost") ?
         uri = URI(protocol + '://' + Rails.configuration.register_url) :
         uri = URI(protocol + '://' + register_name + '.' + Rails.configuration.register_url)
