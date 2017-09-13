@@ -70,8 +70,7 @@ RSpec.feature "Publish Record", type: :feature do
 
     visit '/country#updates'
     expect(page).to have_content 'zz'
-    review_items = page.all(:xpath, '//a[contains(text(), "Review")]')
-    review_items[0].click
+    click_link('Review')
     expect(page).to have_content 'zz'
     choose('approve_yes')
     click_button 'Continue'
