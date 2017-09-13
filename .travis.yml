@@ -8,7 +8,7 @@ services:
   - postgresql
 
 before_script:
-  - rake db:setup
+  - rake spec db:setup
 
 deploy:
   provider: cloudfoundry
@@ -21,4 +21,4 @@ deploy:
   manifest: manifest-staging.yml
   on:
     repo: openregister/managing-registers
-    branch: development
+    branch: master
