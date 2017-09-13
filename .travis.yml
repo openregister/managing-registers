@@ -8,7 +8,10 @@ services:
   - postgresql
 
 before_script:
-  - rake spec db:setup
+  - rake db:setup
+
+script:
+  - rake spec
 
 deploy:
   provider: cloudfoundry
