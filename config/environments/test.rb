@@ -39,4 +39,12 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # nil means to use register.gov.uk rather than :phase.openregisters.org
+  config.register_phase = nil
+
+  config.register_url = 'test.openregister.org/load-rsf'
+  config.register_ssl = false
+  config.register_username = 'foo'
+  config.register_password = 'bar'
 end

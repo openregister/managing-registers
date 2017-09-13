@@ -2,8 +2,6 @@ class RegisterController < ApplicationController
 
   include ApplicationHelper, RegisterHelper
 
-  @register_phase = Rails.configuration.register_phase
-
   before_action :confirm, only: [:create]
 
   def index
@@ -24,7 +22,7 @@ class RegisterController < ApplicationController
     @register = get_register(params[:register])
 
     @form = convert_register_json(
-        OpenRegister.record(params[:register].downcase, params[:id], @register_phase)
+        OpenRegister.record(params[:register].downcase, params[:id], :beta)
     ) if @form.nil?
   end
 
@@ -34,7 +32,7 @@ class RegisterController < ApplicationController
 
     @current_register_record = OpenRegister.record(params[:register].downcase,
                         params[params[:register].downcase.to_sym],
-                        @register_phase)
+                        :beta)
 
     if @current_register_record != nil
       @current_register_record = convert_register_json(@current_register_record)

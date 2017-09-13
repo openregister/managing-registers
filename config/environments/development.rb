@@ -56,9 +56,6 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
-  # nil means to use register.gov.uk rather than :phase.openregisters.org
-  config.register_phase = nil
-
   config.register_url = 'localhost:8080/load-rsf'
   config.register_ssl = false
   config.register_username = 'foo'

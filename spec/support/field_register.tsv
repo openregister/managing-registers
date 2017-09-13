@@ -1,0 +1,2 @@
+index-entry-number	entry-number	entry-timestamp	key	field	datatype	phase	register	cardinality	text
+34	34	2017-01-10T17:16:07Z	register	register	string	beta	register	1	The name of a register.
