@@ -5,15 +5,18 @@ class RegisterController < ApplicationController
   before_action :confirm, only: [:create]
 
   YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS_UTC = '%Y-%m-%dT%H:%M:%SZ'
-  YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS = ''
-  YEAR_MONTH_DAY = ''
-  YEAR_MONTH = ''
+  YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS = '%Y-%m-%dT%H:%M:%S'
+  YEAR_MONTH_DAY = '%Y-%m-%d'
   YEAR_MONTH = '%Y-%m'
+  YEAR = '%Y'
 
   DATE_FORMATS = [
       YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS_UTC,
-      YEAR_MONTH
-  ]
+      YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS,
+      YEAR_MONTH_DAY,
+      YEAR_MONTH,
+      YEAR
+  ].freeze
 
   def index
     @changes = Change.joins("LEFT OUTER JOIN statuses on statuses.change_id = changes.id")
@@ -44,9 +47,12 @@ class RegisterController < ApplicationController
   end
 
   def confirm
-    if !validate_register_data params
-      flash[:notice] = 'An error occurred'
-      redirect_to :back
+    errors = get_form_errors params
+    if errors.present?
+      errors.each { |k,v| flash[k] = v[:message] }
+      @register = get_register(params[:register])
+      @form = JSON.parse(params.to_json)
+      render :new
     else
       return true if params[:data_confirmed]
       @register = get_register(params[:register])
@@ -64,10 +70,18 @@ class RegisterController < ApplicationController
     end
   end
 
-  def validate_register_data params
-    result = validate_date params['start-date']
-    puts 'DATE RESULT'
-    puts result
+  def get_form_errors params
+    result = {}
+    fields = ['start-date', 'end-date']
+    fields.each{ |field|
+      unless params[field].blank?
+        field_result = validate_date(params[field])
+        unless field_result[:success]
+          result[field] = field_result
+        end
+      end
+    }
+    result
   end
 
   def validate_date date
