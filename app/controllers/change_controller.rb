@@ -31,13 +31,8 @@ class ChangeController < ApplicationController
   end
 
   def destroy
-    status = Status.new(
-      status: 'rejected',
-      comment: params[:comments],
-      reviewed_by_id: current_user.id
-    )
     @change = Change.find(params['id'])
-    @change.status = status
+    @change.status.update_attributes(status: 'rejected', comment: params[:comments], reviewed_by_id: current_user.id)
     @change.save
 
     RegisterUpdatesMailer.register_update_rejected(@change, current_user).deliver_now
@@ -55,8 +50,7 @@ class ChangeController < ApplicationController
       Rails.env.development? || Rails.env.staging? || response = post_to_register(@change.register_name, rsf_body)
 
       if Rails.env.development? || Rails.env.staging? || response.code == '200'
-        status = Status.new(status: 'approved', reviewed_by_id: current_user.id)
-        @change.status = status
+        @change.status.update_attributes(status: 'approved', reviewed_by_id: current_user.id)
         @change.save
 
         flash[:notice] = 'The record has been published.'
