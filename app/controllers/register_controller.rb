@@ -5,9 +5,8 @@ class RegisterController < ApplicationController
   before_action :confirm, only: [:create]
 
   def index
-    @changes = Change.where(register_name: params[:register])
-                     .joins("LEFT OUTER JOIN statuses on statuses.change_id = changes.id")
-                     .where('statuses.id is null')
+    @changes = Change.joins("LEFT OUTER JOIN statuses on statuses.change_id = changes.id")
+                     .where("register_name = '#{params[:register]}' AND statuses.status = 'pending'")
 
     @register = get_register(params[:register])._all_records
     @register[0].try(:name) ? @register = @register.sort_by(&:name) : @register = @register.sort_by(&:key)
@@ -48,6 +47,7 @@ class RegisterController < ApplicationController
     payload = generate_canonical_object(fields, params)
 
     @change = Change.new(register_name: params[:register], payload: payload, user_id: current_user.id)
+    @change.status = Status.new(status: 'pending')
     @change.save
 
     @change_approvers = Register.find_by(key: params[:register]).team.team_members.where.not(role: 'basic', user_id: current_user)
