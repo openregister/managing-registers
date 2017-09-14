@@ -4,6 +4,17 @@ class RegisterController < ApplicationController
 
   before_action :confirm, only: [:create]
 
+  YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS_UTC = '%Y-%m-%dT%H:%M:%SZ'
+  YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS = ''
+  YEAR_MONTH_DAY = ''
+  YEAR_MONTH = ''
+  YEAR_MONTH = '%Y-%m'
+
+  DATE_FORMATS = [
+      YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS_UTC,
+      YEAR_MONTH
+  ]
+
   def index
     @changes = Change.joins("LEFT OUTER JOIN statuses on statuses.change_id = changes.id")
                      .where("register_name = '#{params[:register]}' AND statuses.status = 'pending'")
@@ -33,19 +44,44 @@ class RegisterController < ApplicationController
   end
 
   def confirm
-    return true if params[:data_confirmed]
-    @register = get_register(params[:register])
+    if !validate_register_data params
+      flash[:notice] = 'An error occurred'
+      redirect_to :back
+    else
+      return true if params[:data_confirmed]
+      @register = get_register(params[:register])
 
-    @current_register_record = OpenRegister.record(params[:register].downcase,
-                        params[params[:register].downcase.to_sym],
-                        :beta)
+      @current_register_record = OpenRegister.record(params[:register].downcase,
+                          params[params[:register].downcase.to_sym],
+                          :beta)
 
-    if @current_register_record != nil
-      @current_register_record = convert_register_json(@current_register_record)
+      if @current_register_record != nil
+        @current_register_record = convert_register_json(@current_register_record)
+      end
+
+      render 'confirm'
+      false
     end
+  end
 
-    render 'confirm'
-    false
+  def validate_register_data params
+    result = validate_date params['start-date']
+    puts 'DATE RESULT'
+    puts result
+  end
+
+  def validate_date date
+    parsed_date = nil
+
+    DATE_FORMATS.each { |date_format|
+      begin
+        parsed_date = Date.strptime(date, date_format)
+        return { success: true, value: parsed_date }
+      rescue ArgumentError
+      end
+    }
+
+    { success: false, message: "#{date} is not a valid date format" }
   end
 
   def create
