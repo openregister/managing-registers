@@ -103,13 +103,14 @@ class RegisterController < ApplicationController
   def initialize_controller
     @registers_client = OpenRegister::RegistersClient.new
 
-    @validators = {}
-    @validators["integer"] = ValidationHelper::IntegerDatatype.new,
-    @validators["string"] = ValidationHelper::StringDatatype.new,
-    @validators["point"] = ValidationHelper::PointDatatype.new,
-    @validators["url"] = ValidationHelper::UrlDatatype.new,
-    @validators["curie"] = ValidationHelper::CurieDatatype.new,
-    @validators["datetime"] = ValidationHelper::DateDatatype.new
+    @validators = {
+        'integer' => ValidationHelper::IntegerDatatype.new,
+        'string' => ValidationHelper::StringDatatype.new,
+        'point' => ValidationHelper::PointDatatype.new,
+        'url' => ValidationHelper::UrlDatatype.new,
+        'curie' => ValidationHelper::CurieDatatype.new,
+        'datetime' => ValidationHelper::DateDatatype.new
+    }.freeze
   end
 
 end
