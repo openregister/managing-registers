@@ -2,21 +2,8 @@ class RegisterController < ApplicationController
 
   include ApplicationHelper, RegisterHelper
 
+  before_action :initialize_controller
   before_action :confirm, only: [:create]
-
-  YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS_UTC = '%Y-%m-%dT%H:%M:%SZ'.freeze
-  YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS = '%Y-%m-%dT%H:%M:%S'.freeze
-  YEAR_MONTH_DAY = '%Y-%m-%d'.freeze
-  YEAR_MONTH = '%Y-%m'.freeze
-  YEAR = '%Y'.freeze
-
-  DATE_FORMATS = [
-      YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS_UTC,
-      YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS,
-      YEAR_MONTH_DAY,
-      YEAR_MONTH,
-      YEAR
-  ].freeze
 
   def index
     @changes = Change.joins("LEFT OUTER JOIN statuses on statuses.change_id = changes.id")
@@ -72,30 +59,22 @@ class RegisterController < ApplicationController
 
   def get_form_errors params
     result = {}
-    fields = ['start-date', 'end-date']
+
+    fields = @registers_client.get_register(params[:register], 'beta').get_field_definitions
     fields.each{ |field|
-      unless params[field].blank?
-        field_result = validate_date(params[field])
+      field_name = field[:item]['field']
+
+      if !params[field_name].blank?
+        datatype = field[:item]['datatype']
+        field_result = @validators[datatype].validate( params[field_name])
         unless field_result[:success]
-          result[field] = field_result
+          result[field_name] = field_result
         end
+      elsif field_name == params[:register]
+        result[field_name] = { success: false, message: "Field #{field_name} is required" }
       end
     }
     result
-  end
-
-  def validate_date date
-    parsed_date = nil
-
-    DATE_FORMATS.each { |date_format|
-      begin
-        parsed_date = Date.strptime(date, date_format)
-        return { success: true, value: parsed_date }
-      rescue ArgumentError
-      end
-    }
-
-    { success: false, message: "#{date} is not a valid date format" }
   end
 
   def create
@@ -117,6 +96,20 @@ class RegisterController < ApplicationController
 
     flash[:notice] = 'Your update has been submitted, you\'ll recieve a confirmation email once the update is live'
     redirect_to action: 'index', register: params[:register]
+  end
+
+  private
+
+  def initialize_controller
+    @registers_client = OpenRegister::RegistersClient.new
+
+    @validators = {}
+    @validators["integer"] = ValidationHelper::IntegerDatatype.new,
+    @validators["string"] = ValidationHelper::StringDatatype.new,
+    @validators["point"] = ValidationHelper::PointDatatype.new,
+    @validators["url"] = ValidationHelper::UrlDatatype.new,
+    @validators["curie"] = ValidationHelper::CurieDatatype.new,
+    @validators["datetime"] = ValidationHelper::DateDatatype.new
   end
 
 end
