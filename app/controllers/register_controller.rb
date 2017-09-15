@@ -4,11 +4,11 @@ class RegisterController < ApplicationController
 
   before_action :confirm, only: [:create]
 
-  YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS_UTC = '%Y-%m-%dT%H:%M:%SZ'
-  YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS = '%Y-%m-%dT%H:%M:%S'
-  YEAR_MONTH_DAY = '%Y-%m-%d'
-  YEAR_MONTH = '%Y-%m'
-  YEAR = '%Y'
+  YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS_UTC = '%Y-%m-%dT%H:%M:%SZ'.freeze
+  YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS = '%Y-%m-%dT%H:%M:%S'.freeze
+  YEAR_MONTH_DAY = '%Y-%m-%d'.freeze
+  YEAR_MONTH = '%Y-%m'.freeze
+  YEAR = '%Y'.freeze
 
   DATE_FORMATS = [
       YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS_UTC,
