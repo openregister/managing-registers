@@ -84,7 +84,7 @@ module ValidationHelper
 
   class CurieDatatype < Datatype
     def validate(value)
-      if curie !~ /^\w+:\w+$/
+      if value !~ /^\w+:\w+$/
         validation_failure("#{value} is not a valid curie")
       else
         validation_success(value)
