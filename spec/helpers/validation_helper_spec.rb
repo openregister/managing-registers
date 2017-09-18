@@ -1,6 +1,6 @@
 require 'rails_helper'
 require 'spec_helper'
-require 'YAML'
+require 'yaml'
 
 RSpec.describe ValidationHelper do
   field_definitions = YAML.load_file('./spec/support/field_definitions.yaml')
