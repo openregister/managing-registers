@@ -1,0 +1,62 @@
+---
+- :key: !ruby/string:RestClient::Response field:country
+  :entry_number: 1
+  :timestamp: !ruby/string:RestClient::Response '2017-01-10T17:16:07Z'
+  :hash: !ruby/string:RestClient::Response sha-256:a303d05bdbeb029440344e0f1148f5524b4a2f9076d1b0f36a95ff7d5eeedb0e
+  :item:
+    cardinality: '1'
+    datatype: string
+    field: country
+    phase: beta
+    register: country
+    text: The country's 2-letter ISO 3166-2 alpha2 code.
+- :key: !ruby/string:RestClient::Response field:name
+  :entry_number: 1
+  :timestamp: !ruby/string:RestClient::Response '2017-01-10T17:16:07Z'
+  :hash: !ruby/string:RestClient::Response sha-256:a7a9f2237dadcb3980f6ff8220279a3450778e9c78b6f0f12febc974d49a4a9f
+  :item:
+    cardinality: '1'
+    datatype: string
+    field: name
+    phase: beta
+    text: The commonly-used name of a record.
+- :key: !ruby/string:RestClient::Response field:official-name
+  :entry_number: 1
+  :timestamp: !ruby/string:RestClient::Response '2017-01-10T17:16:07Z'
+  :hash: !ruby/string:RestClient::Response sha-256:5c4728f439f6cbc6c7eea42992b858afc78c182962ba35d169f49db2c88e1e41
+  :item:
+    cardinality: '1'
+    datatype: string
+    field: official-name
+    phase: beta
+    text: The official or technical name of a record.
+- :key: !ruby/string:RestClient::Response field:citizen-names
+  :entry_number: 1
+  :timestamp: !ruby/string:RestClient::Response '2017-01-10T17:16:07Z'
+  :hash: !ruby/string:RestClient::Response sha-256:494f6fa9481b2d17d72b8fa4dcf91b72751b88c262c4c8f52012cb370afcfbd1
+  :item:
+    cardinality: '1'
+    datatype: string
+    field: citizen-names
+    phase: beta
+    text: The name of a country's citizens.
+- :key: !ruby/string:RestClient::Response field:start-date
+  :entry_number: 1
+  :timestamp: !ruby/string:RestClient::Response '2017-08-29T11:30:00Z'
+  :hash: !ruby/string:RestClient::Response sha-256:f09c439836eb6fccfb0680fa98dfc3d0300d1ceb2a43eb3c26b3eed01a42d2c2
+  :item:
+    cardinality: '1'
+    datatype: datetime
+    field: start-date
+    phase: beta
+    text: The date a record first became relevant to a register.
+- :key: !ruby/string:RestClient::Response field:end-date
+  :entry_number: 1
+  :timestamp: !ruby/string:RestClient::Response '2017-08-29T11:31:00Z'
+  :hash: !ruby/string:RestClient::Response sha-256:c5845bfc15577e8c120970ba084f1dc2c82b10e703f80d1efe4f694295a5a71d
+  :item:
+    cardinality: '1'
+    datatype: datetime
+    field: end-date
+    phase: beta
+    text: The date a record stopped being applicable.

@@ -1,4 +1,38 @@
 module ValidationHelper
+
+  class DataValidator
+
+    def initialize
+      @validators = {
+          'integer' => ValidationHelper::IntegerDatatype.new,
+          'string' => ValidationHelper::StringDatatype.new,
+          'point' => ValidationHelper::PointDatatype.new,
+          'url' => ValidationHelper::UrlDatatype.new,
+          'curie' => ValidationHelper::CurieDatatype.new,
+          'datetime' => ValidationHelper::DateDatatype.new
+      }.freeze
+    end
+
+    def get_form_errors(params, field_definitions)
+
+      result = {}
+      field_definitions.each{ |field|
+        field_name = field[:item]['field']
+
+        if params[field_name].present?
+          datatype = field[:item]['datatype']
+          field_result = @validators[datatype].validate(params[field_name])
+          unless field_result[:success]
+            result[field_name] = field_result
+          end
+        elsif field_name == params[:register]
+          result[field_name] = { success: false, message: "Field #{field_name} is required" }
+        end
+      }
+      result
+    end
+  end
+
   class Datatype
     def validation_success(value)
       { success: true, value: value}
@@ -85,7 +119,6 @@ module ValidationHelper
 
       validation_failure("#{value} is not a valid date format")
     end
-
   end
 
 end

@@ -34,7 +34,7 @@ class RegisterController < ApplicationController
   end
 
   def confirm
-    errors = get_form_errors(params,@registers_client.get_register(params[:register], 'beta').get_field_definitions)
+    errors = @data_validator.get_form_errors(params,@registers_client.get_register(params[:register], 'beta').get_field_definitions)
     if errors.present?
       errors.each { |k,v| flash[k] = v[:message] }
       @register = get_register(params[:register])
@@ -57,24 +57,6 @@ class RegisterController < ApplicationController
     end
   end
 
-  def get_form_errors(params, field_definitions)
-    result = {}
-
-    field_definitions.each{ |field|
-      field_name = field[:item]['field']
-
-      if !params[field_name].blank?
-        datatype = field[:item]['datatype']
-        field_result = @validators[datatype].validate( params[field_name])
-        unless field_result[:success]
-          result[field_name] = field_result
-        end
-      elsif field_name == params[:register]
-        result[field_name] = { success: false, message: "Field #{field_name} is required" }
-      end
-    }
-    result
-  end
 
   def create
     fields = get_register(params[:register]).fields
@@ -100,16 +82,8 @@ class RegisterController < ApplicationController
   private
 
   def initialize_controller
+    @data_validator = ValidationHelper::DataValidator.new
     @registers_client = OpenRegister::RegistersClient.new
-
-    @validators = {
-        'integer' => ValidationHelper::IntegerDatatype.new,
-        'string' => ValidationHelper::StringDatatype.new,
-        'point' => ValidationHelper::PointDatatype.new,
-        'url' => ValidationHelper::UrlDatatype.new,
-        'curie' => ValidationHelper::CurieDatatype.new,
-        'datetime' => ValidationHelper::DateDatatype.new
-    }.freeze
   end
 
 end
