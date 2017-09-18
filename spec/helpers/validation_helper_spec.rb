@@ -7,7 +7,7 @@ RSpec.describe ValidationHelper do
   data_validator = ValidationHelper::DataValidator.new
 
   describe "get_form_errors" do
-    it "returns an error if date is valid" do
+    it "returns an error if date is invalid" do
       params = {"start-date"=>"foo"}
       expect(data_validator.get_form_errors(params,field_definitions).eql?({"start-date"=>{:success=>false, :message=>"foo is not a valid date format"}}))
     end
