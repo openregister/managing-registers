@@ -19,4 +19,8 @@
         %td= register.key
         - if register.try(:name)
           %td= register.name
-        %td{style:"text-align:right"}= link_to 'Update', "#{params[:register]}/#{register.key}/edit"
+        %td{style:"text-align:right"}
+          - if @changes.any? { |c| c.payload.value?(register.key)}
+            Pending review
+          - else
+            = link_to 'Update', "#{params[:register]}/#{register.key}/edit"
