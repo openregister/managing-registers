@@ -18,7 +18,14 @@ class RegisterController < ApplicationController
   end
 
   def edit
+    @changes = Change.joins("LEFT OUTER JOIN statuses on statuses.change_id = changes.id")
+                     .where("register_name = '#{params[:register]}' AND statuses.status = 'pending'")
     @register = get_register(params[:register])
+
+    if @changes.any? { |c| c.payload.value?(params[:id])}
+      flash[:notice] = 'There is already a pending update on this record, this must be reviewed before creating another update'
+      redirect_to "/#{params[:register]}"
+    end
 
     @form = convert_register_json(
         OpenRegister.record(params[:register].downcase, params[:id], :beta)
@@ -58,7 +65,7 @@ class RegisterController < ApplicationController
 
     RegisterUpdatesMailer.register_update_receipt(@change, current_user).deliver_now
 
-    flash[:notice] = 'Your update has been submitted, you\'ll recieve a confirmation email once the change is live'
+    flash[:notice] = 'Your update has been submitted, you\'ll recieve a confirmation email once the update is live'
     redirect_to action: 'index', register: params[:register]
   end
 
