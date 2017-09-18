@@ -5,7 +5,7 @@
     .column-two-thirds
       %h1.heading-large #{prepare_register_name(params[:register])} register
     .column-one-third
-      = link_to "Add a new #{prepare_register_name(params[:register])}", "#{params[:register]}/new", class: "button align-with-heading"
+      = link_to "Add a new #{prepare_register_name(params[:register])}", new_register_path, class: "button align-with-heading"
 
 - if current_user.basic?
   = render partial: 'register/shared/records'

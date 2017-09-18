@@ -24,7 +24,7 @@ class RegisterController < ApplicationController
 
     if @changes.any? { |c| c.payload.value?(params[:id])}
       flash[:notice] = 'There is already a pending update on this record, this must be reviewed before creating another update'
-      redirect_to "/#{params[:register]}"
+      redirect_to registers_path
     end
 
     @form = convert_register_json(

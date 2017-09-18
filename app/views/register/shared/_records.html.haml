@@ -23,4 +23,4 @@
           - if @changes.any? { |c| c.payload.value?(register.key)}
             Pending review
           - else
-            = link_to 'Update', "#{params[:register]}/#{register.key}/edit"
+            = link_to 'Update', edit_register_path(id: register.key)
