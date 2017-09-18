@@ -34,7 +34,7 @@ class RegisterController < ApplicationController
   end
 
   def confirm
-    errors = get_form_errors params
+    errors = get_form_errors(params,@registers_client.get_register(params[:register], 'beta').get_field_definitions)
     if errors.present?
       errors.each { |k,v| flash[k] = v[:message] }
       @register = get_register(params[:register])
@@ -57,11 +57,10 @@ class RegisterController < ApplicationController
     end
   end
 
-  def get_form_errors params
+  def get_form_errors(params, field_definitions)
     result = {}
 
-    fields = @registers_client.get_register(params[:register], 'beta').get_field_definitions
-    fields.each{ |field|
+    field_definitions.each{ |field|
       field_name = field[:item]['field']
 
       if !params[field_name].blank?
