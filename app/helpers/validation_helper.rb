@@ -14,7 +14,6 @@ module ValidationHelper
     end
 
     def get_form_errors(params, field_definitions)
-
       result = {}
       field_definitions.each{ |field|
         field_name = field[:item]['field']
