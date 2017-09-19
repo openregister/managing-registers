@@ -9,8 +9,8 @@ GIT
 
 GIT
   remote: https://github.com/openregister/openregister-ruby-client
-  revision: 2d5a417959678097e9360baaa1824f5784348945
-  branch: rsf-spike
+  revision: 6769a5123d30bc800a40f39a08072fa3be6b31ce
+  tag: v0.1.0
   specs:
     openregister-ruby (0.1.0)
       morph (~> 0.5.0)
