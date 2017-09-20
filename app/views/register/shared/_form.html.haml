@@ -10,5 +10,5 @@
       - if params[:action] == 'edit' && field == params[:register]
         = text_field_tag field, field != params[:register] ? @form[field] : @form['key'], class: 'form-control disabled'
       - else
-        = text_field_tag field, @form[field], :class => [('form-control'), ('form-control-error' if has_error)]
+        = text_field_tag field, @form[field], class: "form-control #{'form-control-error' if has_error}"
   = f.submit 'Continue', class: 'button'
