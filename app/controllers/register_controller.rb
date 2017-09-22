@@ -34,18 +34,19 @@ class RegisterController < ApplicationController
   end
 
   def confirm
-    errors = @data_validator.get_form_errors(params,@registers_client.get_register(params[:register], 'beta').get_field_definitions)
+    register_name = params[:register].downcase
+    field_definitions = @registers_client.get_register(params[:register], 'beta').get_field_definitions
+    errors = @data_validator.get_form_errors(params, field_definitions)
     if errors.present?
       errors.each { |k,v| flash[k] = v[:message] }
-      @register = get_register(params[:register])
+      @register = get_register(register_name)
       @form = JSON.parse(params.to_json)
       render :new
     else
       return true if params[:data_confirmed]
       @register = get_register(params[:register])
-
-      @current_register_record = OpenRegister.record(params[:register].downcase,
-                          params[params[:register].downcase.to_sym],
+      @current_register_record = OpenRegister.record(register_name,
+                          params[register_name.to_sym],
                           :beta)
 
       if @current_register_record != nil
