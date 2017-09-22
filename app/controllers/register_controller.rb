@@ -54,10 +54,8 @@ class RegisterController < ApplicationController
       end
 
       render 'confirm'
-      false
     end
   end
-
 
   def create
     fields = get_register(params[:register]).fields
