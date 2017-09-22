@@ -2,7 +2,7 @@ class RegisterController < ApplicationController
 
   include ApplicationHelper, RegisterHelper
 
-  before_action :initialize_controller
+  before_action :initialize_controller, only: [:create]
   before_action :confirm, only: [:create]
 
   def index
