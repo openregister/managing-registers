@@ -36,9 +36,9 @@ class RegisterController < ApplicationController
   def confirm
     register_name = params[:register].downcase
     field_definitions = @registers_client.get_register(params[:register], 'beta').get_field_definitions
-    errors = @data_validator.get_form_errors(params, field_definitions)
-    if errors.present?
-      errors.each { |k,v| flash[k] = v[:message] }
+    validation_result = @data_validator.get_form_errors(params, field_definitions, register_name)
+    if validation_result.messages.present?
+      validation_result.messages.each { |k,v| flash[k] = v.join(', ') }
       @register = get_register(register_name)
       @form = JSON.parse(params.to_json)
       render :new

@@ -4,4 +4,4 @@
   %ul.error-summary-list
     - flash.each do |field, message|
       %li
-      = link_to message, "##{field}"
+      = link_to message, "##{field.dasherize}"

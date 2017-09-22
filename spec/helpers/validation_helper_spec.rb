@@ -8,18 +8,20 @@ RSpec.describe ValidationHelper do
 
   describe "get_form_errors" do
     it "returns an error if date is invalid" do
-      params = {"start-date"=>"foo"}
-      expect(data_validator.get_form_errors(params,field_definitions).eql?({"start-date"=>{:success=>false, :message=>"foo is not a valid date format"}}))
+      params = {"start-date"=>"foo", "country" => "zz"}
+      result = data_validator.get_form_errors(params,field_definitions, 'country')
+      p(result.messages)
+      expect(data_validator.get_form_errors(params,field_definitions, 'country').messages).to eql({:start_date=>["foo is not a valid date"]})
     end
 
     it "returns no errors if date is valid" do
-      params = {"start-date"=>"2015-05"}
-      expect(data_validator.get_form_errors(params, field_definitions)).to be_empty
+      params = {"start-date"=>"2015-05", "country"=>"xx" }
+      expect(data_validator.get_form_errors(params, field_definitions, 'country').details).to be_empty
     end
 
     it "returns an error if key is not populated" do
       params = {:country=>'', :register=>"country"}
-      expect(data_validator.get_form_errors(params, field_definitions)).eql?({"country"=>{:success=>false, :message=>"Field country is required"}})
+      expect(data_validator.get_form_errors(params, field_definitions, 'country').messages).to eql({:country => ["Field Country is required"]})
     end
   end
 
