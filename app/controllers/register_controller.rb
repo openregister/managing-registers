@@ -49,7 +49,7 @@ class RegisterController < ApplicationController
                           params[register_name.to_sym],
                           :beta)
 
-      if @current_register_record != nil
+      if @current_register_record
         @current_register_record = convert_register_json(@current_register_record)
       end
 
