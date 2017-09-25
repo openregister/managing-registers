@@ -53,7 +53,7 @@ class RegisterController < ApplicationController
         @current_register_record = convert_register_json(@current_register_record)
       end
 
-      render 'confirm'
+      render :confirm
     end
   end
 
