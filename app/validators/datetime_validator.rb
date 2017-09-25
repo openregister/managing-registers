@@ -13,11 +13,9 @@ class DatetimeValidator < ActiveModel::EachValidator
   ].freeze
 
   def valid_date(value)
-    parsed_date = nil
-
     DATE_FORMATS.each { |date_format|
       begin
-        parsed_date = Date.strptime(value, date_format)
+        Date.strptime(value, date_format)
         return true
       rescue ArgumentError
       end
