@@ -84,5 +84,4 @@ class RegisterController < ApplicationController
     @data_validator = ValidationHelper::DataValidator.new
     @registers_client = OpenRegister::RegistersClient.new
   end
-
 end
