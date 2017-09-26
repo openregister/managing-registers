@@ -2,6 +2,7 @@ class RegisterController < ApplicationController
 
   include ApplicationHelper, RegisterHelper
 
+  before_action :initialize_controller, only: [:create]
   before_action :confirm, only: [:create]
 
   def index
@@ -33,19 +34,27 @@ class RegisterController < ApplicationController
   end
 
   def confirm
-    return true if params[:data_confirmed]
-    @register = get_register(params[:register])
+    register_name = params[:register].downcase
+    field_definitions = @registers_client.get_register(params[:register], 'beta').get_field_definitions
+    validation_result = @data_validator.get_form_errors(params, field_definitions, register_name)
+    if validation_result.messages.present?
+      validation_result.messages.each { |k,v| flash[k] = v.join(', ') }
+      @register = get_register(register_name)
+      @form = JSON.parse(params.to_json)
+      render :new
+    else
+      return true if params[:data_confirmed]
+      @register = get_register(params[:register])
+      @current_register_record = OpenRegister.record(register_name,
+                          params[register_name.to_sym],
+                          :beta)
 
-    @current_register_record = OpenRegister.record(params[:register].downcase,
-                        params[params[:register].downcase.to_sym],
-                        :beta)
+      if @current_register_record
+        @current_register_record = convert_register_json(@current_register_record)
+      end
 
-    if @current_register_record != nil
-      @current_register_record = convert_register_json(@current_register_record)
+      render :confirm
     end
-
-    render 'confirm'
-    false
   end
 
   def create
@@ -69,4 +78,10 @@ class RegisterController < ApplicationController
     redirect_to action: 'index', register: params[:register]
   end
 
+  private
+
+  def initialize_controller
+    @data_validator = ValidationHelper::DataValidator.new
+    @registers_client = OpenRegister::RegistersClient.new
+  end
 end

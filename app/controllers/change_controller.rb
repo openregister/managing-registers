@@ -55,7 +55,7 @@ class ChangeController < ApplicationController
 
         flash[:notice] = 'The record has been published.'
       else
-        flash[:notice] = 'We had an issue updating the register, try again.'
+        flash[:alert] = 'We had an issue updating the register, try again.'
       end
 
       RegisterUpdatesMailer.register_update_approved(@change, current_user).deliver_now
@@ -68,7 +68,7 @@ class ChangeController < ApplicationController
   end
 
   def post_to_register(register_name, rsf_body)
-    protocol = Rails.configuration.register_ssl ? protocol = 'https' : protocol = 'http'
+    protocol = Rails.configuration.register_ssl ? 'https' : 'http'
     (Rails.configuration.register_url.include? "localhost") ?
         uri = URI(protocol + '://' + Rails.configuration.register_url) :
         uri = URI(protocol + '://' + register_name + '.' + Rails.configuration.register_url)

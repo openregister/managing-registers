@@ -22,6 +22,7 @@ RSpec.feature "Publish Record", type: :feature do
            headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Basic Zm9vOmJhcg==', 'Content-Type'=>'application/uk-gov-rsf'}).
       to_return(status: 200, body: "", headers: {})
 
+    stub('https://country.beta.openregister.org/download-rsf', './spec/support/country.rsf')
     stub('https://register.beta.openregister.org/record/register.tsv', './spec/support/register_register.tsv')
     stub('https://field.beta.openregister.org/record/register.tsv', './spec/support/field_register.tsv')
     stub('https://field.beta.openregister.org/record/text.tsv', './spec/support/text.tsv')

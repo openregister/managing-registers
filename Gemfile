@@ -29,7 +29,7 @@ gem 'govuk_elements_rails'
 gem 'govuk_elements_form_builder', git: 'https://github.com/ministryofjustice/govuk_elements_form_builder'
 
 # Ruby client for OpenRegisters
-gem 'openregister-ruby', git: 'https://github.com/openregister/openregister-ruby-client'
+gem 'openregister-ruby', git: 'https://github.com/openregister/openregister-ruby-client', tag: 'v0.1.0'
 
 # Email and Text Notifications
 gem 'govuk_notify_rails'

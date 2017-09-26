@@ -1,6 +1,8 @@
 = content_for :page_title, "New #{params[:register]}"
 = link_to 'Back', "/#{params[:register]}", class: 'link-back'
 
+= render partial: 'layouts/form-error-summary' if flash.present?
+
 %h1.heading-large Add a new #{params[:register]} record
 
 = render partial: 'register/shared/form'

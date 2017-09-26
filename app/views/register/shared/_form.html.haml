@@ -1,10 +1,14 @@
 = form_for :create, url: "/#{params[:register]}" do |f|
   - @register.fields.each do |field|
-    .form-group
-      = label_tag field, prepare_register_name(field), class: 'form-label form-label-bold'
+  - has_error = flash[field.underscore].present?
+    .form-group{:class => ('form-group-error' if has_error) }
+      %label.form-label.form-label-bold
+        =prepare_register_name(field)
+        - if has_error
+          %span{class: 'error-message'} #{flash[field.underscore]}
       %span.form-hint #{get_description_for_register_field(field)}
       - if params[:action] == 'edit' && field == params[:register]
         = text_field_tag field, field != params[:register] ? @form[field] : @form['key'], class: 'form-control disabled'
       - else
-        = text_field_tag field, @form[field], class: 'form-control'
+        = text_field_tag field, @form[field], class: "form-control #{'form-control-error' if has_error}"
   = f.submit 'Continue', class: 'button'

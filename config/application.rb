@@ -24,8 +24,8 @@ module CustodianUpdateTool
 
     config.time_zone = 'London'
     config.active_record.default_timezone = :local
-
     config.active_job.queue_adapter = :sidekiq
+    config.autoload_paths += %W["#{config.root}/app/validators/"]
 
     ActionView::Base.default_form_builder = GovukElementsFormBuilder::FormBuilder
 
