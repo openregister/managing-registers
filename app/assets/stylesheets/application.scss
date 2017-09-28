@@ -72,6 +72,10 @@ a[data-method='delete'] {
 .form-control.disabled {
   border-color: $grey-2;
   color: $grey-2;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .form-label {
