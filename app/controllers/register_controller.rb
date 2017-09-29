@@ -36,7 +36,8 @@ class RegisterController < ApplicationController
   def confirm
     register_name = params[:register].downcase
     field_definitions = @registers_client.get_register(params[:register], 'beta').get_field_definitions
-    validation_result = @data_validator.get_form_errors(params, field_definitions, register_name)
+    records = @registers_client.get_register(params[:register], 'beta').get_records
+    validation_result = @data_validator.get_form_errors(params, field_definitions, register_name, params[:action], records)
     if validation_result.messages.present?
       validation_result.messages.each { |k,v| flash[k] = v.join(', ') }
       @register = get_register(register_name)
