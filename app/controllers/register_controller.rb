@@ -37,6 +37,7 @@ class RegisterController < ApplicationController
     register_name = params[:register].downcase
     field_definitions = @registers_client.get_register(params[:register], 'beta').get_field_definitions
     validation_result = @data_validator.get_form_errors(params, field_definitions, register_name)
+
     if validation_result.messages.present?
       validation_result.messages.each { |k,v| flash[k] = v.join(', ') }
       @register = get_register(register_name)
@@ -46,8 +47,8 @@ class RegisterController < ApplicationController
       return true if params[:data_confirmed]
       @register = get_register(params[:register])
       @current_register_record = OpenRegister.record(register_name,
-                          params[register_name.to_sym],
-                          :beta)
+                                              params[register_name.to_sym],
+                                              :beta)
 
       if @current_register_record
         @current_register_record = convert_register_json(@current_register_record)
@@ -59,23 +60,31 @@ class RegisterController < ApplicationController
 
   def create
     fields = get_register(params[:register]).fields
-
     payload = generate_canonical_object(fields, params)
 
-    @change = Change.new(register_name: params[:register], payload: payload, user_id: current_user.id)
-    @change.status = Status.new(status: 'pending')
-    @change.save
+    if current_user.basic?
+      @change = Change.new(register_name: params[:register], payload: payload, user_id: current_user.id)
+      @change.status = Status.new(status: 'pending')
+      @change.save
 
-    @change_approvers = Register.find_by(key: params[:register]).team.team_members.where.not(role: 'basic', user_id: current_user)
+      @change_approvers = Register.find_by(key: params[:register]).team.team_members.where.not(role: 'basic', user_id: current_user)
 
-    if @change_approvers.present?
-      RegisterUpdatesMailer.register_update_notification(@change, current_user, @change_approvers).deliver_now
+      if @change_approvers.present?
+        RegisterUpdatesMailer.register_update_notification(@change, current_user, @change_approvers).deliver_now
+      end
+
+      RegisterUpdatesMailer.register_update_receipt(@change, current_user).deliver_now
+
+      flash[:notice] = 'Your update has been submitted, you\'ll recieve a confirmation email once the update is live'
+      redirect_to action: 'index', register: params[:register]
+    else
+      @change = Change.new(register_name: params[:register], payload: payload, user_id: current_user.id)
+      @change.status = Status.new(status: 'pending')
+      @change.save
+
+      flash[:notice] = 'Your update has been submitted, please approve to make this update live'
+      redirect_to action: 'index', register: params[:register]
     end
-
-    RegisterUpdatesMailer.register_update_receipt(@change, current_user).deliver_now
-
-    flash[:notice] = 'Your update has been submitted, you\'ll recieve a confirmation email once the update is live'
-    redirect_to action: 'index', register: params[:register]
   end
 
   private
