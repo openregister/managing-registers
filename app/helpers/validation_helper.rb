@@ -2,14 +2,15 @@ module ValidationHelper
 
   class KeyUniquenessValidator < ActiveModel::Validator
     def validate(record)
-      key =  options[:register_name]
-      records =  options[:records]
-      action =  options[:action]
-      register_sym = key.underscore.to_sym
-      key_param = record.instance_variable_get("@#{key.underscore}")
-      # binding.pry
-      if records.select{|r| r[:item][key] == key_param}.present? && action == "create"
-        record.errors.add register_sym, 'This record is already present'
+      key = options[:register_name]
+      records = options[:records]
+      is_create = options[:is_create]
+      if ActiveModel::Type::Boolean.new.cast(is_create)
+        register_sym = key.underscore.to_sym
+        key_param = record.instance_variable_get("@#{key.underscore}")
+        if records.select {|r| r[:item][key] == key_param}.present?
+          record.errors.add register_sym, 'This record is already present'
+        end
       end
     end
   end
@@ -28,14 +29,11 @@ module ValidationHelper
         end
         include ActiveModel::Validations
 
-        validates_with KeyUniquenessValidator, records: records, register_name: register_name, action: action
+        validates_with KeyUniquenessValidator, records: records, register_name: register_name, is_create: params[:is_create]
         field_definitions.each do |field|
           field_sym = field_to_sym.call(field[:item]['field'])
           attr_accessor field_sym
           is_key = field_sym == register_sym
-
-          records.select{|r| r[:item]["country"] == "SU"}.present?
-
           case field[:item]['datatype']
             # Custom validators are defined in app/validators
           when 'integer'
