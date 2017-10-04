@@ -1,7 +1,8 @@
 module ValidationHelper
 
   class DataValidator
-    def get_form_errors(params, field_definitions, register_name)
+    def get_form_errors(params, field_definitions, register_name, records)
+
       field_to_sym = ->(field){ field.underscore.to_sym }
 
       register_sym = field_to_sym.call(register_name)
@@ -12,16 +13,17 @@ module ValidationHelper
           ActiveModel::Name.new(self, nil, 'record')
         end
         include ActiveModel::Validations
+
+        # Custom validators are defined in app/validators
+        validates_with KeyUniquenessValidator, records: records, register_name: register_name, is_create: params[:is_create]
         field_definitions.each do |field|
           field_sym = field_to_sym.call(field[:item]['field'])
           attr_accessor field_sym
           is_key = field_sym == register_sym
-
           case field[:item]['datatype']
-            # Custom validators are defined in app/validators
           when 'integer'
             validates field_sym, numericality: { only_integer: true, message: "%{value} is not an integer" }, allow_blank: true
-          when  'curie'
+          when 'curie'
             validates field_sym, format:{ with: /\A\w+:\w+\z/, message: "%{value} is not a valid curie"}, allow_blank: true
           when 'string'
             validates field_sym, presence: { message: "Field %{attribute} is required"}, allow_blank: !is_key

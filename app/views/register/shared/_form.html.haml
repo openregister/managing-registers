@@ -1,4 +1,6 @@
 = form_for :create, url: "/#{params[:register]}" do |f|
+  - if params[:action] == 'new' || params[:action] == 'create'
+    = hidden_field_tag 'is_create', 'true'
   - @register.fields.each do |field|
   - has_error = flash[field.underscore].present?
     .form-group{:class => ('form-group-error' if has_error) }
