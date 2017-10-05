@@ -1,12 +1,5 @@
 class RegisterPost
-  attr_reader :register_name, :rsf_body
-
-  def initialize(register_name, rsf_body)
-    @register_name = register_name
-    @rsf_body = rsf_body
-  end
-
-  def call
+  def self.call(register_name, rsf_body)
     protocol = Rails.configuration.register_ssl ? 'https' : 'http'
     (Rails.configuration.register_url.include? "localhost") ?
         uri = URI("#{protocol}://#{Rails.configuration.register_url}") :
