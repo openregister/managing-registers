@@ -47,10 +47,20 @@
             %td
             %td
 
-.notice
-  %i.icon.icon-important
-    %span.visually-hidden Warning
-  %strong.bold-small
-    Once you submit, these changes will be reviewed by another team member
-
-= button_to 'Submit', { action: 'create', params: params.permit!.to_h, data_confirmed: true }, {class: 'button'}
+= form_for :create, method: :post, url: "/#{params[:register]}" do
+  = hidden_field_tag :register_name, params[:register]
+  = hidden_field_tag :data_confirmed, true
+  - @register.fields.each do |field|
+    = hidden_field_tag field, params[field]
+  - if current_user.basic?
+    .notice
+      %i.icon.icon-important
+        %span.visually-hidden Warning
+      %strong.bold-small
+        Once you submit, these changes will be reviewed by another team member
+  - else
+    .multiple-choice
+      = check_box_tag :confirm_approve
+      = label_tag :confirm_approve, "These changes will be published on the live #{params[:register]} register."
+  .form-group
+    = button_tag 'Submit', class: 'button'
