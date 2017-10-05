@@ -9,8 +9,8 @@ class RegisterPost
   def call
     protocol = Rails.configuration.register_ssl ? 'https' : 'http'
     (Rails.configuration.register_url.include? "localhost") ?
-        uri = URI(protocol + '://' + Rails.configuration.register_url) :
-        uri = URI(protocol + '://' + register_name + '.' + Rails.configuration.register_url)
+        uri = URI("#{protocol}://#{Rails.configuration.register_url}") :
+        uri = URI("#{protocol}://#{register_name}.#{Rails.configuration.register_url}")
 
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = Rails.configuration.register_ssl
