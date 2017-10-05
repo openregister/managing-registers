@@ -45,9 +45,9 @@ class ChangeController < ApplicationController
     if params[:confirm_approve] == '1'
       @change = Change.find(params['id'])
 
-      rsf_body = create_rsf(@change.payload, @change.register_name)
+      rsf_body = CreateRsf.new(@change.payload, @change.register_name).call
 
-      Rails.env.development? || Rails.env.staging? || response = post_to_register(@change.register_name, rsf_body)
+      Rails.env.development? || Rails.env.staging? || response = RegisterPost.new(@change.register_name, rsf_body).call
 
       if Rails.env.development? || Rails.env.staging? || response.code == '200'
         @change.status.update_attributes(status: 'approved', reviewed_by_id: current_user.id)
