@@ -41,8 +41,6 @@ RSpec.feature "Publish Record", type: :feature do
     stub('https://country.beta.openregister.org/records.tsv', './spec/support/records.tsv')
   end
 
-
-
   before :each do
     create(:user, email: 'testuser@gov.uk')
     expect(User.count).to eq(1)
@@ -55,7 +53,7 @@ RSpec.feature "Publish Record", type: :feature do
     expect(page).to have_content 'Signed in successfully.'
   end
 
-  scenario "publishes an update to the register" do
+  scenario "custodian publishes an update to the register" do
     create(:register, key: 'country')
 
     visit 'country/new'
@@ -68,18 +66,8 @@ RSpec.feature "Publish Record", type: :feature do
     click_button 'Continue'
 
     expect(page).to have_content 'Check the details of your new country'
-    click_button 'Submit'
-
-    visit '/country#updates'
-    expect(page).to have_content 'zz'
-    click_link('Review')
-    expect(page).to have_content 'zz'
-    choose('approve_yes')
-    click_button 'Continue'
-
-    expect(page).to have_content 'Approve update'
     check 'confirm_approve'
-    click_button 'Approve'
+    click_button 'Submit'
 
     expect(page).to have_content 'The record has been published.'
   end

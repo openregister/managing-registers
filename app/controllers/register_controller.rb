@@ -79,11 +79,19 @@ class RegisterController < ApplicationController
       redirect_to action: 'index', register: params[:register]
     else
       @change = Change.new(register_name: params[:register], payload: payload, user_id: current_user.id)
-      @change.status = Status.new(status: 'pending')
+      @change.status = Status.new(status: 'approved', reviewed_by_id: current_user.id)
       @change.save
 
-      flash[:notice] = 'Your update has been submitted, please approve to make this update live'
-      redirect_to action: 'index', register: params[:register]
+      rsf_body = CreateRsf.new(@change.payload, @change.register_name).call
+
+      Rails.env.development? || Rails.env.staging? || response = RegisterPost.new(@change.register_name, rsf_body).call
+
+      if Rails.env.development? || Rails.env.staging? || response.code == '200'
+        flash[:notice] = 'The record has been published.'
+        redirect_to controller: 'register', action: 'index', register: params[:register]
+      else
+        flash[:alert] = 'We had an issue updating the register, try again.'
+      end
     end
   end
 
