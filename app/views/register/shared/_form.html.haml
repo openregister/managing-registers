@@ -3,7 +3,7 @@
   - has_error = flash[field.underscore].present?
     .form-group{:class => ('form-group-error' if has_error) }
       %label.form-label.form-label-bold
-        = prepare_register_name(field)
+        =prepare_register_name(field)
         - if has_error
           %span{class: 'error-message'} #{flash[field.underscore]}
       %span.form-hint #{get_description_for_register_field(field)}

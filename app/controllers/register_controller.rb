@@ -37,7 +37,6 @@ class RegisterController < ApplicationController
     register_name = params[:register].downcase
     field_definitions = @registers_client.get_register(params[:register], 'beta').get_field_definitions
     validation_result = @data_validator.get_form_errors(params, field_definitions, register_name)
-
     if validation_result.messages.present?
       validation_result.messages.each { |k,v| flash[k] = v.join(', ') }
       @register = get_register(register_name)
@@ -47,8 +46,8 @@ class RegisterController < ApplicationController
       return true if params[:data_confirmed]
       @register = get_register(params[:register])
       @current_register_record = OpenRegister.record(register_name,
-                                              params[register_name.to_sym],
-                                              :beta)
+                          params[register_name.to_sym],
+                          :beta)
 
       if @current_register_record
         @current_register_record = convert_register_json(@current_register_record)
