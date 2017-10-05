@@ -60,23 +60,39 @@ class RegisterController < ApplicationController
 
   def create
     fields = get_register(params[:register]).fields
-
     payload = generate_canonical_object(fields, params)
 
-    @change = Change.new(register_name: params[:register], payload: payload, user_id: current_user.id)
-    @change.status = Status.new(status: 'pending')
-    @change.save
+    if current_user.basic?
+      @change = Change.new(register_name: params[:register], payload: payload, user_id: current_user.id)
+      @change.status = Status.new(status: 'pending')
+      @change.save
 
-    @change_approvers = Register.find_by(key: params[:register]).team.team_members.where.not(role: 'basic', user_id: current_user)
+      @change_approvers = Register.find_by(key: params[:register]).team.team_members.where.not(role: 'basic', user_id: current_user)
 
-    if @change_approvers.present?
-      RegisterUpdatesMailer.register_update_notification(@change, current_user, @change_approvers).deliver_now
+      if @change_approvers.present?
+        RegisterUpdatesMailer.register_update_notification(@change, current_user, @change_approvers).deliver_now
+      end
+
+      RegisterUpdatesMailer.register_update_receipt(@change, current_user).deliver_now
+
+      flash[:notice] = 'Your update has been submitted, you\'ll recieve a confirmation email once the update is live'
+      redirect_to action: 'index', register: params[:register]
+    else
+      @change = Change.new(register_name: params[:register], payload: payload, user_id: current_user.id)
+      @change.status = Status.new(status: 'approved', reviewed_by_id: current_user.id)
+      @change.save
+
+      rsf_body = CreateRsf.new(@change.payload, @change.register_name).call
+
+      Rails.env.development? || Rails.env.staging? || response = RegisterPost.new(@change.register_name, rsf_body).call
+
+      if Rails.env.development? || Rails.env.staging? || response.code == '200'
+        flash[:notice] = 'The record has been published.'
+        redirect_to controller: 'register', action: 'index', register: params[:register]
+      else
+        flash[:alert] = 'We had an issue updating the register, try again.'
+      end
     end
-
-    RegisterUpdatesMailer.register_update_receipt(@change, current_user).deliver_now
-
-    flash[:notice] = 'Your update has been submitted, you\'ll recieve a confirmation email once the update is live'
-    redirect_to action: 'index', register: params[:register]
   end
 
   private
