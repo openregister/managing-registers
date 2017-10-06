@@ -79,19 +79,32 @@ class RegisterController < ApplicationController
       flash[:notice] = 'Your update has been submitted, you\'ll recieve a confirmation email once the update is live'
       redirect_to action: 'index', register: params[:register]
     else
-      @change = Change.new(register_name: params[:register], payload: payload, user_id: current_user.id)
-      @change.status = Status.new(status: 'approved', reviewed_by_id: current_user.id)
-      @change.save
+      if params[:confirm_approve] == '1'
+        @change = Change.new(register_name: params[:register], payload: payload, user_id: current_user.id)
+        @change.status = Status.new(status: 'approved', reviewed_by_id: current_user.id)
+        @change.save
 
-      rsf_body = CreateRsf.(@change.payload, @change.register_name)
+        rsf_body = CreateRsf.(@change.payload, @change.register_name)
 
-      Rails.env.development? || Rails.env.staging? || response = RegisterPost.(@change.register_name, rsf_body)
+        Rails.env.development? || Rails.env.staging? || response = RegisterPost.(@change.register_name, rsf_body)
 
-      if Rails.env.development? || Rails.env.staging? || response.code == '200'
-        flash[:notice] = 'The record has been published.'
-        redirect_to controller: 'register', action: 'index', register: params[:register]
+        if Rails.env.development? || Rails.env.staging? || response.code == '200'
+          flash[:notice] = 'The record has been published.'
+          redirect_to controller: 'register', action: 'index', register: params[:register]
+        else
+          flash[:alert] = 'We had an issue updating the register, try again.'
+        end
       else
-        flash[:alert] = 'We had an issue updating the register, try again.'
+        register_name = params[:register].downcase
+        fields = get_register(params[:register]).fields
+        @register = get_register(params[:register])
+        @current_register_record = OpenRegister.record(register_name, params[register_name.to_sym], :beta)
+
+        if @current_register_record
+          @current_register_record = convert_register_json(@current_register_record)
+        end
+        flash[:alert] = "Please confirm that you wish for this update to be published on the live #{register_name} register."
+        render :confirm
       end
     end
   end
