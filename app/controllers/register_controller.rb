@@ -96,7 +96,6 @@ class RegisterController < ApplicationController
         end
       else
         register_name = params[:register].downcase
-        fields = get_register(params[:register]).fields
         @register = get_register(params[:register])
         @current_register_record = OpenRegister.record(register_name, params[register_name.to_sym], :beta)
 
