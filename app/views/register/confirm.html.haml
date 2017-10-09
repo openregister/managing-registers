@@ -21,7 +21,7 @@
         - if !@current_register_record.nil?
           %td
             = @current_register_record[field]
-            - if params[field].present? && params[field] != @current_register_record[field]
+            - if params[field].present? && @current_register_record[field] == nil
               %span.no-data-found No original data
           - if !(@current_register_record[field] == nil && params[field.to_sym] == '')
             - if @current_register_record[field] != params[field.to_sym]
