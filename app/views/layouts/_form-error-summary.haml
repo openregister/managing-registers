@@ -1,7 +1,10 @@
 %div.error-summary{:role => 'alert', :'aria-labelledby' => 'error-summary-heading', :tabindex => '-1'}
   %h2{:class => %w(heading-medium error-summary-heading), :id => 'error-summary-heading'}
     Please correct the #{"error".pluralize(flash.count)} below
-  %ul.error-summary-list
-    - flash.each do |field, message|
-      %li
-      = link_to message, "##{field.dasherize}"
+  - if flash[:alert].present?
+    %p=flash[:alert]
+  - else
+    %ul.error-summary-list
+      - flash.each do |field, message|
+        %li
+        = link_to message, "##{field.dasherize}"
