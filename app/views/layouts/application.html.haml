@@ -49,7 +49,7 @@
     - if alert
       .grid-row
         .column-two-thirds
-          .flash.flash--dangerous= alert
+          = render partial: 'layouts/form-error-summary'
     - if notice
       .grid-row
         .column-two-thirds
