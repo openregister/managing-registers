@@ -24,6 +24,6 @@ class DatetimeValidator < ActiveModel::EachValidator
   end
 
   def validate_each(record, attribute, value)
-    record.errors.add attribute, "#{value} is not a valid date" unless valid_date(value)
+    record.errors.add attribute, 'Enter a valid date' unless valid_date(value)
   end
 end
