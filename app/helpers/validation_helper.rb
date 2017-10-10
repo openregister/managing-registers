@@ -1,13 +1,11 @@
 module ValidationHelper
-
   class DataValidator
     def get_form_errors(params, field_definitions, register_name, records)
-
-      field_to_sym = ->(field){ field.underscore.to_sym }
+      field_to_sym = ->(field) { field.underscore.to_sym }
 
       register_sym = field_to_sym.call(register_name)
 
-      register_model_class = Class.new() do
+      register_model_class = Class.new do
         # This is required see: https://stackoverflow.com/a/14431888/238230
         def self.model_name
           ActiveModel::Name.new(self, nil, 'record')
@@ -22,11 +20,11 @@ module ValidationHelper
           is_key = field_sym == register_sym
           case field[:item]['datatype']
           when 'integer'
-            validates field_sym, numericality: { only_integer: true, message: "%{value} is not an integer" }, allow_blank: true
+            validates field_sym, numericality: { only_integer: true, message: '%{value} is not an integer' }, allow_blank: true
           when 'curie'
-            validates field_sym, format:{ with: /\A\w+:\w+\z/, message: "%{value} is not a valid curie"}, allow_blank: true
+            validates field_sym, linked: { register_linked: field[:item]['register'] }, allow_blank: true
           when 'string'
-            validates field_sym, presence: { message: "Field %{attribute} is required"}, allow_blank: !is_key
+            validates field_sym, presence: { message: 'Field %{attribute} is required' }, allow_blank: !is_key
           when 'url'
             validates field_sym, url: true, allow_blank: true
           when 'datetime'
@@ -35,7 +33,7 @@ module ValidationHelper
         end
       end
 
-      field_definitions_map = field_definitions.map{ |f| field_to_sym.call(f[:item]['field'])}
+      field_definitions_map = field_definitions.map { |f| field_to_sym.call(f[:item]['field']) }
       record = register_model_class.new
       field_definitions_map.each do |f|
         value = params[f.to_s.dasherize]

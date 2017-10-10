@@ -60,3 +60,13 @@
     field: end-date
     phase: beta
     text: The date a record stopped being applicable.
+- :key: !ruby/string:RestClient::Response field:curie_field
+  :entry_number: 1
+  :timestamp: !ruby/string:RestClient::Response '2017-08-29T11:31:00Z'
+  :hash: !ruby/string:RestClient::Response sha-256:c5845bfc15577e8c120970ba084f1dc2c82b10e703f80d1efe4f694295a5a71d
+  :item:
+    cardinality: '1'
+    datatype: curie
+    field: curie_field
+    phase: beta
+    text: The link with another register
