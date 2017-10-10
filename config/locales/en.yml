@@ -2,7 +2,7 @@
 en:
   errors:
     messages:
-      blank: is requred
+      blank: is required
       confirmation: must match your new password
   views:
     users:

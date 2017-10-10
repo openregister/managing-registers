@@ -9,7 +9,7 @@ RSpec.describe ValidationHelper do
   describe "get_form_errors" do
     it "returns an error if date is invalid" do
       params = {"start-date"=>"foo", "country" => "zz"}
-      expect(data_validator.get_form_errors(params,field_definitions, 'country',  nil).messages).to eql({:start_date=>["foo is not a valid date"]})
+      expect(data_validator.get_form_errors(params,field_definitions, 'country',  nil).messages).to eql({:start_date=>["Enter a valid date"]})
     end
 
     it "returns no errors if date is valid" do
