@@ -29,7 +29,7 @@ class RegisterController < ApplicationController
     end
 
     @form = convert_register_json(
-        OpenRegister.record(params[:register].downcase, params[:id], :beta)
+        OpenRegister.record(params[:register].downcase, params[:id], Rails.configuration.register_phase)
     ) if @form.nil?
   end
 
@@ -48,7 +48,7 @@ class RegisterController < ApplicationController
       @register = get_register(register_name)
       @current_register_record = OpenRegister.record(register_name,
                           params[register_name.to_sym],
-                          :beta)
+                          Rails.configuration.register_phase)
 
       if @current_register_record
         @current_register_record = convert_register_json(@current_register_record)
