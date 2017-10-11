@@ -1,9 +1,9 @@
 = content_for :page_title, t('devise.invitations.new.header')
-
+= devise_error_messages!
 %h1.heading-large= t('devise.invitations.new.header')
 
 = form_for resource, url: invitation_path(resource_name), html: { method: :post } do |f|
-  = devise_error_messages!
+
   - resource.class.invite_key_fields.each do |field|
     %div.grid-row
       %div.column-full
