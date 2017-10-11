@@ -1,9 +1,11 @@
 ---
 en:
   errors:
+    format: "Your %{attribute} %{message}"
     messages:
       blank: is required
       confirmation: must match your new password
+      invalid: is incorrect
   views:
     users:
       admin:
