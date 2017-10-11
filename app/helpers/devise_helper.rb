@@ -7,9 +7,9 @@ module DeviseHelper
 
     html = <<-HTML
 
-  <div class="error-summary" role="alert" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+  <div class="error-summary" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
 
-        <h2 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+        <h2 class="heading-medium error-summary-heading" id="error-summary-heading">
           #{headline}
         </h2>
 
