@@ -18,7 +18,7 @@ module ApplicationHelper
   end
 
   def get_register(register_name)
-    OpenRegister.register(register_name.downcase, :beta)
+    OpenRegister.register(register_name.downcase, Rails.configuration.register_phase)
   end
 
   def generate_canonical_object(fields, params)
