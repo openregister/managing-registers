@@ -1,5 +1,9 @@
 ---
 en:
+  errors:
+    messages:
+      blank: is required
+      confirmation: must match your new password
   views:
     users:
       admin:
@@ -34,4 +38,4 @@ en:
   helpers:
     hint:
       user:
-        password: At least 8 characters
+        password: Must have 8 characters or more
