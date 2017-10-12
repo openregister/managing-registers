@@ -80,7 +80,7 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'https://managing-registers-staging.cloudapps.digital' }
 
-  config.register_phase = 'test'
+  config.register_phase = :test
   config.register_url = 'test.openregister.org/load-rsf'
   config.register_ssl = true
   config.register_username = ENV['COUNTRY_REGISTER_USERNAME']

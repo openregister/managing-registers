@@ -59,6 +59,6 @@ Rails.application.configure do
   config.register_ssl = false
   config.register_username = 'foo'
   config.register_password = 'bar'
-  config.register_phase = 'test'
+  config.register_phase = :test
 
 end
