@@ -76,7 +76,7 @@ class RegisterController < ApplicationController
 
       RegisterUpdatesMailer.register_update_receipt(@change, current_user).deliver_now
 
-      flash[:notice] = 'Your update has been submitted, you\'ll recieve a confirmation email once the update is live'
+      flash[:notice] = 'Your update has been submitted and sent for review.'
       redirect_to action: 'index', register: params[:register]
     else
       if params[:confirm_approve] == '1'

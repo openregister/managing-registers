@@ -57,10 +57,10 @@
       %i.icon.icon-important
         %span.visually-hidden Warning
       %strong.bold-small
-        Once you submit, these changes will be reviewed by another team member
+        After you submit your updates, they will be sent for review to another team member.
   - else
     .multiple-choice
       = check_box_tag :confirm_approve
-      = label_tag :confirm_approve, "These changes will be published on the live #{params[:register]} register."
+      = label_tag :confirm_approve, "These updates will be published to the #{params[:register]} register."
   .form-group
     = button_tag 'Submit', class: 'button'

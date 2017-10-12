@@ -2,7 +2,8 @@
 
 = link_to "Back", new_user_session_path, class: "link-back"
 = devise_error_messages!
-%h1.heading-xlarge Update your password
+%h1.heading-large Enter new password
+%p Please enter your new password twice so we can verify that you have typed it correctly.
 = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
   = f.hidden_field :reset_password_token
   = f.password_field :password, class: "form-control"
