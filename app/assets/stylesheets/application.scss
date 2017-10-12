@@ -44,6 +44,10 @@ dl {
   display: none;
 }
 
+.error-message .attribute {
+  text-transform: lowercase;
+}
+
 // Override purple colour
 a:visited {
   color: $govuk-blue;

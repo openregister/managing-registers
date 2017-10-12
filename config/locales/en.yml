@@ -1,7 +1,7 @@
 ---
 en:
   errors:
-    format: "Your %{attribute} %{message}"
+    format: "Your <span class='attribute'>%{attribute}</span> %{message}"
     messages:
       blank: is required
       confirmation: must match your new password
