@@ -10,7 +10,7 @@
   = form_tag change_path, method: :put do
     .multiple-choice
       = check_box_tag 'confirm_approve'
-      = label_tag 'confirm_approve', "These changes will be published on the live #{params[:register]} register."
+      = label_tag 'confirm_approve', "These updates will be published to the #{params[:register]} register."
     .form-group
       = submit_tag 'Approve', class: 'button'
 
