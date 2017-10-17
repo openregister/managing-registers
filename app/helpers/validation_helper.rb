@@ -13,7 +13,6 @@ module ValidationHelper
         include ActiveModel::Validations
 
         # Custom validators are defined in app/validators
-        validates_with KeyUniquenessValidator, records: records, register_name: register_name, is_create: params[:is_create]
         field_definitions.each do |field|
           field_sym = field_to_sym.call(field[:item]['field'])
           attr_accessor field_sym
@@ -24,7 +23,7 @@ module ValidationHelper
           when 'curie'
             validates field_sym, linked: { register_linked: field[:item]['register'] }, allow_blank: true
           when 'string'
-            validates field_sym, presence: { message: 'Field %{attribute} is required' }, allow_blank: !is_key
+            validates field_sym, presence: { message: 'Field %{attribute} is required' }, allow_blank: !is_key, key_uniqueness: { records: records, is_create: params[:is_create] }, if: -> { is_key == true }
           when 'url'
             validates field_sym, url: true, allow_blank: true
           when 'datetime'
