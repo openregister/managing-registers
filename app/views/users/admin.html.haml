@@ -38,14 +38,13 @@
       - @pending_users.each do |user|
         %tr
           %td
-            %span.user__name= user.full_name
             %span.user__email= user.email
           %td
             = link_to "Remove invite", user_path(user), data: { confirm: 'Are you sure?' }, method: :delete
     - else
       %tr
         %td
-          %span.user__email There are no users with a pending invite
+          %span.empty-table-text There are no users with a pending invite
         %td
 
 .user__permissions

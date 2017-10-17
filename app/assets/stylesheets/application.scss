@@ -174,17 +174,25 @@ table {
 
   &__name {
     font-weight: 700;
+
+    + .user__email {
+      margin-left: 10px;
+    }
   }
 
   &__email {
     color: $grey-1;
     font-weight: 300;
-    margin-left: 10px;
   }
 
   &__register-name {
     display: block;
   }
+}
+
+.empty-table-text {
+  color: $grey-1;
+  font-weight: 300;
 }
 
 .multiple-choice + .user__permissions {
