@@ -18,13 +18,15 @@ Bundler.require(*Rails.groups)
 
 module CustodianUpdateTool
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 5.1
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
     config.time_zone = 'London'
     config.active_record.default_timezone = :local
-    config.active_job.queue_adapter = :sidekiq
     config.autoload_paths += %W["#{config.root}/app/validators/"]
 
     ActionView::Base.default_form_builder = GovukElementsFormBuilder::FormBuilder
