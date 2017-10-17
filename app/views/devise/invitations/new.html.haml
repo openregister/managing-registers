@@ -5,9 +5,9 @@
 = form_for resource, url: invitation_path(resource_name), html: { method: :post } do |f|
 
   - resource.class.invite_key_fields.each do |field|
-    %div.grid-row
-      %div.column-full
-        = f.text_field field
+    .grid-row
+      .column-one-half
+        = f.text_field field, class: 'form-control-full-width'
 
   - if params[:role] == 'admin'
     = f.hidden_field :admin, value: true
@@ -18,10 +18,10 @@
         - if params[:role] == 'custodian'
           = f.label :registers, class: "form-label"
           = f.nested_fields_for :teams, f.object.teams.new do |team|
-            %div.grid-row.form-group
-              %div.column-one-half
+            .grid-row.form-group
+              .column-one-half
                 = team.select :registers, beta_registers_by_name.collect{ |r| [prepare_register_name(r), r]}.reject {|register|  Register.all.collect{|stored_register| stored_register.key unless stored_register.team_id.nil?}.include? register[1]}, {include_blank: "", multiple: true }, { class: "form-control autocomplete" }
-              %div.column-one-half
+              .column-one-half
                 = team.remove_nested_fields_link 'Remove register'
 
           = f.add_nested_fields_link :teams, 'Add register'
