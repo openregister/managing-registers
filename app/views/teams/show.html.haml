@@ -66,7 +66,7 @@
       - else
         %tr
           %td
-            %span.user__email There are no team members with advanced permissions
+            %span.empty-table-text There are no team members with advanced permissions
           %td
 
   %details
@@ -98,7 +98,7 @@
       - else
         %tr
           %td
-            %span.user__email There are no team members with basic permissions
+            %span.empty-table-text There are no team members with basic permissions
           %td
   %details
     %summary
@@ -117,12 +117,11 @@
         - @pending_team_members.each do |team_member|
           %tr
             %td
-              %span.user__name= team_member.user.full_name
               %span.user__email= team_member.user.email
             %td
               = link_to t('views.roles.change_role'), edit_team_team_member_path(params[:id], team_member)
       - else
         %tr
           %td
-            %span.user__email There are no users with a pending invite
+            %span.empty-table-text There are no users with a pending invite
           %td
