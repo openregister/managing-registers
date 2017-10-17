@@ -13,14 +13,6 @@
       = render partial: "layouts/destroy", locals: { object: User.find(params[:delete_user]), return_path: admin_path }
 
 %h3.heading-medium Team members
-.user__permissions
-  %p.list-title All Admin team members can:
-  %ul.list.list-bullet
-    %li Manage Admin team
-    %li Manage custodian access
-    %li Update records
-    %li Submit updates for review
-    %li Approve and publish updates to records
 
 %table
   %tbody
@@ -55,3 +47,15 @@
         %td
           %span.user__email There are no users with a pending invite
         %td
+
+.user__permissions
+  %details
+    %summary
+      %span.summary Learn about an admin users permissions
+    %div.panel.panel-border-narrow
+      %ul.list.list-bullet
+        %li Manage Admin team
+        %li Manage custodian access
+        %li Update records
+        %li Submit updates for review
+        %li Approve and publish updates to records
