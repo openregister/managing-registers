@@ -24,7 +24,11 @@
         %tr
           %td
             %span.user__name= @custodian_team_member.user.full_name
-            %span.user__email= @custodian_team_member.user.email
+            %span.user__email
+              - if current_user == @custodian_team_member.user
+                (you)
+              - else
+                = @custodian_team_member.user.email
           %td
             = link_to t('views.roles.change_role'), edit_team_team_member_path(params[:id], @custodian_team_member) if current_user.admin?
       - else
@@ -52,7 +56,11 @@
           %tr
             %td
               %span.user__name= team_member.user.full_name
-              %span.user__email= team_member.user.email
+              %span.user__email
+                - if current_user == team_member.user
+                  (you)
+                - else
+                  = team_member.user.email
             %td
               = link_to t('views.roles.change_role'), edit_team_team_member_path(params[:id], team_member) unless current_user.basic?
       - else
@@ -80,7 +88,11 @@
           %tr
             %td
               %span.user__name= team_member.user.full_name
-              %span.user__email= team_member.user.email
+              %span.user__email
+                - if current_user == team_member.user
+                  (you)
+                - else
+                  = team_member.user.email
             %td
               = link_to t('views.roles.change_role'), edit_team_team_member_path(params[:id], team_member) unless current_user.basic?
       - else
