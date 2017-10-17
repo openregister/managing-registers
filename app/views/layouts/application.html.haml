@@ -48,11 +48,11 @@
               = link_to "Manage Admin Team", admin_path, class: 'service-navigation__link'
     - if alert
       .grid-row
-        .column-two-thirds
+        .column-full
           .flash.flash--dangerous= alert
     - if notice
       .grid-row
-        .column-two-thirds
+        .column-full
           .flash.flash--notice= notice
     = content_for?(:main) ? yield(:main) : yield
 
