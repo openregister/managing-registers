@@ -133,7 +133,8 @@ table {
 
   @include media(tablet) {
     font-size: 19px;
-    line-height: 1.31579
+    line-height: 1.31579;
+    margin-top: 40px;
   }
 }
 
@@ -147,15 +148,15 @@ table {
 
 .page-header {
   margin-bottom: 1.25em;
+  margin-top: 40px;
 
   .heading-large {
-    margin-top: 13px;
+    margin-top: 0;
   }
 }
 
 .align-with-heading {
   float: right;
-  margin-top: 13px;
 }
 
 .list-title {
