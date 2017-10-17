@@ -1,6 +1,20 @@
 = content_for :page_title, t('devise.invitations.new.header')
 = devise_error_messages!
+
+- if params[:role] == 'admin'
+  = link_to 'Back', admin_path, class: 'link-back'
+
 %h1.heading-large= t('devise.invitations.new.header')
+
+- if params[:role] == 'admin'
+  .user__permissions
+    %p.list-title All Admin users can:
+    %ul.list.list-bullet
+      %li Manage Admin team
+      %li Manage custodian access
+      %li Update records
+      %li Submit updates for review
+      %li Approve and publish updates to records
 
 = form_for resource, url: invitation_path(resource_name), html: { method: :post } do |f|
 
