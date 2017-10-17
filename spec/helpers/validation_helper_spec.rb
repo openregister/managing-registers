@@ -4,6 +4,7 @@ require 'yaml'
 
 RSpec.describe ValidationHelper do
   field_definitions = YAML.load_file('./spec/support/field_definitions.yaml')
+  records = YAML.load_file('./spec/support/records.yml')
   data_validator = ValidationHelper::DataValidator.new
 
   describe 'get_form_errors' do
@@ -31,6 +32,11 @@ RSpec.describe ValidationHelper do
     it 'returns an error if key is not populated' do
       params = { country: '', register: 'country' }
       expect(data_validator.get_form_errors(params, field_definitions, 'country', nil).messages).to eql(country: ['Field Country is required'])
+    end
+
+    it 'returns an error if key already exists when performing a create' do
+      params = { 'country' => 'SU', 'is_create': 'true' }
+      expect(data_validator.get_form_errors(params, field_definitions, 'country', records).messages).to eql(country: ['This code is already in use for another record, please use another code'])
     end
 
     it 'returns no errors if curie is valid' do
