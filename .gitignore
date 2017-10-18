@@ -125,3 +125,6 @@ build-iPhoneSimulator/
 
 #travis builds a vendor folder which we dont want ignored when sending to cloud foundry
 vendor
+
+# Ignore encrypted secrets key file.
+config/secrets.yml.key

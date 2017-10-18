@@ -19,7 +19,7 @@ RSpec.feature "Publish Record", type: :feature do
 
     stub_request(:post, "http://country.test.openregister.org/load-rsf").
       with(:body => /add-item	{"country":"zz","end-date":"2014-05","name":"name","official-name":"official name","start-date":"2014-05"}\nappend-entry	user	zz	\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z	sha-256:38dda0d017bff8c4c9090a723b8e423d267a15717896135d4ab0b38f87dec7d4/,
-           headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Basic Zm9vOmJhcg==', 'Content-Type'=>'application/uk-gov-rsf'}).
+           headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Basic b3BlbnJlZ2lzdGVyOkxnanNBR3lIRTE=', 'Content-Type'=>'application/uk-gov-rsf'}).
       to_return(status: 200, body: "", headers: {})
 
     stub('https://country.beta.openregister.org/download-rsf', './spec/support/country.rsf')

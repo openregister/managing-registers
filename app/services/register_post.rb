@@ -9,7 +9,10 @@ class RegisterPost
     http.use_ssl = Rails.configuration.register_ssl
 
     request = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/uk-gov-rsf'})
-    request.basic_auth(Rails.configuration.register_username, Rails.configuration.register_password)
+    request.basic_auth(
+      Rails.application.secrets.register[:"#{register_name}"][:username],
+      Rails.application.secrets.register[:"#{register_name}"][:password]
+    )
     request.body = rsf_body
 
     http.request(request)
