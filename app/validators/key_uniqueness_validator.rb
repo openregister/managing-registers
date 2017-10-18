@@ -1,13 +1,11 @@
-class KeyUniquenessValidator < ActiveModel::Validator
-  def validate(record)
-    key = options[:register_name]
+class KeyUniquenessValidator < ActiveModel::EachValidator
+  def validate_each(record, attribute, value)
     records = options[:records]
     is_create = options[:is_create]
+    key = attribute.to_s.dasherize
     if ActiveModel::Type::Boolean.new.cast(is_create)
-      register_sym = key.underscore.to_sym
-      key_param = record.instance_variable_get("@#{key.underscore}")
-      if records.select {|r| r[:item][key] == key_param}.present?
-        record.errors.add register_sym, 'This code is already in use for another record, please use another code'
+      if records.select { |r| r[:item][key] == value }.present?
+        record.errors.add attribute, 'This code is already in use for another record, please use another code'
       end
     end
   end
