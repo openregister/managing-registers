@@ -30,7 +30,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     flash[:notice] = 'User has been successful deleted'
-    redirect_to root_path
+    redirect_back(fallback_location: root_path)
   end
 
   def show; end
@@ -52,6 +52,14 @@ end
 class UsersController::InvitationsController < Devise::InvitationsController
 
   include ElevatedPermissionsHelper
+
+  def after_invite_path_for(resource)
+    if resource.admin == true
+      admin_path
+    else
+      root_path
+    end
+  end
 
   def invite_resource(&block)
     ## skip sending emails on invite
