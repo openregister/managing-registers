@@ -30,7 +30,8 @@ RSpec.describe ValidationHelper do
     end
 
     it 'returns an error if key is not populated' do
-      params = { country: '', register: 'country' }
+      params = { country: '', register: 'country', 'is_create': 'true' }
+      binding.pry
       expect(data_validator.get_form_errors(params, field_definitions, 'country', nil).messages).to eql(country: ['Field Country is required'])
     end
 
