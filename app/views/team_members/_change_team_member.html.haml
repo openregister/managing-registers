@@ -31,4 +31,4 @@
   .form-group
     = tm.submit "Submit", class: "button"
 
-= link_to "Remove from team", team_team_member_path(@team_member), data: { confirm: 'Are you sure?' }, method: :delete
+= link_to "Remove from team", team_member_path(@team_member), data: { confirm: 'Are you sure?' }, method: :delete
