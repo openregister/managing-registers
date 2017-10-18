@@ -54,7 +54,7 @@ class UsersController::InvitationsController < Devise::InvitationsController
   include ElevatedPermissionsHelper
 
   def after_invite_path_for(resource)
-    if resource.admin == true
+    if resource.admin
       admin_path
     else
       root_path
