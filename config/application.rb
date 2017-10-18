@@ -31,6 +31,9 @@ module CustodianUpdateTool
 
     ActionView::Base.default_form_builder = GovukElementsFormBuilder::FormBuilder
 
+    # TODO: Refactor our code to not need this
+    config.action_controller.permit_all_parameters = true
+
     config.to_prepare do
       Devise::Mailer.layout "mailer"
     end
