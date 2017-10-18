@@ -4,8 +4,9 @@
   .grid-row
     .column-two-thirds
       %h1.heading-large= t('views.teams.show.page_title')
-    .column-one-third
-      = link_to t('views.teams.new.page_title'), new_user_invitation_path(team_id: @team.id), class: 'button align-with-heading' unless current_user.admin?
+    - unless current_user.admin? || current_user.basic?
+      .column-one-third
+        = link_to t('views.teams.new.page_title'), new_user_invitation_path(team_id: @team.id), class: 'button align-with-heading'
 
 %div#registers
   %h3.heading-medium Registers managed by this team
