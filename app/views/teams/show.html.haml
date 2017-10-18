@@ -63,7 +63,8 @@
                 - else
                   = team_member.user.email
             %td
-              = link_to t('views.roles.change_role'), edit_team_team_member_path(params[:id], team_member) unless current_user.basic?
+              - unless current_user.basic? || current_user == team_member.user
+                = link_to t('views.roles.change_role'), edit_team_team_member_path(params[:id], team_member)
       - else
         %tr
           %td
@@ -95,7 +96,8 @@
                 - else
                   = team_member.user.email
             %td
-              = link_to t('views.roles.change_role'), edit_team_team_member_path(params[:id], team_member) unless current_user.basic?
+              - unless current_user.basic? || current_user == team_member.user
+                = link_to t('views.roles.change_role'), edit_team_team_member_path(params[:id], team_member)
       - else
         %tr
           %td
