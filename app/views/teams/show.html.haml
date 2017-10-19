@@ -1,6 +1,9 @@
 = content_for :page_title, t('views.teams.show.page_title')
 
-= link_to 'Back', teams_path, class: 'link-back'
+- if current_user.admin?
+  = link_to 'Back', custodians_path, class: 'link-back'
+- elsif current_user.custodian?
+  = link_to 'Back', teams_path, class: 'link-back'
 
 %header.page-header
   .grid-row
