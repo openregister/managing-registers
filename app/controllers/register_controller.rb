@@ -102,7 +102,7 @@ class RegisterController < ApplicationController
         if @current_register_record
           @current_register_record = convert_register_json(@current_register_record)
         end
-        flash[:alert] = "Please confirm that you wish for this update to be published on the live #{register_name} register."
+        flash[:alert] = "Confirm that you understand this update will be published."
         render :confirm
       end
     end
