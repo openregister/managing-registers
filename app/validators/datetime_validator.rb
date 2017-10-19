@@ -1,9 +1,11 @@
+require 'timeliness'
+
 class DatetimeValidator < ActiveModel::EachValidator
-  YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS_UTC = '%Y-%m-%dT%H:%M:%SZ'
-  YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS = '%Y-%m-%dT%H:%M:%S'
-  YEAR_MONTH_DAY = '%Y-%m-%d'
-  YEAR_MONTH = '%Y-%m'
-  YEAR = '%Y'
+  YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS_UTC = 'yyyy-mm-ddThh:nn:ssZ'
+  YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS = 'yyyy-mm-ddThh:nn:ss'
+  YEAR_MONTH_DAY = 'yyyy-mm-dd'
+  YEAR_MONTH = 'yyyy-mm'
+  YEAR = 'yyyy'
   DATE_FORMATS = [
       YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS_UTC,
       YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS,
@@ -13,14 +15,7 @@ class DatetimeValidator < ActiveModel::EachValidator
   ].freeze
 
   def valid_date(value)
-    DATE_FORMATS.each { |date_format|
-      begin
-        Date.strptime(value, date_format)
-        return true
-      rescue ArgumentError
-      end
-    }
-    false
+    DATE_FORMATS.any? { |f| Timeliness.parse(value, format: f) }
   end
 
   def validate_each(record, attribute, value)

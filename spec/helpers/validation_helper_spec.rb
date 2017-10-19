@@ -20,13 +20,17 @@ RSpec.describe ValidationHelper do
     end
 
     it 'returns an error if date is invalid' do
-      params = { 'start-date' => 'foo', 'country' => 'zz' }
-      expect(data_validator.get_form_errors(params, field_definitions, 'country', nil).messages).to eql(start_date: ['Enter a valid date'])
+      ['X123', '123X', 'foo', '20145', '201'].each do |d|
+        params = { 'start-date' => d, 'country' => 'zz' }
+        expect(data_validator.get_form_errors(params, field_definitions, 'country', nil).messages).to eql(start_date: ['Enter a valid date'])
+      end
     end
 
     it 'returns no errors if date is valid' do
-      params = { 'start-date' => '2015-05', 'country' => 'xx' }
-      expect(data_validator.get_form_errors(params, field_definitions, 'country', nil).details).to be_empty
+      ['2014', '2014-05', '2014-05-01', '2017-10-19T08:10:49', '2017-10-19T08:10:49Z'].each do |d|
+        params = { 'start-date' => d, 'country' => 'xx' }
+        expect(data_validator.get_form_errors(params, field_definitions, 'country', nil).details).to be_empty
+      end
     end
 
     it 'returns an error if key is not populated' do
