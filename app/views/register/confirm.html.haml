@@ -59,8 +59,9 @@
       %strong.bold-small
         After you submit your updates, they will be sent for review to another team member.
   - else
-    .multiple-choice
-      = check_box_tag :confirm_approve
-      = label_tag :confirm_approve, "These updates will be published to the #{params[:register]} register."
+    .form-group
+      .multiple-choice
+        = check_box_tag :confirm_approve
+        = label_tag :confirm_approve, "These updates will be published to the #{params[:register]} register."
   .form-group
     = button_tag 'Submit', class: 'button'
