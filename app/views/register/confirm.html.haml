@@ -1,5 +1,9 @@
 = content_for :page_title, "Confirm new record"
 
+= link_to 'Back', {action: 'new', params: params.permit!.to_h}, class: 'link-back'
+
+= render partial: 'layouts/form-error-summary' if flash.present?
+
 - if @current_register_record.nil?
   %h1.heading-large Check the details of your new #{prepare_register_name(params[:register]).downcase}
 - else
@@ -59,7 +63,10 @@
       %strong.bold-small
         After you submit your updates, they will be sent for review to another team member.
   - else
-    .form-group
+    - has_error = flash.present?
+    %div{class: "form-group #{'form-group-error' if has_error}"}
+      - if has_error
+        %span.error-message= flash.alert
       .multiple-choice
         = check_box_tag :confirm_approve
         = label_tag :confirm_approve, "These updates will be published to the #{params[:register]} register."
