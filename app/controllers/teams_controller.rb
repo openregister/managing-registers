@@ -26,11 +26,12 @@ class TeamsController < ApplicationController
   def edit; end
 
   def update
-    updated_registers = params[:team][:registers_attributes]
-                            .reject{ |index, register| register[:_destroy] }
-                            .collect{ |index, register| register[:key] }
+    updated_registers_keys ||= []
+    params[:team][:registers_attributes]
+      .reject{ |index, register| register[:_destroy] }
+      .each_pair { |index, register| updated_registers_keys.push(register[:key])}
 
-    @team.update_registers(updated_registers).save
+    @team.update_registers(updated_registers_keys).save
 
     flash[:notice] = 'Registers updated successfully'
     redirect_to team_path
