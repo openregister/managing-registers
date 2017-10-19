@@ -44,6 +44,7 @@ gem 'cancancan'
 
 # form helpers
 gem 'nested_form_fields'
+gem 'timeliness', '~> 0.3.8'
 
 group :development, :test do
   gem 'pry-byebug'
