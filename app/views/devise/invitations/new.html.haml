@@ -4,6 +4,9 @@
 - if params[:role] == 'admin'
   = link_to 'Back', admin_path, class: 'link-back'
 
+- if params[:team_id]
+  = link_to 'Back', team_path(params[:team_id]), class: 'link-back'
+
 %h1.heading-large= t('devise.invitations.new.header')
 
 - if params[:role] == 'admin'
