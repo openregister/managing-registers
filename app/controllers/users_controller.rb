@@ -53,11 +53,18 @@ class UsersController::InvitationsController < Devise::InvitationsController
 
   include ElevatedPermissionsHelper
 
-  def after_invite_path_for(resource)
-    if resource.admin
+  def after_invite_path_for(current_inviter)
+    request_origin = request.referer
+    uri = URI.parse(request_origin)
+    params = CGI.parse(uri.query)
+    role = params['role'].first
+
+    return root_path unless role.present?
+
+    if params['role'].first.to_s == 'admin'
       admin_path
     else
-      root_path
+      custodians_path
     end
   end
 
