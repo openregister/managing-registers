@@ -49,6 +49,4 @@ Rails.application.configure do
 
   config.register_url = 'test.openregister.org/load-rsf'
   config.register_ssl = false
-  config.register_username = 'foo'
-  config.register_password = 'bar'
 end
