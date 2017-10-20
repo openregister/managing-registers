@@ -70,3 +70,11 @@
 
   .form-group
     = f.submit "Send invite", class: 'button'
+
+- content_for :javascript do
+  :javascript
+    $(function() {
+      if ($('.nested_fields').length < 2) {
+        $('.remove_nested_fields_link').hide()
+      }
+    })
