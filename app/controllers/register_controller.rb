@@ -85,10 +85,10 @@ class RegisterController < ApplicationController
         @change.save
 
         rsf_body = CreateRsf.(@change.payload, @change.register_name)
-
-        Rails.env.development? || Rails.env.staging? || response = RegisterPost.(@change.register_name, rsf_body)
+        Rails.env.development? || response = RegisterPost.(@change.register_name, rsf_body)
 
         if Rails.env.development? || Rails.env.staging? || response.code == '200'
+          @registers_client.get_register(@change.register_name, Rails.configuration.register_phase.to_s).refresh_data
           flash[:notice] = 'The record has been published.'
           redirect_to controller: 'register', action: 'index', register: params[:register]
         else
