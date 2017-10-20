@@ -88,6 +88,4 @@ Rails.application.configure do
   config.register_phase = :test
   config.register_url = 'test.openregister.org/load-rsf'
   config.register_ssl = true
-  config.register_username = ENV['COUNTRY_REGISTER_USERNAME']
-  config.register_password = ENV['COUNTRY_REGISTER_PASSWORD']
 end
