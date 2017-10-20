@@ -67,31 +67,4 @@ class ChangeController < ApplicationController
     end
   end
 
-  def post_to_register(register_name, rsf_body)
-    protocol = Rails.configuration.register_ssl ? 'https' : 'http'
-    (Rails.configuration.register_url.include? "localhost") ?
-        uri = URI(protocol + '://' + Rails.configuration.register_url) :
-        uri = URI(protocol + '://' + register_name + '.' + Rails.configuration.register_url)
-
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = Rails.configuration.register_ssl
-
-    request = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/uk-gov-rsf'})
-    request.basic_auth(Rails.configuration.register_username, Rails.configuration.register_password)
-    request.body = rsf_body
-
-    http.request(request)
-  end
-
-  def create_rsf(payload, register_name)
-    payload_sha = Digest::SHA256.hexdigest payload.to_json
-    current_date_register_format = DateTime.now.strftime("%Y-%m-%dT%H:%M:%SZ")
-    record_key = payload[register_name]
-
-    item = "add-item\t#{payload.to_json}"
-    entry = "append-entry\tuser\t#{record_key}\t#{current_date_register_format}\tsha-256:#{payload_sha}"
-
-    "#{item}\n#{entry}"
-  end
-
 end
