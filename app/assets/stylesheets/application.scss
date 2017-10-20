@@ -168,10 +168,6 @@ table {
 }
 
 .user {
-  &__permissions {
-    color: $grey-1;
-  }
-
   &__name {
     font-weight: 700;
 
@@ -268,4 +264,9 @@ table {
   padding: 4px 8px 2px 8px;
   margin-left: 10px;
   vertical-align: middle;
+}
+
+.panel-border-narrow {
+  padding: 0 0.7894736842em 0 0.7894736842em;
+  margin-bottom: 40px;
 }
