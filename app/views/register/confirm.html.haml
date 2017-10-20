@@ -22,7 +22,7 @@
           %td
             = @current_register_record[field]
             - if params[field].present? && @current_register_record[field] == nil
-              %span.no-data-found No original data
+              %span.no-data-found No data
           - if !(@current_register_record[field] == nil && params[field.to_sym] == '')
             - if @current_register_record[field] != params[field.to_sym]
               %td
@@ -38,7 +38,7 @@
         - else
           - if params[field].present?
             %td
-              %span.no-data-found No original data
+              %span.no-data-found No data
             %td
               %span.panel.panel-change-notification= params[field.to_sym]
             %td= link_to 'Update', {action: 'new', params: params.permit!.to_h}
