@@ -28,4 +28,9 @@ class User < ApplicationRecord
     team_members.first.try(:role) == 'basic'
   end
 
+  def send_devise_notification(notification, *args)
+    unless(notification == :password_change && sign_in_count.zero?)
+      super
+    end
+  end
 end
