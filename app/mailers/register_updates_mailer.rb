@@ -35,7 +35,7 @@ class RegisterUpdatesMailer < GovukNotifyRails::Mailer
       reason_declined: change.status.comment
     )
 
-    mail(from: user.email)
+    mail(to: change.user.email)
   end
 
   def register_update_approved(change, user)
