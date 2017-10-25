@@ -92,4 +92,6 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'https://managing-registers.cloudapps.digital' }
 
   config.register_phase = :beta
+
+  config.cache_duration = 3600
 end
