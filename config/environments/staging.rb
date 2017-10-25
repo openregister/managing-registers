@@ -88,4 +88,6 @@ Rails.application.configure do
   config.register_phase = :test
   config.register_url = 'test.openregister.org/load-rsf'
   config.register_ssl = true
+
+  config.cache_duration = 3600
 end

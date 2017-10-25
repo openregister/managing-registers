@@ -112,6 +112,6 @@ class RegisterController < ApplicationController
 
   def initialize_controller
     @data_validator = ValidationHelper::DataValidator.new
-    @@registers_client ||= OpenRegister::RegistersClient.new({ cache_duration: 60 })
+    @@registers_client ||= OpenRegister::RegistersClient.new({ cache_duration: Rails.configuration.cache_duration })
   end
 end
