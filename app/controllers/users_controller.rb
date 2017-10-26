@@ -50,8 +50,21 @@ class UsersController < ApplicationController
 end
 
 class UsersController::InvitationsController < Devise::InvitationsController
+  def get_user
+     User.find_by_email(resource_params[:email]) 
+  end
 
   include ElevatedPermissionsHelper
+
+  def create
+    if get_user.try(:admin)
+      flash[:alert] = 'You cannot invite an existing admin user'
+      redirect_to after_invite_path_for(current_inviter) and return
+    end
+
+    super
+  end
+
 
   def after_invite_path_for(current_inviter)
     request_origin = request.referer
@@ -74,7 +87,7 @@ class UsersController::InvitationsController < Devise::InvitationsController
       u.skip_invitation = true
     end
 
-    user = User.find_by_email(resource_params[:email])
+    user = get_user
 
     unless user.admin?
       if current_user.admin?
