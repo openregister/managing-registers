@@ -93,8 +93,10 @@ class UsersController::InvitationsController < Devise::InvitationsController
       if current_user.admin?
         if params[:user][:role] == 'custodian'
 
-          registers = resource_params[:teams_attributes].collect do |index, field|
-            field['registers'].strip unless field['registers'].nil?
+          registers ||= []
+
+          resource_params[:teams_attributes].each_pair do |index, field|
+            registers.push(field['registers'].strip) unless field['registers'].nil?
           end
 
           registers = registers.uniq{|register| register.key}
