@@ -34,18 +34,25 @@
         %ul.service-navigation__nav
           %li{class: "service-navigation__nav-item #{'active' if current_page?(root_path)}"}
             = link_to "Manage Registers", root_path, class: 'service-navigation__link'
-          - unless current_user.admin?
+          - if current_user.admin?
+            %li{class: "service-navigation__nav-item #{'active' if current_page?(custodians_path) || current_page?(new_user_invitation_path(role: 'custodian'))}"}
+              = link_to "Manage Custodians", custodians_path, class: 'service-navigation__link'
+            %li{class: "service-navigation__nav-item #{'active' if current_page?(admin_path) || current_page?(new_user_invitation_path(role: 'admin'))}"}
+              = link_to "Manage Admin Team", admin_path, class: 'service-navigation__link'
+          - elsif current_user.advanced? || current_user.custodian?
             - if current_user.teams.count == 1
               %li{class: "service-navigation__nav-item #{'active' if current_page?(team_path(current_user.teams.first.id))}"}
                 = link_to "Manage Team", team_path(current_user.teams.first.id), class: 'service-navigation__link'
             - else
               %li{class: "service-navigation__nav-item #{'active' if current_page?(teams_path) || request.path.start_with?('/team') || current_page?(new_user_invitation_path(team_id: params[:team_id]))}"}
                 = link_to "Manage Teams", teams_path, class: 'service-navigation__link'
-          - if current_user.admin?
-            %li{class: "service-navigation__nav-item #{'active' if current_page?(custodians_path) || current_page?(new_user_invitation_path(role: 'custodian'))}"}
-              = link_to "Manage Custodians", custodians_path, class: 'service-navigation__link'
-            %li{class: "service-navigation__nav-item #{'active' if current_page?(admin_path) || current_page?(new_user_invitation_path(role: 'admin'))}"}
-              = link_to "Manage Admin Team", admin_path, class: 'service-navigation__link'
+          - else
+            - if current_user.teams.count == 1
+              %li{class: "service-navigation__nav-item #{'active' if current_page?(team_path(current_user.teams.first.id))}"}
+                = link_to "View Team", team_path(current_user.teams.first.id), class: 'service-navigation__link'
+            - else
+              %li{class: "service-navigation__nav-item #{'active' if current_page?(teams_path) || request.path.start_with?('/team') || current_page?(new_user_invitation_path(team_id: params[:team_id]))}"}
+                = link_to "View Teams", teams_path, class: 'service-navigation__link'
     - if alert
       .grid-row
         .column-full
