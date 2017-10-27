@@ -65,7 +65,7 @@ RSpec.feature "Publish Record", type: :feature do
     fill_in 'end-date', with: '2014-05'
     click_button 'Continue'
 
-    expect(page).to have_content 'Check the details of your new country'
+    expect(page).to have_content 'Check your new record'
     check 'confirm_approve'
     click_button 'Submit'
 
