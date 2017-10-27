@@ -9,10 +9,10 @@ GIT
 
 GIT
   remote: https://github.com/openregister/openregister-ruby-client
-  revision: 8924f3b8cbb76548f334bb66c8cb9010634366f2
-  tag: v0.2.1
+  revision: 025bcdab86dfcb4c81659ca580a815dd122d3026
+  tag: v0.2.2
   specs:
-    openregister-ruby (0.2.1)
+    openregister-ruby (0.2.2)
       mini_cache (~> 1.1.0)
       morph (~> 0.5.0)
       rest-client (~> 2)
