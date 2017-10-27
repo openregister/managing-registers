@@ -41,3 +41,6 @@ en:
     hint:
       user:
         password: Must have 8 characters or more
+    label:
+      user:
+        email: Email address
