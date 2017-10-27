@@ -92,7 +92,7 @@ class RegisterController < ApplicationController
           flash[:notice] = 'The record has been published.'
           redirect_to controller: 'register', action: 'index', register: params[:register]
         else
-          flash[:alert] = 'We had an issue updating the register, try again.'
+          flash[:alert] = 'This update hasn’t been approved due to technical reasons. Please try again.'
         end
       else
         register_name = params[:register].downcase
@@ -102,7 +102,7 @@ class RegisterController < ApplicationController
         if @current_register_record
           @current_register_record = convert_register_json(@current_register_record)
         end
-        flash.now[:confirm_approve] = 'Confirm that you understand this update will be published.'
+        flash.now[:confirm_approve] = "Please confirm that this update is ready to be published to the #{register_name.capitalize} register."
         render :confirm
       end
     end
