@@ -5,9 +5,9 @@
 = render partial: 'layouts/form-error-summary', :locals => { :dasherize => false } if flash.present?
 
 - if @current_register_record.nil?
-  %h1.heading-large Check the details of your new #{prepare_register_name(params[:register]).downcase}
+  %h1.heading-large Check your new record
 - else
-  %h1.heading-large Check the details of your change to #{prepare_register_name(params[:register]).downcase}
+  %h1.heading-large Check your changes
 
 %table
 
@@ -69,6 +69,6 @@
         %span.error-message= flash.alert
       .multiple-choice
         = check_box_tag :confirm_approve
-        = label_tag :confirm_approve, "These updates will be published to the #{params[:register]} register."
+        = label_tag :confirm_approve, "These updates will be published to the #{params[:register].capitalize} register."
   .form-group
     = button_tag 'Submit', class: 'button'
