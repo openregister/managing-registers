@@ -9,7 +9,7 @@ class HomeController < ApplicationController
   end
 
   def select?(item)
-    %w{register datatype field}.any? { |type| type == format(item.key) }
+    !(format(item.key) == 'register' || format(item.key) == 'datatype' || format(item.key) == 'field')
   end
 
   def format(key)
