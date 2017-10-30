@@ -51,12 +51,28 @@ end
 
 class UsersController::InvitationsController < Devise::InvitationsController
   def get_user
-     User.find_by_email(resource_params[:email]) 
+     User.find_by_email(resource_params[:email])
   end
 
   include ElevatedPermissionsHelper
 
   def create
+    begin
+      params.require(:user).require(:email)
+    rescue ActionController::ParameterMissing
+      flash[:alert] = 'Email address is required'
+      redirect_to after_invite_path_for(current_inviter) and return
+    end
+    is_admin = current_inviter[:admin]
+    unless is_admin
+      begin
+        params.require(:user).require(:team_members_attributes).require('0').require('role')
+      rescue ActionController::ParameterMissing
+        flash[:alert] = 'Permission Title is required'
+        redirect_to after_invite_path_for(current_inviter) and return
+      end
+    end
+
     if get_user.try(:admin)
       flash[:alert] = 'You cannot invite an existing admin user'
       redirect_to after_invite_path_for(current_inviter) and return
