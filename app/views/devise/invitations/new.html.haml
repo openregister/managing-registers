@@ -36,8 +36,7 @@
   - resource.class.invite_key_fields.each do |field|
     .grid-row
       .column-one-half
-        = f.text_field field, class: 'form-control-full-width'
-
+        = f.text_field field, class: 'form-control-full-width', :required => true
   - if params[:role] == 'admin'
     = f.hidden_field :admin, value: true
   - else
@@ -63,7 +62,7 @@
           %fieldset
             %legend.visually-hidden= t('views.users.role')
             .multiple-choice
-              = tm.radio_button :role, "advanced"
+              = tm.radio_button :role, "advanced", :required => true
               = tm.label :role, "Advanced", value: "advanced"
             .user__permissions
               %p.list-title Advanced can:
