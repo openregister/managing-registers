@@ -51,7 +51,7 @@ end
 
 class UsersController::InvitationsController < Devise::InvitationsController
   def get_user
-     User.find_by_email(resource_params[:email]) 
+    User.find_by_email(resource_params[:email])
   end
 
   include ElevatedPermissionsHelper
@@ -62,7 +62,12 @@ class UsersController::InvitationsController < Devise::InvitationsController
       redirect_to after_invite_path_for(current_inviter) and return
     end
 
-    super
+    begin
+      super
+    rescue PermissionTitleError => e
+      flash[:alert] = e.message
+      redirect_to new_user_invitation_path and return
+    end
   end
 
 

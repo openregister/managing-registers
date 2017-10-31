@@ -42,6 +42,8 @@ class DeviseMailer < Devise::Mailer
       elsif record.team_members.last.role == 'basic'
         set_template(Rails.application.secrets.notify_basic_invite_template)
         set_standard_personalisations(record, token)
+      else
+        raise PermissionTitleError, 'You must select a valid \'Permission Title\''
       end
     end
     mail(to: record.email)

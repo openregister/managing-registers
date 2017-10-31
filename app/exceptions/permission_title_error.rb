@@ -1,0 +1,2 @@
+class PermissionTitleError < StandardError
+end
