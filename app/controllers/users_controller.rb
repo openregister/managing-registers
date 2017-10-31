@@ -57,6 +57,7 @@ class UsersController::InvitationsController < Devise::InvitationsController
   include ElevatedPermissionsHelper
 
   def create
+    # TODO use rails validators for these checks
     begin
       params.require(:user).require(:email)
     rescue ActionController::ParameterMissing
