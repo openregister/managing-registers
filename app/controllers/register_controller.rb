@@ -9,8 +9,10 @@ class RegisterController < ApplicationController
     @changes = Change.joins("LEFT OUTER JOIN statuses on statuses.change_id = changes.id")
                      .where("register_name = '#{params[:register]}' AND statuses.status = 'pending'")
 
-    @register = get_register(params[:register])._all_records
-    @register[0].try(:name) ? @register = @register.sort_by(&:name) : @register = @register.sort_by(&:key)
+
+    @register = get_register(params[:register])
+                  ._all_records
+                  .sort_by(&:key)
   end
 
   def new
