@@ -3,8 +3,7 @@
 This is the service used primarily by register custodians to manage their registers. You can find out more information about registers or contact us [here](https://registers.cloudapps.digital/).
 
 ### 1. Prerequisites
-Ruby 2.4.2
-Postgres 9.5+
+Ruby 2.4
 
 ### 2. Install Gems
 `bundle install`
