@@ -17,7 +17,7 @@
 - if params[:role] == 'custodian'
   = link_to 'Back', custodians_path, class: 'link-back'
 
-  %h1.heading-large Add a new custodian
+  %h1.heading-large Add a new   
   .panel.panel-border-narrow
     %p.list-title Custodians are responsible for registers and they can:
     %ul.list.list-bullet
@@ -36,7 +36,7 @@
   - resource.class.invite_key_fields.each do |field|
     .grid-row
       .column-one-half
-        = f.text_field field, class: 'form-control-full-width', 'required': true
+        = f.text_field field, class: 'form-control-full-width', 'required': true, 'type': (field == :email ? 'email': nil)
   - if params[:role] == 'admin'
     = f.hidden_field :admin, value: true
   - else
