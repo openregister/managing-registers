@@ -1,4 +1,7 @@
-= content_for :page_title, "Confirm new record"
+- if @current_register_record.nil?
+  = content_for :page_title, "Confirm new record"
+- else
+  = content_for :page_title, "Confirm a change"
 
 = link_to 'Back', {action: 'new', params: params.permit!.to_h}, class: 'link-back'
 
