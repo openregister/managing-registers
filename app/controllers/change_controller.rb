@@ -55,7 +55,7 @@ class ChangeController < ApplicationController
 
         flash[:notice] = 'The record has been published.'
       else
-        flash[:alert] = 'We had an issue updating the register, try again.'
+        flash[:alert] = 'This update hasn’t been approved due to technical reasons. Please try again.'
       end
 
       RegisterUpdatesMailer.register_update_approved(@change, current_user).deliver_now
