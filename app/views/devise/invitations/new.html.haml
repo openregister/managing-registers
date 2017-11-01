@@ -17,7 +17,7 @@
 - if params[:role] == 'custodian'
   = link_to 'Back', custodians_path, class: 'link-back'
 
-  %h1.heading-large Add a new custodian    
+  %h1.heading-large Add a new custodian  
   .panel.panel-border-narrow
     %p.list-title Custodians are responsible for registers and they can:
     %ul.list.list-bullet
@@ -48,7 +48,7 @@
           = f.nested_fields_for :teams, f.object.teams.new do |team|
             .grid-row.form-group
               .column-one-half
-                = team.select :registers, beta_registers_by_name.collect{ |r| [prepare_register_name(r), r]}.reject {|register|  Register.all.collect{|stored_register| stored_register.key unless stored_register.team_id.nil?}.include? register[1]}, {include_blank: "", multiple: true }, { class: "form-control autocomplete" }
+                = team.select :registers, beta_registers_by_name.collect{ |r| [prepare_register_name(r), r]}.reject {|register|  Register.all.collect{|stored_register| stored_register.key unless stored_register.team_id.nil?}.include? register[1]}, { include_blank: "Select Register" }, { class: "form-control", required: true }
               .column-one-half
                 = team.remove_nested_fields_link 'Remove register'
 
