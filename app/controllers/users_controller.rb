@@ -16,6 +16,12 @@ class UsersController < ApplicationController
   def custodians
     @custodians = User.joins(:team_members)
                       .where(team_members: { role: 'custodian' })
+                      .where.not(invitation_accepted_at: nil)
+
+
+    @pending_custodians = User.joins(:team_members)
+                              .where(team_members: { role: 'custodian' })
+                              .where(invitation_accepted_at: nil)
   end
 
   def update
