@@ -7,23 +7,61 @@
     .column-one-third
       = link_to t('views.users.custodians.invite'), new_user_invitation_path(role: 'custodian'), class: 'button align-with-heading'
 
-%table
-  %thead
-    %tr
-      %th Name
-      %th Email
-      %th Registers
-      %th
-  %tbody
-    - if @custodians.present?
-      - @custodians.each do |custodian|
-        %tr
-          %td
-            %span.user__name
-              = custodian.full_name
-          %td= custodian.email
-          %td
-            - custodian.team_members.first.team.registers.each do |register|
-              %span.user__register-name= prepare_register_name(register.key)
-          %td
-            = link_to 'View team', team_path(custodian.team_members.where(role: 'custodian').last.team_id)
+.tabs-container
+  .js-tabs.nav-tabs
+    %ul
+      %li
+        = link_to 'Custodians', '#custodians'
+      %li
+        = link_to 'Pending invites', '#invites'
+  .js-tab-content.tab-content
+    #custodians.js-tab-pane.tab-pane
+      .js-filter-list
+        %form{class: "js-filter-form"}
+          %fieldset
+            .form-group
+              %label{class: "form-label", for: "search"} Search for a custodian
+              %input{name: "search", id: "search", class: "form-control"}
+
+      %table
+        %thead
+          %tr
+            %th Name
+            %th Email
+            %th Registers
+            %th
+        %tbody
+          - if @custodians.present?
+            - @custodians.each do |custodian|
+              %tr{class: "js-filter-item", "data-filter-terms" => "#{custodian.try(:full_name)} #{custodian.email}"}
+                %td
+                  %span.user__name
+                    = custodian.full_name
+                %td= custodian.email
+                %td
+                  - custodian.team_members.first.team.registers.each do |register|
+                    %span.user__register-name= prepare_register_name(register.key)
+                %td
+                  = link_to 'View team', team_path(custodian.team_members.where(role: 'custodian').last.team_id)
+
+    #invites.js-tab-pane.tab-pane
+      %table
+        %thead
+          %tr
+            %th Email
+            %th Registers
+        %tbody
+          - if @pending_custodians.present?
+            - @pending_custodians.each do |custodian|
+              %tr{class: "js-filter-item", "data-filter-terms" => "#{custodian.try(:full_name)} #{custodian.email}"}
+                %td= custodian.email
+                %td
+                  - custodian.team_members.first.team.registers.each do |register|
+                    %span.user__register-name= prepare_register_name(register.key)
+
+= content_for :javascript do
+  :javascript
+    jQuery(function($) {
+      GOVUK.filterListItems.init();
+      $('.tabs-container').tabs();
+    });
