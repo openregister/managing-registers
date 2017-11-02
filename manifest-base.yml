@@ -8,3 +8,6 @@ applications:
   - name: managing-registers
     health-check-type: http
     health-check-http-endpoint: /health_check/standard
+
+services:
+   - managing-registers-environment-variables

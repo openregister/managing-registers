@@ -47,6 +47,9 @@ gem 'cancancan'
 gem 'nested_form_fields'
 gem 'timeliness', '~> 0.3.8'
 
+# cloudfoundry
+gem 'cf-app-utils', '~> 0.6'
+
 group :development, :test do
   gem 'pry-byebug'
   gem 'rspec-rails', '~> 3.5'
