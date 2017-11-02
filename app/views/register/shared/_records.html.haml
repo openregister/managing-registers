@@ -17,8 +17,9 @@
     - @register.each do |register|
       %tr{class: "js-filter-item", "data-filter-terms" => "#{register.try(:name)} #{register.key}"}
         %td= register.key
-        - if register.try(:name)
-          %td= register.name
+        %td
+          - if register.try(:name)
+            = register.name
         %td{style:"text-align:right"}
           - if @changes.any? { |c| c.payload.value?(register.key)}
             Pending review
