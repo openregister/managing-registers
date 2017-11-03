@@ -17,7 +17,7 @@
 - if params[:role] == 'custodian'
   = link_to 'Back', custodians_path, class: 'link-back'
 
-  %h1.heading-large Add a new custodian  
+  %h1.heading-large Add a new custodian
   .panel.panel-border-narrow
     %p.list-title Custodians are responsible for registers and they can:
     %ul.list.list-bullet
@@ -57,7 +57,7 @@
     - else
       = f.fields_for :team_members, TeamMember.new do |tm|
         = tm.hidden_field :team_id, value: params[:team_id]
-        %h3.heading-small= t('views.users.permission_title')
+        %h3.heading-small Select permissions
         .form-group
           %fieldset
             %legend.visually-hidden= t('views.users.role')
@@ -67,6 +67,7 @@
             .user__permissions
               %p.list-title Advanced can:
               %ul.list.list-bullet
+                %li Manage team members
                 %li Update records
                 %li Submit updates for review
                 %li Approve and publish updates to records
