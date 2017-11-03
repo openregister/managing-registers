@@ -3,6 +3,7 @@ require 'capybara/rails'
 require 'capybara/rspec'
 require 'factory_bot_rails'
 require 'webmock/rspec'
+require './spec/support/stub'
 
 # Ensure we can’t make external requests
 WebMock.disable_net_connect!(allow_localhost: true)
@@ -26,6 +27,8 @@ WebMock.disable_net_connect!(allow_localhost: true)
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  config.include Stub
+
   config.include FactoryBot::Syntax::Methods
 
   config.before(:each) do

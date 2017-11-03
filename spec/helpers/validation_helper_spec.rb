@@ -55,8 +55,8 @@ RSpec.describe ValidationHelper do
 
     it 'returns an error if key is not in a valid format' do
       params = { 'curie-field' => 'country::', 'country' => 'aa' }
-      expect(data_validator.get_form_errors(params, field_definitions, 'country', nil).details).to eql(curie_field: [error: 'Must be valid data from a register that is ready to use'])
-    end
+    expect(data_validator.get_form_errors(params, field_definitions, 'country', nil).details).to eql(curie_field: [error: 'Must be valid data from a register that is ready to use'])
+  end
 
     it 'returns no errors if curie is empty' do
       params = { 'curie-field' => '', 'country' => 'aa' }

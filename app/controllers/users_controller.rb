@@ -4,24 +4,26 @@ class UsersController < ApplicationController
   before_action :set_user
 
   def admin
+    check_permissions(:USERS_ADMIN, current_user: current_user)
+
     @admin_users = User.where(admin: true)
-                       .where.not(invitation_accepted_at: nil)
+                     .where.not(invitation_accepted_at: nil)
 
     @pending_users = User.where(admin: true)
-                         .where(invitation_accepted_at: nil)
-
-    authorize! :admin, @users
+                       .where(invitation_accepted_at: nil)
   end
 
   def custodians
+    check_permissions(:USERS_CUSTODIANS, current_user: current_user)
+
     @custodians = User.joins(:team_members)
-                      .where(team_members: { role: 'custodian' })
-                      .where.not(invitation_accepted_at: nil)
+                    .where(team_members: { role: 'custodian' })
+                    .where.not(invitation_accepted_at: nil)
 
 
     @pending_custodians = User.joins(:team_members)
-                              .where(team_members: { role: 'custodian' })
-                              .where(invitation_accepted_at: nil)
+                            .where(team_members: { role: 'custodian' })
+                            .where(invitation_accepted_at: nil)
   end
 
   def update
@@ -39,7 +41,9 @@ class UsersController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
-  def show; end
+  def show
+    check_permissions(:USERS_SHOW, current_user: current_user, user: @user)
+  end
 
   def edit; end
 
@@ -57,12 +61,21 @@ end
 
 class UsersController::InvitationsController < Devise::InvitationsController
   def get_user
-     User.find_by_email(resource_params[:email])
+    User.find_by_email(resource_params[:email])
   end
 
   include ElevatedPermissionsHelper
+  include Permissions::ControllerMethods
+
+  def new
+    check_permissions(:USERS_NEW, current_user: current_user, role: params[:role], team_id: params[:team_id])
+
+    super
+  end
 
   def create
+    check_permissions(:USERS_CREATE, current_user: current_user)
+
     # TODO use rails validators for these checks
     begin
       params.require(:user).require(:email)
@@ -122,7 +135,7 @@ class UsersController::InvitationsController < Devise::InvitationsController
             registers.push(field['registers'].strip) unless field['registers'].nil?
           end
 
-          registers = registers.uniq{|register| register.key}
+          registers = registers.uniq { |register| register.key }
           team = Team.new.update_registers(registers)
 
           user.team_members.create(role: params[:user][:role], team: team).save
