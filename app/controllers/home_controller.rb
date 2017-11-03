@@ -2,6 +2,8 @@ class HomeController < ApplicationController
   include ApplicationHelper
 
   def index
+    raise PermissionError unless "#{controller_name.humanize.singularize}Policy".constantize.view? current_user
+
     @registers = OpenRegister.register('register', Rails.configuration.register_phase)
                    ._all_records
                    .select { |item| select? item }

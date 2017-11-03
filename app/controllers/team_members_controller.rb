@@ -3,12 +3,16 @@ class TeamMembersController < ApplicationController
   before_action :set_team_member
 
   def edit
+    raise PermissionError unless TeamMembersPolicy.edit? current_user, params[:team_id].to_i, params[:id].to_i
+
     if @team_member.role == 'custodian'
-      @team_members = @team_member.team.team_members.joins(:user).where.not(users: {full_name: ''} )
+      @team_members = @team_member.team.team_members.joins(:user).where.not(users: { full_name: '' })
     end
   end
 
   def update
+    raise PermissionError unless TeamMembersPolicy.update? current_user, params[:team_id].to_i, params[:id].to_i
+
     if @team_member.role == 'custodian'
       if params[:new_custodian_team_member_id] == params[:id]
         flash[:notice] = 'Your custodian remains unchanged'
@@ -36,6 +40,8 @@ class TeamMembersController < ApplicationController
   end
 
   def destroy
+    raise PermissionError unless TeamMembersPolicy.update? current_user, params[:team_id].to_i, params[:id].to_i
+
     @team_member.destroy
     flash[:notice] = "Successfully removed #{@team_member.user.full_name} from team"
     redirect_to team_path(@team_member.team_id)

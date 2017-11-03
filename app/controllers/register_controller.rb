@@ -6,8 +6,10 @@ class RegisterController < ApplicationController
   before_action :confirm, only: [:create]
 
   def index
+    raise PermissionError unless RegisterPolicy.view? current_user, params[:register]
+
     @changes = Change.joins("LEFT OUTER JOIN statuses on statuses.change_id = changes.id")
-                     .where("register_name = '#{params[:register]}' AND statuses.status = 'pending'")
+                 .where("register_name = '#{params[:register]}' AND statuses.status = 'pending'")
 
 
     @register = get_register(params[:register])
@@ -16,22 +18,26 @@ class RegisterController < ApplicationController
   end
 
   def new
+    raise PermissionError unless RegisterPolicy.create? current_user, params[:register]
+
     @register = get_register(params[:register])
     @form = JSON.parse(params.to_json)
   end
 
   def edit
+    raise PermissionError unless RegisterPolicy.update? current_user, params[:register]
+
     @changes = Change.joins("LEFT OUTER JOIN statuses on statuses.change_id = changes.id")
-                     .where("register_name = '#{params[:register]}' AND statuses.status = 'pending'")
+                 .where("register_name = '#{params[:register]}' AND statuses.status = 'pending'")
     @register = get_register(params[:register])
 
-    if @changes.any? { |c| c.payload.value?(params[:id])}
+    if @changes.any? { |c| c.payload.value?(params[:id]) }
       flash[:notice] = 'There is already a pending update on this record, this must be reviewed before creating another update'
       redirect_to registers_path
     end
 
     @form = convert_register_json(
-        OpenRegister.record(params[:register].downcase, params[:id], Rails.configuration.register_phase)
+      OpenRegister.record(params[:register].downcase, params[:id], Rails.configuration.register_phase)
     ) if @form.nil?
   end
 
@@ -41,7 +47,7 @@ class RegisterController < ApplicationController
     records = @@registers_client.get_register(register_name, 'beta').get_records
     validation_result = @data_validator.get_form_errors(params, field_definitions, register_name, records)
     if validation_result.messages.present?
-      validation_result.messages.each { |k,v| flash.now[k] = v.join(', ') }
+      validation_result.messages.each { |k, v| flash.now[k] = v.join(', ') }
       @register = get_register(register_name)
       @form = JSON.parse(params.to_json)
       render :new
@@ -49,8 +55,8 @@ class RegisterController < ApplicationController
       return true if params[:data_confirmed]
       @register = get_register(register_name)
       @current_register_record = OpenRegister.record(register_name,
-                          params[register_name.to_sym],
-                          Rails.configuration.register_phase)
+                                                     params[register_name.to_sym],
+                                                     Rails.configuration.register_phase)
 
       if @current_register_record
         @current_register_record = convert_register_json(@current_register_record)
@@ -61,6 +67,8 @@ class RegisterController < ApplicationController
   end
 
   def create
+    raise PermissionError unless RegisterPolicy.create? current_user, params[:register]
+
     fields = get_register(params[:register]).fields
 
     payload = generate_canonical_object(fields, params)
