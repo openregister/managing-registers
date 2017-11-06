@@ -6,3 +6,4 @@ memory: 256MB
 
 applications:
   - name: managing-registers
+  health-check-http-endpoint: /health_check/standard

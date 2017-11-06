@@ -13,7 +13,9 @@ gem 'rails', '5.1.4'
 gem 'pg', '~> 0.18'
 
 # Server
+gem 'health_check', '~> 2.7'
 gem 'puma', '~> 3.0'
+
 
 # Assets
 gem 'sass-rails', '~> 5.0'
