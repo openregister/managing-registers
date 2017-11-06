@@ -15,6 +15,7 @@ gem 'pg', '~> 0.18'
 # Server
 gem 'puma', '~> 3.0'
 
+
 # Assets
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -68,4 +69,8 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'letter_opener'
+end
+
+group :staging, :production do
+  gem 'health_check', '~> 2.7'
 end
