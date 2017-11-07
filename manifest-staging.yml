@@ -6,3 +6,6 @@ routes:
   - route: managing-registers-staging.cloudapps.digital
 services:
   - managing-registers-staging
+env:
+  RAILS_ENV: staging  
+  RACK_ENV: staging  
