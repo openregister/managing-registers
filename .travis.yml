@@ -30,7 +30,7 @@ before_deploy:
 
 deploy:
   provider: script
-  script: chmod +x ./bin/deploy
+  script: ./bin/deploy staging
   skip_cleanup: true
   on:
     repo: openregister/managing-registers
