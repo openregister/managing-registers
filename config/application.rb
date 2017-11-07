@@ -11,6 +11,8 @@ require "sprockets/railtie"
 
 # Openregister gem
 require 'openregister'
+require 'cf-app-utils'
+
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -18,6 +20,13 @@ Bundler.require(*Rails.groups)
 
 module CustodianUpdateTool
   class Application < Rails::Application
+    if ENV.key?('VCAP_SERVICES')
+      cups_env = CF::App::Credentials.find_by_service_name('managing-registers-environment-variables')
+      if cups_env.present?
+        cups_env.each { |k, v| ENV[k] = v }
+      end
+    end
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 

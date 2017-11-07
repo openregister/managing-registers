@@ -4,3 +4,5 @@ inherit: manifest-base.yml
 
 routes:
   - route: managing-registers-staging.cloudapps.digital
+services:
+  - managing-registers-staging
