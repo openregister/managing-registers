@@ -1,7 +1,7 @@
 require 'database_cleaner'
 require 'capybara/rails'
 require 'capybara/rspec'
-require 'factory_girl_rails'
+require 'factory_bot_rails'
 require 'webmock/rspec'
 
 # Ensure we can’t make external requests
@@ -26,7 +26,7 @@ WebMock.disable_net_connect!(allow_localhost: true)
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 
   config.before(:each) do
     stub_request(:get, /beta.openregister.org/).

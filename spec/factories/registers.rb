@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :register do
     key 'country'
     association :team
