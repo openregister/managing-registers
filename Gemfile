@@ -51,11 +51,11 @@ gem 'timeliness', '~> 0.3.8'
 gem 'cf-app-utils', '~> 0.6'
 
 group :development, :test do
-  gem 'pry-byebug'
-  gem 'rspec-rails', '~> 3.5'
   gem 'capybara'
+  gem 'factory_bot_rails', '~> 4.8', '>= 4.8.2'
+  gem 'pry-byebug'
   gem 'rails-controller-testing'
-  gem 'factory_bot_rails'
+  gem 'rspec-rails', '~> 3.5'
 end
 
 group :test do

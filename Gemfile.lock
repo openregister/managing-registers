@@ -331,7 +331,7 @@ DEPENDENCIES
   database_cleaner
   devise
   devise_invitable
-  factory_bot_rails
+  factory_bot_rails (~> 4.8, >= 4.8.2)
   faker
   govuk_elements_form_builder!
   govuk_elements_rails
