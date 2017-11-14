@@ -22,9 +22,9 @@
       %legend.visually-hidden Do you want to approve these updates?
       .multiple-choice
         = radio_button_tag :approve, 'yes'
-        = label_tag 'Approve updates'
+        = label_tag :approve_yes, 'Approve updates'
       .multiple-choice
         = radio_button_tag :approve, 'no'
-        = label_tag 'Decline updates'
+        = label_tag :approve_no, 'Decline updates'
   .form-group
     = submit_tag "Continue", class: "button"
