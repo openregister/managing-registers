@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   include ApplicationHelper
+  include RegisterHelper
 
   def index
     @registers = OpenRegister.register('register', Rails.configuration.register_phase)
@@ -10,10 +11,6 @@ class HomeController < ApplicationController
 
   def select?(item)
     not_system_register(item) && has_permissions(item, current_user)
-  end
-
-  def not_system_register(item)
-    %w{register datatype field}.none? { |type| type == format(item.key) }
   end
 
   def has_permissions(item, current_user)
