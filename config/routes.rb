@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :users, except: [:index, :edit]
   resources :change, except: [:new, :create, :index]
-  resources :team_members, only: :update
+  resources :team_members, only: [:update, :destroy]
 
   resources :teams, only: [:index, :show, :edit, :update] do
     resources :team_members, only: :edit
