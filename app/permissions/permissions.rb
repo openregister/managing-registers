@@ -1,0 +1,6 @@
+require 'permission_error'
+require 'register_policy'
+require 'team_members_policy'
+require 'teams_policy'
+require 'user_policy'
+require 'controller_methods'

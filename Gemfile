@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
 
-ruby File.read(".ruby-version").chomp
+ruby File.read('.ruby-version').chomp
 
 gem 'rails', '5.1.4'
 
@@ -15,19 +17,18 @@ gem 'pg', '~> 0.18'
 # Server
 gem 'puma', '~> 3.0'
 
-
 # Assets
+gem 'jquery-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'jquery-rails'
 
 gem 'haml-rails', '~> 0.9'
 
 # GOV.UK UI
-gem 'govuk_template'
-gem 'govuk_frontend_toolkit'
-gem 'govuk_elements_rails'
 gem 'govuk_elements_form_builder', git: 'https://github.com/ministryofjustice/govuk_elements_form_builder'
+gem 'govuk_elements_rails'
+gem 'govuk_frontend_toolkit'
+gem 'govuk_template'
 
 # Ruby client for OpenRegisters
 gem 'openregister-ruby', git: 'https://github.com/openregister/openregister-ruby-client', tag: 'v0.2.2'
@@ -39,9 +40,9 @@ gem 'govuk_notify_rails'
 gem 'sidekiq'
 
 # User authentication
+gem 'cancancan'
 gem 'devise'
 gem 'devise_invitable'
-gem 'cancancan'
 
 # form helpers
 gem 'nested_form_fields'
@@ -52,7 +53,9 @@ gem 'cf-app-utils', '~> 0.6'
 
 group :development, :test do
   gem 'capybara'
+  gem 'rails-controller-testing'
   gem 'factory_bot_rails', '~> 4.8', '>= 4.8.2'
+  gem 'govuk-lint', '~> 3.3'
   gem 'pry-byebug'
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 3.5'
@@ -67,11 +70,11 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'web-console', '>= 3.3.0'
+  gem 'letter_opener'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'letter_opener'
+  gem 'web-console', '>= 3.3.0'
 end
 
 group :staging, :production do

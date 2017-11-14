@@ -23,7 +23,7 @@ module ValidationHelper
           when 'curie'
             validates field_sym, linked: { register_linked: field[:item]['register'] }, allow_blank: true
           when 'string'
-            validates field_sym, presence: { message: 'Field %{attribute} is required' }, allow_blank: !is_key, key_uniqueness: { records: records, is_create: params[:is_create] }, if: -> { is_key == true }
+            validates field_sym, presence: { message: 'Field %{attribute} is required' }, allow_blank: !is_key, key_uniqueness: { records: records, is_create: params[:is_create] }, if: -> { is_key }
           when 'url'
             validates field_sym, url: true, allow_blank: true
           when 'datetime'

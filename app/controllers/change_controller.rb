@@ -1,15 +1,20 @@
-class ChangeController < ApplicationController
+# frozen_string_literal: true
 
+class ChangeController < ApplicationController
   include ApplicationHelper
 
   def show
     @change = Change.find(params['id'])
+
+    check_permissions(:CHANGE_SHOW, current_user: current_user,
+                                   register_name: @change.register_name)
+
     @register = get_register(@change.register_name)
     @new_register_record = @change.payload
     @current_register_record = OpenRegister.record(@change.register_name,
                                                    @change.payload[@change.register_name],
                                                    Rails.configuration.register_phase)
-    if @current_register_record != nil
+    unless @current_register_record.nil?
       @current_register_record = convert_register_json(@current_register_record)
     end
   end
@@ -17,12 +22,16 @@ class ChangeController < ApplicationController
   def edit
     if params[:approve] == 'yes'
       @change = Change.find(params['id'])
+
+      check_permissions(:CHANGE_EDIT, current_user: current_user,
+                                     register_name: @change.register_name)
+
       @register = get_register(@change.register_name)
       @new_register_record = @change.payload
       @current_register_record = OpenRegister.record(@change.register_name,
                                                      @change.payload[@change.register_name],
                                                      Rails.configuration.register_phase)
-      if @current_register_record != nil
+      unless @current_register_record.nil?
         @current_register_record = convert_register_json(@current_register_record)
       end
     else
@@ -32,6 +41,10 @@ class ChangeController < ApplicationController
 
   def destroy
     @change = Change.find(params['id'])
+
+    check_permissions(:CHANGE_DESTROY, current_user: current_user,
+                                      register_name: @change.register_name)
+
     @change.status.update_attributes(status: 'rejected', comment: params[:comments], reviewed_by_id: current_user.id)
     @change.save
 
@@ -45,9 +58,12 @@ class ChangeController < ApplicationController
     if params[:confirm_approve] == '1'
       @change = Change.find(params['id'])
 
-      rsf_body = CreateRsf.(@change.payload, @change.register_name)
+      check_permissions(:CHANGE_UPDATE, current_user: current_user,
+                                       register_name: @change.register_name)
 
-      Rails.env.development? || response = RegisterPost.(@change.register_name, rsf_body)
+      rsf_body = CreateRsf.call(@change.payload, @change.register_name)
+
+      Rails.env.development? || response = RegisterPost.call(@change.register_name, rsf_body)
 
       if Rails.env.development? || response.code == '200'
         @change.status.update_attributes(status: 'approved', reviewed_by_id: current_user.id)
@@ -66,5 +82,4 @@ class ChangeController < ApplicationController
       redirect_to :back
     end
   end
-
 end
