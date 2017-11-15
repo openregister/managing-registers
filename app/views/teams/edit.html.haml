@@ -6,7 +6,7 @@
     = team.nested_fields_for :registers do |register|
       %div.grid-row.form-group
         %div.column-one-half
-          = register.select :key, beta_registers_by_name.collect{ |r| [prepare_register_name(r), r]}, {include_blank: "", multiple: true }, { class: "form-control autocomplete" }
+          = register.select :key, registers_by_name.collect{ |r| [prepare_register_name(r), r]}, {include_blank: "", multiple: true }, { class: "form-control" }
         %div.column-one-half
           = register.remove_nested_fields_link t('views.teams.edit.registers.remove')
 

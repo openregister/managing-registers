@@ -4,7 +4,7 @@ module RegisterHelper
     OpenRegister.record('field', field, Rails.configuration.register_phase).text
   end
 
-  def beta_registers_by_name
+  def registers_by_name
     OpenRegister.register('register', Rails.configuration.register_phase)
       ._all_records
       .select { |item| not_system_register(item) }

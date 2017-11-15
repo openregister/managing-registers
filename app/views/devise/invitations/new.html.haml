@@ -30,58 +30,62 @@
   = link_to 'Back', team_path(params[:team_id]), class: 'link-back'
 
   %h1.heading-large Add a new team member
+- has_unassigned_registers = (Register.all.map(&:key) - (registers_by_name)).present?
 
-= form_for resource, url: invitation_path(resource_name), html: { method: :post } do |f|
+- if has_unassigned_registers
+  = form_for resource, url: invitation_path(resource_name), html: { method: :post } do |f|
 
-  - resource.class.invite_key_fields.each do |field|
-    .grid-row
-      .column-one-half
-        = f.text_field field, class: 'form-control-full-width', 'required': true, 'type': (field == :email ? 'email': nil)
-  - if params[:role] == 'admin'
-    = f.hidden_field :admin, value: true
-  - else
-    - if current_user.admin?
-      .form-group
-        = f.hidden_field :role, value: params[:role]
-        - if params[:role] == 'custodian'
-          = f.label :registers, class: "form-label"
-          = f.nested_fields_for :teams, f.object.teams.new do |team|
-            .grid-row.form-group
-              .column-one-half
-                = team.select :registers, beta_registers_by_name.collect{ |r| [prepare_register_name(r), r]}.reject {|register|  Register.all.collect{|stored_register| stored_register.key unless stored_register.team_id.nil?}.include? register[1]}, { include_blank: "Select Register" }, { class: "form-control", required: true }
-              .column-one-half
-                = team.remove_nested_fields_link 'Remove register'
-
-          = f.add_nested_fields_link :teams, 'Add register'
-
+    - resource.class.invite_key_fields.each do |field|
+      .grid-row
+        .column-one-half
+          = f.text_field field, class: 'form-control-full-width', 'required': true, 'type': (field == :email ? 'email': nil)
+    - if params[:role] == 'admin'
+      = f.hidden_field :admin, value: true
     - else
-      = f.fields_for :team_members, TeamMember.new do |tm|
-        = tm.hidden_field :team_id, value: params[:team_id]
-        %h3.heading-small Select permissions
+      - if current_user.admin?
         .form-group
-          %fieldset
-            %legend.visually-hidden= t('views.users.role')
-            .multiple-choice
-              = tm.radio_button :role, "advanced", 'required': true
-              = tm.label :role, "Advanced", value: "advanced"
-            .user__permissions
-              %p.list-title Advanced can:
-              %ul.list.list-bullet
-                %li Manage team members
-                %li Update records
-                %li Submit updates for review
-                %li Approve and publish updates to records
-            .multiple-choice
-              = tm.radio_button :role, "basic"
-              = tm.label :role, "Basic", value: "basic"
-            .user__permissions
-              %p.list-title Basic can:
-              %ul.list.list-bullet
-                %li Update records
-                %li Submit updates for review
+          = f.hidden_field :role, value: params[:role]
+          - if params[:role] == 'custodian'
+            = f.label :registers, class: "form-label"
+            = f.nested_fields_for :teams, f.object.teams.new do |team|
+              .grid-row.form-group
+                .column-one-half
+                  = team.select :registers, registers_by_name.collect{ |r| [prepare_register_name(r), r]}.reject {|register|  Register.all.collect{|stored_register| stored_register.key unless stored_register.team_id.nil?}.include? register[1]}, { include_blank: "Select Register" }, { class: "form-control", required: true }
+                .column-one-half
+                  = team.remove_nested_fields_link 'Remove register'
 
-  .form-group
-    = f.submit "Send invite", class: 'button'
+            = f.add_nested_fields_link :teams, 'Add register'
+
+      - else
+        = f.fields_for :team_members, TeamMember.new do |tm|
+          = tm.hidden_field :team_id, value: params[:team_id]
+          %h3.heading-small Select permissions
+          .form-group
+            %fieldset
+              %legend.visually-hidden= t('views.users.role')
+              .multiple-choice
+                = tm.radio_button :role, "advanced", 'required': true
+                = tm.label :role, "Advanced", value: "advanced"
+              .user__permissions
+                %p.list-title Advanced can:
+                %ul.list.list-bullet
+                  %li Manage team members
+                  %li Update records
+                  %li Submit updates for review
+                  %li Approve and publish updates to records
+              .multiple-choice
+                = tm.radio_button :role, "basic"
+                = tm.label :role, "Basic", value: "basic"
+              .user__permissions
+                %p.list-title Basic can:
+                %ul.list.list-bullet
+                  %li Update records
+                  %li Submit updates for review
+
+    .form-group
+      = f.submit "Send invite", class: 'button'
+- else
+  %h3.heading-small All registers currently have a custodian assigned.
 
 - content_for :javascript do
   :javascript
