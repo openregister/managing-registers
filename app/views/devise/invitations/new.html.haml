@@ -85,7 +85,7 @@
     .form-group
       = f.submit "Send invite", class: 'button'
 - else
-  = content_tag(:h3, 'All registers currently have a custodian assigned.', class: ['heading-small'])
+  %h3.heading-small All registers currently have a custodian assigned.
 
 - content_for :javascript do
   :javascript
