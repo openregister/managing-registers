@@ -30,7 +30,7 @@
   = link_to 'Back', team_path(params[:team_id]), class: 'link-back'
 
   %h1.heading-large Add a new team member
-- has_unassigned_registers = !(Register.all.map(&:key) - (registers_by_name)).empty?
+- has_unassigned_registers = (Register.all.map(&:key) - (registers_by_name)).present?
 
 - if has_unassigned_registers
   = form_for resource, url: invitation_path(resource_name), html: { method: :post } do |f|
@@ -50,7 +50,7 @@
             = f.nested_fields_for :teams, f.object.teams.new do |team|
               .grid-row.form-group
                 .column-one-half
-                  = team.select :registers, registers_by_name.collect{ |r| [prepare_register_name(r), r]}.reject {|register|  Register.all.collect{|stored_register| stored_register.key unless stored_register.team_id.nil?}.include? register[1]{|register|  ERRRegister.all.collect{|stored_register| stored_register.key unless stored_register.team_id.nil?}.include? register[1]}}, { include_blank: "Select Register" }, { class: "form-control", required: true }
+                  = team.select :registers, registers_by_name.collect{ |r| [prepare_register_name(r), r]}.reject {|register|  Register.all.collect{|stored_register| stored_register.key unless stored_register.team_id.nil?}.include? register[1]{|register| Register.all.collect{|stored_register| stored_register.key unless stored_register.team_id.nil?}.include? register[1]}}, { include_blank: "Select Register" }, { class: "form-control", required: true }
                 .column-one-half
                   = team.remove_nested_fields_link 'Remove register'
 
