@@ -46,5 +46,14 @@ module CustodianUpdateTool
     config.to_prepare do
       Devise::Mailer.layout "mailer"
     end
+
+    Rails.application.configure do
+      config.lograge.formatter = Lograge::Formatters::Json.new
+      config.lograge.enabled = true
+
+      config.lograge.custom_options = lambda do |_event|
+        { name: 'RMT' }
+      end
+    end
   end
 end
