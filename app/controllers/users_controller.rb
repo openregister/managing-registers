@@ -1,5 +1,6 @@
-class UsersController < ApplicationController
+# frozen_string_literal: true
 
+class UsersController < ApplicationController
   include ElevatedPermissionsHelper
   before_action :set_user
 
@@ -7,23 +8,22 @@ class UsersController < ApplicationController
     check_permissions(:USERS_ADMIN, current_user: current_user)
 
     @admin_users = User.where(admin: true)
-                     .where.not(invitation_accepted_at: nil)
+                       .where.not(invitation_accepted_at: nil)
 
     @pending_users = User.where(admin: true)
-                       .where(invitation_accepted_at: nil)
+                         .where(invitation_accepted_at: nil)
   end
 
   def custodians
     check_permissions(:USERS_CUSTODIANS, current_user: current_user)
 
     @custodians = User.joins(:team_members)
-                    .where(team_members: { role: 'custodian' })
-                    .where.not(invitation_accepted_at: nil)
-
+                      .where(team_members: { role: 'custodian' })
+                      .where.not(invitation_accepted_at: nil)
 
     @pending_custodians = User.joins(:team_members)
-                            .where(team_members: { role: 'custodian' })
-                            .where(invitation_accepted_at: nil)
+                              .where(team_members: { role: 'custodian' })
+                              .where(invitation_accepted_at: nil)
   end
 
   def update
@@ -36,10 +36,12 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    @user.team_members.each { |team_member| TeamMember.destroy team_member.id }
     @user.destroy
     flash[:notice] = 'User has been successful deleted'
-    redirect_back(fallback_location: root_path)
-  end
+
+    redirect_to admin_path
+end
 
   def show
     check_permissions(:USERS_SHOW, current_user: current_user, user: @user)
@@ -56,7 +58,6 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:full_name, :email, :role, :admin, :password, :password_confirmation, :current_password, team_members_attributes: [:role])
   end
-
 end
 
 class UsersController::InvitationsController < Devise::InvitationsController
@@ -76,12 +77,12 @@ class UsersController::InvitationsController < Devise::InvitationsController
   def create
     check_permissions(:USERS_CREATE, current_user: current_user)
 
-    # TODO use rails validators for these checks
+    # TODO: use rails validators for these checks
     begin
       params.require(:user).require(:email)
     rescue ActionController::ParameterMissing
       flash[:alert] = 'Email address is required'
-      redirect_to after_invite_path_for(current_inviter) and return
+      redirect_to(after_invite_path_for(current_inviter)) && return
     end
     is_admin = current_inviter[:admin]
     unless is_admin
@@ -89,20 +90,19 @@ class UsersController::InvitationsController < Devise::InvitationsController
         params.require(:user).require(:team_members_attributes).require('0').require('role')
       rescue ActionController::ParameterMissing
         flash[:alert] = 'Permission Title is required'
-        redirect_to after_invite_path_for(current_inviter) and return
+        redirect_to(after_invite_path_for(current_inviter)) && return
       end
     end
 
     if get_user.try(:admin)
       flash[:alert] = 'You cannot invite an existing admin user'
-      redirect_to after_invite_path_for(current_inviter) and return
+      redirect_to(after_invite_path_for(current_inviter)) && return
     end
 
     super
   end
 
-
-  def after_invite_path_for(current_inviter)
+  def after_invite_path_for(_current_inviter)
     request_origin = request.referer
     uri = URI.parse(request_origin)
     params = CGI.parse(uri.query)
@@ -131,11 +131,11 @@ class UsersController::InvitationsController < Devise::InvitationsController
 
           registers ||= []
 
-          resource_params[:teams_attributes].each_pair do |index, field|
+          resource_params[:teams_attributes].each_pair do |_index, field|
             registers.push(field['registers'].strip) unless field['registers'].nil?
           end
 
-          registers = registers.uniq { |register| register.key }
+          registers = registers.uniq(&:key)
           team = Team.new.update_registers(registers)
 
           user.team_members.create(role: params[:user][:role], team: team).save
@@ -152,7 +152,5 @@ class UsersController::InvitationsController < Devise::InvitationsController
     # send email with injected params
     user.deliver_invitation
     user
-
   end
-
 end
