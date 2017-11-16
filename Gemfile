@@ -51,6 +51,8 @@ gem 'timeliness', '~> 0.3.8'
 # cloudfoundry
 gem 'cf-app-utils', '~> 0.6'
 
+gem 'lograge'
+
 group :development, :test do
   gem 'capybara'
   gem 'rails-controller-testing'
