@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Change Policy Permission', type: :feature do
-
   scenario 'show? allowed' do
     register = ObjectsFactory.new.create_register('testuser@gov.uk', true, 'custodian', 'country')
     user = User.find_by_email('testuser@gov.uk')

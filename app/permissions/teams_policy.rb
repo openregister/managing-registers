@@ -1,7 +1,5 @@
 class TeamsPolicy < Policy
-
   class << self
-
     def show?(current_user, team_id)
       return false unless values_present? current_user, team_id
 
@@ -38,7 +36,7 @@ class TeamsPolicy < Policy
       Responsibility.manager?(current_user)
     end
 
-    private
+  private
 
     def member?(current_user, team_id)
       current_user.teams.each { |team|

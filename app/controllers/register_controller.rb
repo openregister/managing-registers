@@ -52,8 +52,8 @@ class RegisterController < ApplicationController
                                         register_name: params[:register])
 
     register_name = params[:register].downcase
-    field_definitions = @@registers_client.get_register(register_name, 'beta').get_field_definitions
-    records = @@registers_client.get_register(register_name, 'beta').get_records
+    field_definitions = @registers_client.get_register(register_name, 'beta').get_field_definitions
+    records = @registers_client.get_register(register_name, 'beta').get_records
     validation_result = @data_validator.get_form_errors(params, field_definitions, register_name, records)
     if validation_result.messages.present?
       validation_result.messages.each { |k, v| flash.now[k] = v.join(', ') }
@@ -86,7 +86,7 @@ class RegisterController < ApplicationController
     end
   end
 
-  private
+private
 
   def create_pending_review(payload)
     check_permissions(:REGISTER_CREATE_PENDING_REVIEW, current_user: current_user,
@@ -121,7 +121,7 @@ class RegisterController < ApplicationController
       Rails.env.development? || response = RegisterPost.call(@change.register_name, rsf_body)
 
       if Rails.env.development? || Rails.env.staging? || response.code == '200'
-        @@registers_client.get_register(@change.register_name, Rails.configuration.register_phase.to_s).refresh_data
+        @registers_client.get_register(@change.register_name, Rails.configuration.register_phase.to_s).refresh_data
         flash[:notice] = 'The record has been published.'
         redirect_to controller: 'register', action: 'index', register: params[:register]
       else
@@ -142,6 +142,6 @@ class RegisterController < ApplicationController
 
   def initialize_controller
     @data_validator = ValidationHelper::DataValidator.new
-    @@registers_client ||= OpenRegister::RegistersClient.new(cache_duration: Rails.configuration.cache_duration)
+    @registers_client ||= OpenRegister::RegistersClient.new(cache_duration: Rails.configuration.cache_duration)
   end
 end

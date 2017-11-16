@@ -1,7 +1,5 @@
 class UserPolicy < Policy
-
   class << self
-
     def show?(current_user, user)
       return false unless values_present? current_user, user
 
@@ -15,13 +13,7 @@ class UserPolicy < Policy
     def new?(current_user, role, team_id)
       return false unless values_present? current_user
 
-      if current_user.admin?
-        if role.present? then
-          return true
-        else
-          return false
-        end
-      end
+      return role.present? if current_user.admin?
 
       if team_id.present?
         unless member?(current_user, team_id)
@@ -48,7 +40,7 @@ class UserPolicy < Policy
       permission?(current_user)
     end
 
-    private
+  private
 
     def permission?(current_user)
       return false unless values_present? current_user
@@ -63,7 +55,5 @@ class UserPolicy < Policy
 
       false
     end
-
   end
 end
-

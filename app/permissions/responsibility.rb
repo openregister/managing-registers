@@ -1,7 +1,5 @@
 class Responsibility
-
   class << self
-
     def manager?(user)
       user.custodian? || user.advanced?
     end

@@ -19,11 +19,11 @@ module ValidationHelper
           is_key = field_sym == register_sym
           case field[:item]['datatype']
           when 'integer'
-            validates field_sym, numericality: { only_integer: true, message: '%{value} is not an integer' }, allow_blank: true
+            validates field_sym, numericality: { only_integer: true, message: '%<value>s is not an integer' }, allow_blank: true
           when 'curie'
             validates field_sym, linked: { register_linked: field[:item]['register'] }, allow_blank: true
           when 'string'
-            validates field_sym, presence: { message: 'Field %{attribute} is required' }, allow_blank: !is_key, key_uniqueness: { records: records, is_create: params[:is_create] }, if: -> { is_key }
+            validates field_sym, presence: { message: 'Field %<attribute>s is required' }, allow_blank: !is_key, key_uniqueness: { records: records, is_create: params[:is_create] }, if: -> { is_key }
           when 'url'
             validates field_sym, url: true, allow_blank: true
           when 'datetime'

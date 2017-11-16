@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Publish Record', type: :feature do
-
   before do
     stub_request(:get, 'https://country.beta.openregister.org/record/zz.tsv')
       .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate', 'Host' => 'country.beta.openregister.org' })

@@ -1,7 +1,5 @@
 class TeamMembersPolicy < Policy
-
   class << self
-
     def edit?(current_user, team_id, team_member_id)
       modify? current_user, team_id, team_member_id
     end
@@ -20,7 +18,7 @@ class TeamMembersPolicy < Policy
       modify? current_user, team_id, team_member_id
     end
 
-    private
+  private
 
     def modify?(current_user, team_id, team_member_id)
       return false unless values_present? current_user, team_id, team_member_id

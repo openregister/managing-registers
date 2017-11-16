@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.feature 'User Policy Permission', type: :feature do
-
   scenario 'show? allowed' do
     user = ObjectsFactory.new.create_user_with_team('testuser@gov.uk', false, 'custodian')
 

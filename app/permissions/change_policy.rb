@@ -1,7 +1,5 @@
 class ChangePolicy < Policy
-
   class << self
-
     def show?(current_user, register_name)
       allowed?(current_user, register_name)
     end
@@ -18,7 +16,7 @@ class ChangePolicy < Policy
       allowed?(current_user, register_name)
     end
 
-    private
+  private
 
     def allowed?(current_user, register_name)
       return false unless values_present? current_user, register_name

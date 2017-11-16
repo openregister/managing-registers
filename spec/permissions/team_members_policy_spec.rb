@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Team Members Policy Permission', type: :feature do
-
   scenario 'edit? allowed admin' do
     user = ObjectsFactory.new.create_user_with_team('testuser@gov.uk', true, 'custodian')
     team_id = TeamMember.first.team_id
@@ -129,5 +128,4 @@ RSpec.feature 'Team Members Policy Permission', type: :feature do
 
     expect(TeamMembersPolicy.destroy?(user, team_id, 999)).to eq(false)
   end
-
 end

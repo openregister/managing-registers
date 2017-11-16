@@ -29,7 +29,7 @@ class LinkedValidator < ActiveModel::EachValidator
   def valid_key?(register_name, key)
     current_register_record = OpenRegister.record(register_name, key, Rails.configuration.register_phase)
     !current_register_record.nil?
-  rescue => e
+  rescue => _
     return false
   end
 
@@ -37,6 +37,4 @@ class LinkedValidator < ActiveModel::EachValidator
     return true unless value.include? DELIMITER
     value.match?(/\A[\w-]+:\w+\z/)
   end
-
-  private
 end
