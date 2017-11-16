@@ -8,5 +8,6 @@ services:
   - managing-registers-staging
   - logit-ssl-drain
 env:
-  RAILS_ENV: staging  
-  RACK_ENV: staging  
+  RAILS_ENV: staging
+  RACK_ENV: staging
+  UA_TRACKING_ID: UA-86101042-6

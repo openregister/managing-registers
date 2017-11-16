@@ -5,3 +5,5 @@ inherit: manifest-base.yml
 routes:
   - route: managing-registers-production.cloudapps.digital
   - route: managing-registers.cloudapps.digital
+env:
+  UA_TRACKING_ID: UA-86101042-5
