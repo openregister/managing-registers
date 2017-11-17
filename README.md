@@ -17,3 +17,9 @@ Postgres 9.5+
 
 ### 5 Run further migrations of the Database
 `rake db:migrate`
+
+
+## License
+
+Unless stated otherwise, this codebase is released under [the MIT
+license](./LICENSE).
