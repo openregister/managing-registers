@@ -428,8 +428,62 @@ RSpec.feature 'Controller Methods', type: :feature do
     end.to raise_error(PermissionError)
   end
 
-  # 00x00 Issue #148 need to be fixed before
-  scenario 'check_permissions TEAM_MEMBERS_UPDATE allowed' do
+  scenario 'check_permissions TEAM_MEMBERS_DESTROY allowed custodian' do
+    user = ObjectsFactory.new.create_user_with_team('testuser@gov.uk', false, 'custodian')
+    team_id = TeamMember.first.team_id
+    team_member_id = TeamMember.first.id
+
+    expect do
+      controller_methods
+        .check_permissions(:TEAM_MEMBERS_DESTROY,
+                           current_user: user, team_id: team_id, team_member_id: team_member_id)
+    end.not_to raise_error
+  end
+
+  scenario 'check_permissions TEAM_MEMBERS_DESTROY allowed advanced' do
+    user = ObjectsFactory.new.create_user_with_team('testuser@gov.uk', false, 'advanced')
+    team_id = TeamMember.first.team_id
+    team_member_id = TeamMember.first.id
+
+    expect do
+      controller_methods
+        .check_permissions(:TEAM_MEMBERS_DESTROY,
+                           current_user: user, team_id: team_id, team_member_id: team_member_id)
+    end.not_to raise_error
+  end
+
+  scenario 'check_permissions TEAM_MEMBERS_DESTROY not allowed basic' do
+    user = ObjectsFactory.new.create_user_with_team('testuser@gov.uk', false, 'basic')
+    team_id = TeamMember.first.team_id
+    team_member_id = TeamMember.first.id
+
+    expect do
+      controller_methods
+        .check_permissions(:TEAM_MEMBERS_DESTROY,
+                           current_user: user, team_id: team_id, team_member_id: team_member_id)
+    end.to raise_error(PermissionError)
+  end
+
+  scenario 'check_permissions TEAM_MEMBERS_DESTROY not allowed' do
+    user = ObjectsFactory.new.create_user_with_team('testuser@gov.uk', false, 'custodian')
+    team_member_id = TeamMember.first.id
+
+    expect do
+      controller_methods
+        .check_permissions(:TEAM_MEMBERS_DESTROY,
+                           current_user: user, team_id: 999, team_member_id: team_member_id)
+    end.to raise_error(PermissionError)
+  end
+
+  scenario 'check_permissions TEAM_MEMBERS_DESTROY not allowed' do
+    user = ObjectsFactory.new.create_user_with_team('testuser@gov.uk', false, 'custodian')
+    team_id = TeamMember.first.team_id
+
+    expect do
+      controller_methods
+        .check_permissions(:TEAM_MEMBERS_DESTROY,
+                           current_user: user, team_id: team_id, team_member_id: 999)
+    end.to raise_error(PermissionError)
   end
 
   scenario 'check_permissions TEAMS_INDEX allowed custodian' do
@@ -777,6 +831,36 @@ RSpec.feature 'Controller Methods', type: :feature do
       controller_methods
           .check_permissions(:USERS_CREATE,
                              current_user: user, user: user)
+    end.to raise_error(PermissionError)
+  end
+
+  scenario 'check_permissions USERS_DESTROY not allowed custodian' do
+    user = ObjectsFactory.new.create_user_with_team('testuser@gov.uk', false, 'custodian')
+
+    expect do
+      controller_methods
+        .check_permissions(:USERS_DESTROY,
+                           current_user: user)
+    end.to raise_error(PermissionError)
+  end
+
+  scenario 'check_permissions USERS_DESTROY not allowed advanced' do
+    user = ObjectsFactory.new.create_user_with_team('testuser@gov.uk', false, 'advanced')
+
+    expect do
+      controller_methods
+        .check_permissions(:USERS_DESTROY,
+                           current_user: user)
+    end.to raise_error(PermissionError)
+  end
+
+  scenario 'check_permissions USERS_DESTROY not allowed basic' do
+    user = ObjectsFactory.new.create_user_with_team('testuser@gov.uk', false, 'basic')
+
+    expect do
+      controller_methods
+        .check_permissions(:USERS_DESTROY,
+                           current_user: user)
     end.to raise_error(PermissionError)
   end
 

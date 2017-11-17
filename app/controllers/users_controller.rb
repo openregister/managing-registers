@@ -26,16 +26,11 @@ class UsersController < ApplicationController
                               .where(invitation_accepted_at: nil)
   end
 
-  def update
-    if @user.update_attributes(user_params)
-      flash[:notice] = 'Your update has been successful'
-      redirect_to team_path
-    else
-      render :edit
-    end
-  end
+  def update; end
 
   def destroy
+    check_permissions(:USERS_DESTROY, current_user: current_user)
+
     @user.team_members.each { |team_member| TeamMember.destroy team_member.id }
     @user.destroy
     flash[:notice] = 'User has been successful deleted'

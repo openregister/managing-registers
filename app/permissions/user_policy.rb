@@ -9,13 +9,11 @@ class UserPolicy < Policy
     end
 
     def custodians?(current_user)
-      return false unless current_user.present?
-
-      current_user.admin?
+      permission?(current_user)
     end
 
     def new?(current_user, role, team_id)
-      return false unless current_user.present?
+      return false unless values_present? current_user
 
       if current_user.admin?
         if role.present? then
@@ -37,18 +35,26 @@ class UserPolicy < Policy
     end
 
     def create?(current_user)
-      return false unless current_user.present?
+      return false unless values_present? current_user
 
       current_user.admin? || Responsibility.manager?(current_user)
     end
 
     def admin?(current_user)
-      return false unless current_user.present?
+      permission?(current_user)
+    end
 
-      current_user.admin?
+    def destroy?(current_user)
+      permission?(current_user)
     end
 
     private
+
+    def permission?(current_user)
+      return false unless values_present? current_user
+
+      current_user.admin?
+    end
 
     def member?(current_user, team_id)
       current_user.teams.each { |team|

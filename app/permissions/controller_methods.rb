@@ -22,8 +22,7 @@ module Permissions
         when :TEAM_MEMBERS_UPDATE
           raise PermissionError unless TeamMembersPolicy.update?(check_params[:current_user], check_params[:team_member_id])
         when :TEAM_MEMBERS_DESTROY
-          # 00x00 Issue #148 need to be fixed before
-          # raise PermissionError unless TeamMembersPolicy.destroy? current_user, check_params[:team_id], check_params[:team_member_id]
+          raise PermissionError unless TeamMembersPolicy.destroy?(check_params[:current_user], check_params[:team_id], check_params[:team_member_id])
           true
         when :TEAMS_INDEX
           raise PermissionError unless TeamsPolicy.index?(check_params[:current_user])
@@ -43,6 +42,8 @@ module Permissions
           raise PermissionError unless UserPolicy.new?(check_params[:current_user], check_params[:role], check_params[:team_id])
         when :USERS_CREATE
           raise PermissionError unless UserPolicy.create?(check_params[:current_user])
+        when :USERS_DESTROY
+          raise PermissionError unless UserPolicy.destroy?(check_params[:current_user])
         when :CHANGE_SHOW
           raise PermissionError unless ChangePolicy.show?(check_params[:current_user], check_params[:register_name])
         when :CHANGE_EDIT
