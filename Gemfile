@@ -50,8 +50,8 @@ gem 'timeliness', '~> 0.3.8'
 
 # cloudfoundry
 gem 'cf-app-utils', '~> 0.6'
+gem 'lograge', '~> 0.7.1'
 
-gem 'lograge'
 
 group :development, :test do
   gem 'capybara'
@@ -80,5 +80,6 @@ group :development do
 end
 
 group :staging, :production do
+  gem 'logstash-event', '~> 1.2', '>= 1.2.02'
   gem 'health_check', '~> 2.7'
 end
