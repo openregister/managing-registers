@@ -12,7 +12,7 @@
     .column-two-thirds
       = render partial: "layouts/destroy", locals: { object: User.find(params[:delete_user]), return_path: admin_path }
 
-%h3.heading-medium Team members
+%h2.heading-medium Team members
 
 %table
   %tbody
@@ -31,7 +31,7 @@
         %td
           = link_to "Remove team member", admin_path(delete_user: user) unless user == current_user
 
-%h3.heading-medium Pending invites
+%h2.heading-medium Pending invites
 %table
   %tbody
     - if @pending_users.present?

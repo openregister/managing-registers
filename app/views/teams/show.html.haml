@@ -14,7 +14,7 @@
         = link_to t('views.teams.new.page_title'), new_user_invitation_path(team_id: @team.id), class: 'button align-with-heading'
 
 %div#registers
-  %h3.heading-medium Registers managed by this team
+  %h2.heading-medium Registers managed by this team
   %ul.list.list-bullet
     - @team.registers.each do |register|
       %li= prepare_register_name(register.key)
