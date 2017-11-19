@@ -4,8 +4,8 @@
   - @register.fields.each do |field|
   - has_error = flash[field.underscore].present?
     .form-group{:class => ('form-group-error' if has_error) }
-      %label.form-label.form-label-bold
-        =prepare_register_name(field)
+      = label_tag field, class: 'form-label form-label-bold' do
+        = prepare_register_name(field)
         - if has_error
           %span{class: 'error-message'} #{flash[field.underscore]}
       %span.form-hint #{get_description_for_register_field(field)}
