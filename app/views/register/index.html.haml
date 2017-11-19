@@ -32,6 +32,7 @@
                 - if @register[0].try(:name)
                   %th Name
                 %th
+                  %span.visually-hidden Review update
 
             %tbody
               - @changes.each do |change|
