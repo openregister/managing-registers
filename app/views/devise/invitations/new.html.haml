@@ -59,7 +59,7 @@
       - else
         = f.fields_for :team_members, TeamMember.new do |tm|
           = tm.hidden_field :team_id, value: params[:team_id]
-          %h3.heading-small Select permissions
+          %h2.heading-small Select permissions
           .form-group
             %fieldset
               %legend.visually-hidden= t('views.users.role')
@@ -85,7 +85,8 @@
     .form-group
       = f.submit "Send invite", class: 'button'
 - else
-  %h3.heading-small All registers currently have a custodian assigned.
+  %p
+    %strong All registers currently have a custodian assigned.
 
 - content_for :javascript do
   :javascript
