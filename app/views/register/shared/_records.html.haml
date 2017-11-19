@@ -12,6 +12,7 @@
       - if @register[0].try(:name)
         %th Name
       %th
+        %span.visually-hidden Update record
 
   %tbody{class: "js-filter-block"}
     - @register.each do |register|
