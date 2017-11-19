@@ -3,6 +3,6 @@
 %h1.heading-large= t('views.teams.index.page_title')
 
 %ul.browse-list
-- current_user.teams.each do |team|
-  %li.browse-list-item
-  = link_to team.custodian.full_name + 's Team', team_path(team.id), class: 'browse-list-link'
+  - current_user.teams.each do |team|
+    %li.browse-list-item
+      = link_to team.custodian.full_name + 's Team', team_path(team.id), class: 'browse-list-link'
