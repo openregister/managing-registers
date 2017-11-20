@@ -31,18 +31,19 @@
             %th Registers
             %th
         %tbody
-          - if @custodians.present?
-            - @custodians.each do |custodian|
-              %tr{class: "js-filter-item", "data-filter-terms" => "#{custodian.try(:full_name)} #{custodian.email}"}
-                %td
-                  %span.user__name
-                    = custodian.full_name
-                %td= custodian.email
-                %td
-                  - custodian.team_members.first.team.registers.each do |register|
-                    %span.user__register-name= prepare_register_name(register.key)
-                %td
-                  = link_to 'View team', team_path(custodian.team_members.where(role: 'custodian').last.team_id)
+          - if @teams.present?
+            - @teams.each do |team|
+              - if team.custodian.invitation_accepted_at.present?
+                %tr{class: "js-filter-item", "data-filter-terms" => "#{team.custodian.full_name} #{team.custodian.email}"}
+                  %td
+                    %span.user__name
+                      = team.custodian.full_name
+                  %td= team.custodian.email
+                  %td
+                    - team.registers.each do |register|
+                      %span.user__register-name= prepare_register_name(register.key)
+                  %td
+                    = link_to 'View team', team_path(team)
 
     #invites.js-tab-pane.tab-pane
       %table
@@ -51,13 +52,14 @@
             %th Email
             %th Registers
         %tbody
-          - if @pending_custodians.present?
-            - @pending_custodians.each do |custodian|
-              %tr{class: "js-filter-item", "data-filter-terms" => "#{custodian.try(:full_name)} #{custodian.email}"}
-                %td= custodian.email
-                %td
-                  - custodian.team_members.first.team.registers.each do |register|
-                    %span.user__register-name= prepare_register_name(register.key)
+          - if @teams.present?
+            - @teams.each do |team|
+              - if team.custodian.invitation_accepted_at.nil?
+                %tr{class: "js-filter-item", "data-filter-terms" => "#{team.custodian.email}"}
+                  %td= team.custodian.email
+                  %td
+                    - team.registers.each do |register|
+                      %span.user__register-name= prepare_register_name(register.key)
 
 = content_for :javascript do
   :javascript

@@ -16,14 +16,7 @@ class UsersController < ApplicationController
 
   def custodians
     check_permissions(:USERS_CUSTODIANS, current_user: current_user)
-
-    @custodians = User.joins(:team_members)
-                      .where(team_members: { role: 'custodian' })
-                      .where.not(invitation_accepted_at: nil)
-
-    @pending_custodians = User.joins(:team_members)
-                              .where(team_members: { role: 'custodian' })
-                              .where(invitation_accepted_at: nil)
+    @teams = Team.all
   end
 
   def update; end
