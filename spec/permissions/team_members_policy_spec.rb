@@ -85,47 +85,43 @@ RSpec.feature 'Team Members Policy Permission', type: :feature do
 
   scenario 'destroy? allowed admin' do
     user = ObjectsFactory.new.create_user_with_team('testuser@gov.uk', true, 'custodian')
-    team_id = TeamMember.first.team_id
     team_member_id = TeamMember.first.id
 
-    expect(TeamMembersPolicy.destroy?(user, team_id, team_member_id)).to eq(true)
+    expect(TeamMembersPolicy.destroy?(user, team_member_id)).to eq(true)
   end
 
   scenario 'destroy? allowed custodian' do
     user = ObjectsFactory.new.create_user_with_team('testuser@gov.uk', false, 'custodian')
-    team_id = TeamMember.first.team_id
     team_member_id = TeamMember.first.id
 
-    expect(TeamMembersPolicy.destroy?(user, team_id, team_member_id)).to eq(true)
+    expect(TeamMembersPolicy.destroy?(user, team_member_id)).to eq(true)
   end
 
   scenario 'destroy? allowed advanced' do
     user = ObjectsFactory.new.create_user_with_team('testuser@gov.uk', false, 'advanced')
-    team_id = TeamMember.first.team_id
     team_member_id = TeamMember.first.id
 
-    expect(TeamMembersPolicy.destroy?(user, team_id, team_member_id)).to eq(true)
+    expect(TeamMembersPolicy.destroy?(user, team_member_id)).to eq(true)
   end
 
   scenario 'destroy? not allowed basic' do
     user = ObjectsFactory.new.create_user_with_team('testuser@gov.uk', false, 'basic')
-    team_id = TeamMember.first.team_id
     team_member_id = TeamMember.first.id
 
-    expect(TeamMembersPolicy.destroy?(user, team_id, team_member_id)).to eq(false)
+    expect(TeamMembersPolicy.destroy?(user, team_member_id)).to eq(false)
   end
 
   scenario 'destroy? not allowed no team relation' do
     user = ObjectsFactory.new.create_user_with_team('testuser@gov.uk', false, 'custodian')
-    team_member_id = TeamMember.first.id
+    user1 = ObjectsFactory.new.create_user_with_team('testuser1@gov.uk', false, 'custodian')
+    team_member_id = user1.teams.first.id
 
-    expect(TeamMembersPolicy.destroy?(user, 999, team_member_id)).to eq(false)
+    expect(TeamMembersPolicy.destroy?(user, team_member_id)).to eq(false)
   end
 
   scenario 'destroy? not allowed no team_member relation' do
     user = ObjectsFactory.new.create_user_with_team('testuser@gov.uk', false, 'custodian')
-    team_id = TeamMember.first.team_id
 
-    expect(TeamMembersPolicy.destroy?(user, team_id, 999)).to eq(false)
+    expect(TeamMembersPolicy.destroy?(user, 999)).to eq(false)
   end
 end

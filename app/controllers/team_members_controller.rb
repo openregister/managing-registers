@@ -41,8 +41,7 @@ class TeamMembersController < ApplicationController
   end
 
   def destroy
-    check_permissions(:TEAM_MEMBERS_DESTROY, current_user: current_user,
-                                             team_id: params[:team_id].to_i, team_member_id: params[:id].to_i)
+    check_permissions(:TEAM_MEMBERS_DESTROY, current_user: current_user, team_member_id: params[:id].to_i)
 
     @team_member.destroy
     flash[:notice] = "Successfully removed #{@team_member.user.full_name} from team"
