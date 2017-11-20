@@ -19,6 +19,7 @@ before_script:
 
 script:
   - bundle exec rake spec
+  - bundle exec govuk-lint-ruby app spec
 
 before_deploy:
   - export PATH=$HOME:$PATH
