@@ -1,7 +1,5 @@
 class RegisterPolicy < Policy
-
   class << self
-
     def create_and_review?(current_user, register_name)
       return false unless values_present? current_user, register_name
 
@@ -32,7 +30,7 @@ class RegisterPolicy < Policy
       allowed?(current_user, register_name)
     end
 
-    private
+  private
 
     def allowed?(current_user, register_name)
       return false unless values_present? current_user, register_name
@@ -57,4 +55,3 @@ class RegisterPolicy < Policy
     end
   end
 end
-

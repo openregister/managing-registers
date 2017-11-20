@@ -46,4 +46,7 @@ module MultiStepModel
     end
   end
 
+  def respond_to_missing?(method, *)
+    method =~ /^step(\d+)\?$/ || super
+  end
 end

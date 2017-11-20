@@ -9,7 +9,7 @@ RSpec.describe ValidationHelper do
 
   describe 'get_form_errors' do
     before do
-      data = File.open('./spec/support/country_gm.tsv') { |f| f.read }
+      data = File.open('./spec/support/country_gm.tsv', &:read)
       stub_request(:get, 'https://country.beta.openregister.org/record/GM.tsv')
         .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate', 'Host' => 'country.beta.openregister.org' })
         .to_return(status: 200, body: data, headers: {})
@@ -20,7 +20,7 @@ RSpec.describe ValidationHelper do
     end
 
     it 'returns an error if date is invalid' do
-      ['X123', '123X', 'foo', '20145', '201'].each do |d|
+      %w[X123 123X foo 20145 201].each do |d|
         params = { 'start-date' => d, 'country' => 'zz' }
         expect(data_validator.get_form_errors(params, field_definitions, 'country', nil).messages).to eql(start_date: ['Enter a valid date'])
       end
@@ -55,8 +55,8 @@ RSpec.describe ValidationHelper do
 
     it 'returns an error if key is not in a valid format' do
       params = { 'curie-field' => 'country::', 'country' => 'aa' }
-    expect(data_validator.get_form_errors(params, field_definitions, 'country', nil).details).to eql(curie_field: [error: 'Must be valid data from a register that is ready to use'])
-  end
+      expect(data_validator.get_form_errors(params, field_definitions, 'country', nil).details).to eql(curie_field: [error: 'Must be valid data from a register that is ready to use'])
+    end
 
     it 'returns no errors if curie is empty' do
       params = { 'curie-field' => '', 'country' => 'aa' }

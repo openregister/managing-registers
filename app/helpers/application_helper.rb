@@ -1,8 +1,7 @@
 module ApplicationHelper
-
-  def prepare_register_name(registerName)
-    unless registerName.nil?
-      registerName.gsub('-', ' ').split.map(&:capitalize) * ' '
+  def prepare_register_name(register_name)
+    unless register_name.nil?
+      register_name.tr('-', ' ').split.map(&:capitalize) * ' '
     end
   end
 
@@ -10,7 +9,7 @@ module ApplicationHelper
     converted_json = JSON.parse(register.to_json)
     converted_json.keys.each do |key|
       if key.include? '_'
-        converted_json[key.gsub('_', '-')] = converted_json[key];
+        converted_json[key.tr('_', '-')] = converted_json[key];
         converted_json.delete(key);
       end
     end
@@ -30,5 +29,4 @@ module ApplicationHelper
     end
     payload
   end
-
 end

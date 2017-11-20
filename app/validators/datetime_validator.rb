@@ -1,11 +1,11 @@
 require 'timeliness'
 
 class DatetimeValidator < ActiveModel::EachValidator
-  YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS_UTC = 'yyyy-mm-ddThh:nn:ssZ'
-  YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS = 'yyyy-mm-ddThh:nn:ss'
-  YEAR_MONTH_DAY = 'yyyy-mm-dd'
-  YEAR_MONTH = 'yyyy-mm'
-  YEAR = 'yyyy'
+  YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS_UTC = 'yyyy-mm-ddThh:nn:ssZ'.freeze
+  YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS = 'yyyy-mm-ddThh:nn:ss'.freeze
+  YEAR_MONTH_DAY = 'yyyy-mm-dd'.freeze
+  YEAR_MONTH = 'yyyy-mm'.freeze
+  YEAR = 'yyyy'.freeze
   DATE_FORMATS = [
       YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS_UTC,
       YEAR_MONTH_DAY_HOURS_MINUTES_SECONDS,

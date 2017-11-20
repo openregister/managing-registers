@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Register Policy Permission', type: :feature do
-
   scenario 'create_and_review? allowed' do
     register = ObjectsFactory.new.create_register('testuser@gov.uk', true, 'custodian', 'country')
     user = User.find_by_email('testuser@gov.uk')
@@ -214,5 +213,4 @@ RSpec.feature 'Register Policy Permission', type: :feature do
 
     expect(RegisterPolicy.update?(user, 'random')).to eq(false)
   end
-
 end

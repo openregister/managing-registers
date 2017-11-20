@@ -33,7 +33,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     stub_request(:get, /beta.openregister.org/).
-      with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+      with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' }).
       to_return(status: 200, body: "stubbed response", headers: {})
   end
   # rspec-expectations config goes here. You can use an alternate

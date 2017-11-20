@@ -46,7 +46,7 @@ class TeamsController < ApplicationController
     redirect_to team_path
   end
 
-  private
+private
 
   def set_team
     @team = Team.find(params[:id])

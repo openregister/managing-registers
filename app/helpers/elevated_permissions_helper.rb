@@ -1,5 +1,4 @@
 module ElevatedPermissionsHelper
-
   # find team_id which I have elevated permissions
   # given i'm advanced or custodian user
   # @param [user] user
@@ -12,5 +11,4 @@ module ElevatedPermissionsHelper
       user.team_members.where(role: 'advanced').first.team_id
     end
   end
-
 end

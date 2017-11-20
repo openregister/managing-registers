@@ -8,12 +8,12 @@ class Team < ApplicationRecord
   end
 
   def update_registers(updated_register_keys)
-    current_registers = registers.collect{|register| register.key}
+    current_registers = registers.collect(&:key)
 
     registers_to_add = updated_register_keys.reject { |register| current_registers.include? register }
     registers_to_remove = current_registers.reject { |register| updated_register_keys.include? register }
 
-    registers_to_remove.each{ |register_key| registers.delete(Register.find_by_key(register_key)) }
+    registers_to_remove.each { |register_key| registers.delete(Register.find_by_key(register_key)) }
 
     registers_to_add.each do |register_key|
       new_register = Register.find_by_key(register_key)
@@ -23,5 +23,4 @@ class Team < ApplicationRecord
 
     self
   end
-
 end

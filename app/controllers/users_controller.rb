@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     flash[:notice] = 'User has been successful deleted'
 
     redirect_to admin_path
-end
+  end
 
   def show
     check_permissions(:USERS_SHOW, current_user: current_user, user: @user)
@@ -44,7 +44,7 @@ end
 
   def edit; end
 
-  private
+private
 
   def set_user
     @user = User.find_by_id(params[:id])

@@ -21,14 +21,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  protected
+protected
 
   def devise_configure_permitted_parameters
-    devise_parameter_sanitizer.permit :invite, keys: [:email, :admin]
-    devise_parameter_sanitizer.permit :accept_invitation, keys: [:full_name, :password, :password_confirmation, :admin]
-    devise_parameter_sanitizer.permit :sign_up, keys: [:full_name, :email, :password, :password_confirmation, :admin]
-    devise_parameter_sanitizer.permit :sign_in, keys: [:full_name, :email, :password, :admin]
-    devise_parameter_sanitizer.permit :account_update, keys: [:full_name, :email, :password, :password_confirmation, :current_password, :registers, :admin]
+    devise_parameter_sanitizer.permit :invite, keys: %i[email admin]
+    devise_parameter_sanitizer.permit :accept_invitation, keys: %i[full_name password password_confirmation admin]
+    devise_parameter_sanitizer.permit :sign_up, keys: %i[full_name email password password_confirmation admin]
+    devise_parameter_sanitizer.permit :sign_in, keys: %i[full_name email password admin]
+    devise_parameter_sanitizer.permit :account_update, keys: %i[full_name email password password_confirmation current_password registers admin]
   end
-
 end
