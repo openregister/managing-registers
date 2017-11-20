@@ -6,7 +6,6 @@ routes:
   - route: managing-registers-staging.cloudapps.digital
 services:
   - managing-registers-staging
-  - logit-ssl-drain
 env:
   RAILS_ENV: staging
   RACK_ENV: staging
