@@ -14,8 +14,14 @@ class TeamMembersPolicy < Policy
       Responsibility.manager?(current_user)
     end
 
-    def destroy?(current_user, team_id, team_member_id)
-      modify? current_user, team_id, team_member_id
+    def destroy?(current_user, team_member_id)
+      return false unless values_present? current_user, team_member_id
+
+      return true if current_user.admin?
+
+      return false unless same_team? current_user, team_member_id
+
+      Responsibility.manager?(current_user)
     end
 
   private

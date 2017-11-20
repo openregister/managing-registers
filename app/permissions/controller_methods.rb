@@ -21,7 +21,7 @@ module Permissions
       when :TEAM_MEMBERS_UPDATE
         raise PermissionError unless TeamMembersPolicy.update?(check_params[:current_user], check_params[:team_member_id])
       when :TEAM_MEMBERS_DESTROY
-        raise PermissionError unless TeamMembersPolicy.destroy?(check_params[:current_user], check_params[:team_id], check_params[:team_member_id])
+        raise PermissionError unless TeamMembersPolicy.destroy?(check_params[:current_user], check_params[:team_member_id])
       when :TEAMS_INDEX
         raise PermissionError unless TeamsPolicy.index?(check_params[:current_user])
       when :TEAMS_SHOW
