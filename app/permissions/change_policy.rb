@@ -45,7 +45,7 @@ class ChangePolicy < Policy
       return false if register.nil?
 
       register.team.team_members.each { |team_member|
-        return true if team_member.id == current_user.id
+        return true if team_member.user_id.to_s == current_user.id.to_s
       }
 
       false
