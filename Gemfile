@@ -55,7 +55,6 @@ gem 'lograge', '~> 0.7.1'
 
 group :development, :test do
   gem 'capybara'
-  gem 'rails-controller-testing'
   gem 'factory_bot_rails', '~> 4.8', '>= 4.8.2'
   gem 'govuk-lint', '~> 3.3'
   gem 'pry-byebug'
