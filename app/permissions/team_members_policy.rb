@@ -1,40 +1,69 @@
 class TeamMembersPolicy < Policy
   class << self
     def edit?(current_user, team_id, team_member_id)
-      modify? current_user, team_id, team_member_id
+      unless values_present? current_user, team_id, team_member_id
+        log "TeamMembersPolicy::#{__method__}: Not enough values to check."
+        return false
+      end
+
+      return true if current_user.admin?
+
+      unless same_team_with_id? current_user, team_id, team_member_id
+        log "TeamMembersPolicy::#{__method__}: User #{current_user.id} and team member #{team_member_id} are not in the same team #{team_id}."
+        return false
+      end
+
+      if Responsibility.manager?(current_user)
+        true
+      else
+        log "TeamMembersPolicy::#{__method__}: The user #{current_user} cannot manage team members."
+        false
+      end
     end
 
     def update?(current_user, team_member_id)
-      return false unless values_present? current_user, team_member_id
+      unless values_present? current_user, team_member_id
+        log 'TeamMembersPolicy::update?] Not enough values to check.'
+        return false
+      end
 
       return true if current_user.admin?
 
-      return false unless same_team? current_user, team_member_id
+      unless same_team? current_user, team_member_id
+        log "TeamMembersPolicy::#{__method__}: User #{current_user.id} and team member #{team_member_id} are not in the same team."
+        return false
+      end
 
-      Responsibility.manager?(current_user)
+      if Responsibility.manager?(current_user)
+        true
+      else
+        log "TeamMembersPolicy::#{__method__}: The user #{current_user} cannot manage team members."
+        false
+      end
     end
 
     def destroy?(current_user, team_member_id)
-      return false unless values_present? current_user, team_member_id
+      unless values_present? current_user, team_member_id
+        log "TeamMembersPolicy::#{__method__}: Not enough values to check."
+        return false
+      end
 
       return true if current_user.admin?
 
-      return false unless same_team? current_user, team_member_id
+      unless same_team? current_user, team_member_id
+        log "TeamMembersPolicy::#{__method__}: User #{current_user.id} and team member #{team_member_id} are not in the same team."
+        return false
+      end
 
-      Responsibility.manager?(current_user)
+      if Responsibility.manager?(current_user)
+        true
+      else
+        log "TeamMembersPolicy::#{__method__}: The user #{current_user} cannot manage team members."
+        false
+      end
     end
 
   private
-
-    def modify?(current_user, team_id, team_member_id)
-      return false unless values_present? current_user, team_id, team_member_id
-
-      return true if current_user.admin?
-
-      return false unless same_team_with_id? current_user, team_id, team_member_id
-
-      Responsibility.manager?(current_user)
-    end
 
     def same_team?(current_user, team_member_id)
       team_member = TeamMember.find_by_id(team_member_id)

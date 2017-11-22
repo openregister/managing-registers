@@ -1,39 +1,80 @@
 class TeamsPolicy < Policy
   class << self
     def show?(current_user, team_id)
-      return false unless values_present? current_user, team_id
+      unless values_present? current_user, team_id
+        log "TeamsPolicy::#{__method__}: Not enough values to check."
+        return false
+      end
 
       return true if current_user.admin?
 
-      return false unless member? current_user, team_id
+      unless member? current_user, team_id
+        log "TeamsPolicy::#{__method__}: The user #{current_user.id} is not a member of the team #{team_id}."
+        return false
+      end
 
-      Responsibility.user?(current_user)
+      if Responsibility.user?(current_user)
+        true
+      else
+        log "TeamsPolicy::#{__method__}: The user #{current_user} in not a user of the team #{team_id}."
+        false
+      end
     end
 
     def index?(current_user)
-      return false unless current_user.present?
+      unless current_user.present?
+        log 'TeamsPolicy::index?: Not enough values to check.'
+        return false
+      end
 
-      current_user.admin? || Responsibility.user?(current_user)
+      if current_user.admin? || Responsibility.user?(current_user)
+        true
+      else
+        log "TeamsPolicy::#{__method__}: The user #{current_user} does not have permissions."
+        false
+      end
     end
 
     def update?(current_user, team_id)
-      return false unless values_present? current_user, team_id
+      unless values_present? current_user, team_id
+        log 'TeamsPolicy::update?: Not enough values to check.'
+        return false
+      end
 
       return true if current_user.admin?
 
-      return false unless member? current_user, team_id
+      unless member? current_user, team_id
+        log "TeamsPolicy::#{__method__}: The user #{current_user.id} is not a member of the team #{team_id}."
+        return false
+      end
 
-      Responsibility.manager?(current_user)
+      if Responsibility.manager?(current_user)
+        true
+      else
+        log "TeamsPolicy::#{__method__}: The user #{current_user} cannot manage the team #{team_id}."
+        false
+      end
     end
 
     def edit?(current_user, team_id)
-      return false unless values_present? current_user, team_id
+      unless values_present? current_user, team_id
+        log "TeamsPolicy::#{__method__}: Not enough values to check."
+        return false
+      end
 
       return true if current_user.admin?
 
-      return false unless member? current_user, team_id
+      unless member? current_user, team_id
+        log "TeamsPolicy::#{__method__}: The user #{current_user.id} is not a member of the team #{team_id}."
+        return false
+      end
 
-      Responsibility.manager?(current_user)
+      if Responsibility.manager?(current_user)
+        true
+      else
+        log "TeamsPolicy::#{__method__}: The user #{current_user} cannot manage the team #{team_id}."
+        false
+      end
     end
 
   private
