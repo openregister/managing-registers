@@ -5,7 +5,7 @@ set -e
 ENVIRONMENT=${1:-staging}
 
 if [ $ENVIRONMENT = "production" ]; then
-    CF_SPACE="production"
+    CF_SPACE="prod"
 else
     CF_SPACE="sandbox"
 fi
