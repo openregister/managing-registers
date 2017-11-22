@@ -9,14 +9,14 @@ class RegisterPolicy < Policy
       return true if current_user.admin?
 
       unless associated? current_user, register_name
-        log "RegisterPolicy::#{__method__}: The user #{current_user} is not associated with the register #{register_name}."
+        log "RegisterPolicy::#{__method__}: The user #{current_user.id} is not associated with the register #{register_name}."
         return false
       end
 
       if Responsibility.manager?(current_user)
         true
       else
-        log "RegisterPolicy::#{__method__}: The user #{current_user} cannot manage the register."
+        log "RegisterPolicy::#{__method__}: The user #{current_user.id} cannot manage the register."
         false
       end
     end
@@ -52,14 +52,14 @@ class RegisterPolicy < Policy
       return true if current_user.admin?
 
       unless associated? current_user, register_name
-        log "RegisterPolicy::#{method_name}: The user #{current_user} is not associated with the register #{register_name}."
+        log "RegisterPolicy::#{method_name}: The user #{current_user.id} is not associated with the register #{register_name}."
         return false
       end
 
       if Responsibility.user?(current_user)
         true
       else
-        log "RegisterPolicy::#{method_name}: The user #{current_user} cannot managee the register."
+        log "RegisterPolicy::#{method_name}: The user #{current_user.id} cannot managee the register."
         false
       end
     end
