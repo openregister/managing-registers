@@ -46,7 +46,7 @@ class UserPolicy < Policy
       if Responsibility.manager?(current_user)
         true
       else
-        log "UserPolicy::#{__method__}: The user #{current_user} cannot manage the team #{team_id}."
+        log "UserPolicy::#{__method__}: The user #{current_user.id} cannot manage the team #{team_id}."
         false
       end
     end
@@ -60,7 +60,7 @@ class UserPolicy < Policy
       if current_user.admin? || Responsibility.manager?(current_user)
         true
       else
-        log "UserPolicy::#{__method__}: The user #{current_user} does not have permissions."
+        log "UserPolicy::#{__method__}: The user #{current_user.id} does not have permissions."
         false
       end
     end

@@ -16,7 +16,7 @@ class TeamsPolicy < Policy
       if Responsibility.user?(current_user)
         true
       else
-        log "TeamsPolicy::#{__method__}: The user #{current_user} in not a user of the team #{team_id}."
+        log "TeamsPolicy::#{__method__}: The user #{current_user.id} in not a user of the team #{team_id}."
         false
       end
     end
@@ -30,7 +30,7 @@ class TeamsPolicy < Policy
       if current_user.admin? || Responsibility.user?(current_user)
         true
       else
-        log "TeamsPolicy::#{__method__}: The user #{current_user} does not have permissions."
+        log "TeamsPolicy::#{__method__}: The user #{current_user.id} does not have permissions."
         false
       end
     end
@@ -51,7 +51,7 @@ class TeamsPolicy < Policy
       if Responsibility.manager?(current_user)
         true
       else
-        log "TeamsPolicy::#{__method__}: The user #{current_user} cannot manage the team #{team_id}."
+        log "TeamsPolicy::#{__method__}: The user #{current_user.id} cannot manage the team #{team_id}."
         false
       end
     end
@@ -72,7 +72,7 @@ class TeamsPolicy < Policy
       if Responsibility.manager?(current_user)
         true
       else
-        log "TeamsPolicy::#{__method__}: The user #{current_user} cannot manage the team #{team_id}."
+        log "TeamsPolicy::#{__method__}: The user #{current_user.id} cannot manage the team #{team_id}."
         false
       end
     end

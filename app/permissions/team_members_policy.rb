@@ -16,7 +16,7 @@ class TeamMembersPolicy < Policy
       if Responsibility.manager?(current_user)
         true
       else
-        log "TeamMembersPolicy::#{__method__}: The user #{current_user} cannot manage team members."
+        log "TeamMembersPolicy::#{__method__}: The user #{current_user.id} cannot manage team members."
         false
       end
     end
@@ -37,7 +37,7 @@ class TeamMembersPolicy < Policy
       if Responsibility.manager?(current_user)
         true
       else
-        log "TeamMembersPolicy::#{__method__}: The user #{current_user} cannot manage team members."
+        log "TeamMembersPolicy::#{__method__}: The user #{current_user.id} cannot manage team members."
         false
       end
     end
@@ -58,7 +58,7 @@ class TeamMembersPolicy < Policy
       if Responsibility.manager?(current_user)
         true
       else
-        log "TeamMembersPolicy::#{__method__}: The user #{current_user} cannot manage team members."
+        log "TeamMembersPolicy::#{__method__}: The user #{current_user.id} cannot manage team members."
         false
       end
     end

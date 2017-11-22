@@ -27,14 +27,14 @@ class ChangePolicy < Policy
       return true if current_user.admin?
 
       unless associated? current_user, register_name
-        log "ChangePolicy::#{method_name}: The user #{current_user} is not associated with the register #{register_name}."
+        log "ChangePolicy::#{method_name}: The user #{current_user.id} is not associated with the register #{register_name}."
         return false
       end
 
       if Responsibility.manager?(current_user)
         true
       else
-        log "ChangePolicy::#{method_name}: The user #{current_user} cannot manage the register."
+        log "ChangePolicy::#{method_name}: The user #{current_user.id} cannot manage the register."
         false
       end
     end
