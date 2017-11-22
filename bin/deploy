@@ -4,6 +4,12 @@ set -e
 # Default to staging but overridable by argument
 ENVIRONMENT=${1:-staging}
 
+if [ $ENVIRONMENT = "production" ]; then
+    CF_SPACE="production"
+else
+    CF_SPACE="sandbox"
+fi
+
 # Parse app name from manifest to ensure it matches up
 APP_NAME=$(ruby -e "require 'yaml'; config = YAML.load_file('manifest-base.yml'); puts config['applications'][0]['name']")
 

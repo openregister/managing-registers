@@ -8,7 +8,6 @@ env:
   global:
   - CF_API="https://api.cloud.service.gov.uk"
   - CF_ORG="openregister"
-  - CF_SPACE="sandbox"
   - CF_USERNAME="register-design-authority@digital.cabinet-office.gov.uk"
 
 services:
