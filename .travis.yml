@@ -30,9 +30,16 @@ before_deploy:
   - travis_retry cf install-plugin autopilot -f -r CF-Community
 
 deploy:
-  provider: script
-  script: ./bin/deploy staging
-  skip_cleanup: true
-  on:
-    repo: openregister/managing-registers
-    branch: master
+  - provider: script
+    script: ./bin/deploy production
+    skip_cleanup: true
+    on:
+      repo: openregister/managing-registers
+      branch: master
+  - provider: script
+    script: ./bin/deploy staging
+    skip_cleanup: true
+    on:
+      repo: openregister/managing-registers
+      branch: staging   
+    
