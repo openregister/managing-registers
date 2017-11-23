@@ -6,10 +6,13 @@ class RegisterUpdatesMailer < GovukNotifyRails::Mailer
       entry: change.payload,
       requester_name: user.email,
       register_name: change.register_name,
-      request_date: Date.today
+      request_date: Date.today,
+      sign_in: root_url
     )
 
-    mail(to: change_approvers)
+    emails = change_approvers.map { |approver| User.find(approver.user_id).email }
+
+    mail(to: emails)
   end
 
   def register_update_receipt(change, user)
