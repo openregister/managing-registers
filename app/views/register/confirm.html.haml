@@ -6,7 +6,7 @@
 - if @current_register_record.nil?
   = link_to 'Back', { action: 'new', params: params.permit!.to_h }, class: 'link-back'
 - else
-  = link_to 'Back',  { action: 'edit', params: params.permit!.to_h }, class: 'link-back'
+  = link_to 'Back', { action: 'edit', id: @current_register_record['key'], params: params.permit!.to_h }, class: 'link-back'
 
 = render partial: 'layouts/form-error-summary', :locals => { :dasherize => false } if flash.present?
 
