@@ -26,7 +26,7 @@ class UsersController < ApplicationController
 
     @user.team_members.each { |team_member| TeamMember.destroy team_member.id }
     @user.destroy
-    flash[:notice] = 'User has been successful deleted'
+    flash[:notice] = 'User has been successfully deleted'
 
     redirect_to admin_path
   end
