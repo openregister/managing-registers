@@ -1,12 +1,5 @@
-### Overview
+### What did you do? (steps to reproduce)
 
+### What happened? (actual results)
 
-### Expected behaviour
-
-#### Steps to reproduce the expected behaviour
-
-
-### Actual behaviour
-
-
-### Other comments
+### What should have happened? (expected results)
