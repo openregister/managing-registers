@@ -125,7 +125,7 @@ private
         flash[:notice] = 'The record has been published.'
         redirect_to controller: 'register', action: 'index', register: params[:register]
       else
-        flash[:alert] = 'This update hasn’t been approved due to technical reasons. Please try again.'
+        flash[:notice] = 'This update hasn’t been approved due to technical reasons. Please try again.'
       end
     else
       register_name = params[:register].downcase
