@@ -3,7 +3,7 @@ RSpec.describe CreateRsf do
   describe 'RSF encoding' do
     it 'preserves literal characters' do
       rsf = CreateRsf.call(payload, 'country')
-      expect rsf.to include("Foo & Bar")
+      expect(rsf).to include('Foo & Bar')
     end
   end
 end
