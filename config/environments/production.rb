@@ -95,7 +95,7 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'https://managing-registers.cloudapps.digital' }
 
-  config.register_phase = 'https://register.beta.openregister.org/'
+  config.register_phase = :beta
   config.register_url = 'beta.openregister.org/load-rsf'
   config.register_ssl = true
 
