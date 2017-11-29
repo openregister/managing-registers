@@ -100,4 +100,5 @@ Rails.application.configure do
   config.register_ssl = true
 
   config.cache_duration = 3600
+  config.google_analytics_tracking_id = 'UA-86101042-5'
 end

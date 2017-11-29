@@ -6,7 +6,6 @@ routes:
   - route: managing-registers-production.cloudapps.digital
   - route: managing-registers.cloudapps.digital
 env:
-  UA_TRACKING_ID: 'UA-86101042-5'
   RAILS_ENV: production
   RACK_ENV: production
 services:

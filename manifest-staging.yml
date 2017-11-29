@@ -9,4 +9,3 @@ services:
 env:
   RAILS_ENV: staging
   RACK_ENV: staging
-  UA_TRACKING_ID: 'UA-86101042-6'
