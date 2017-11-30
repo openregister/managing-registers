@@ -120,12 +120,13 @@ private
       rsf_body = CreateRsf.call(@change.payload, @change.register_name)
       Rails.env.development? || response = RegisterPost.call(@change.register_name, rsf_body)
 
-      if Rails.env.development? || Rails.env.staging? || response.code == '200'
+      if Rails.env.development? || response.code == '200'
         @registers_client.get_register(@change.register_name, Rails.configuration.register_phase.to_s).refresh_data
         flash[:notice] = 'The record has been published.'
         redirect_to controller: 'register', action: 'index', register: params[:register]
       else
-        flash[:alert] = 'This update hasn’t been approved due to technical reasons. Please try again.'
+        flash[:alert] = 'This update hasn’t been published due to technical reasons. Please try again.'
+        redirect_back fallback_location: root_path
       end
     else
       register_name = params[:register].downcase
