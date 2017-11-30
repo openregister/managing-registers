@@ -31,7 +31,7 @@ gem 'govuk_frontend_toolkit'
 gem 'govuk_template'
 
 # Ruby client for OpenRegisters
-gem 'openregister-ruby', git: 'https://github.com/openregister/openregister-ruby-client', tag: 'v0.2.2'
+gem 'openregister-ruby', git: 'https://github.com/openregister/openregister-ruby-client', tag: 'v0.2.3'
 
 # Email and Text Notifications
 gem 'govuk_notify_rails'
