@@ -9,31 +9,30 @@ class RegisterController < ApplicationController
 
   def index
     check_permissions(:REGISTER_INDEX, current_user: current_user,
-                                      register_name: params[:register])
+                                      register_name: params[:register_id])
 
     @changes = Change.joins('LEFT OUTER JOIN statuses on statuses.change_id = changes.id')
-                     .where("register_name = '#{params[:register]}' AND statuses.status = 'pending'")
+                     .where("register_name = '#{params[:register_id]}' AND statuses.status = 'pending'")
 
-    @register = get_register(params[:register])
+    @register = get_register(params[:register_id])
                 ._all_records
                 .sort_by(&:key)
   end
 
   def new
     check_permissions(:REGISTER_NEW, current_user: current_user,
-                                    register_name: params[:register])
+                                    register_name: params[:register_id])
 
-    @register = get_register(params[:register])
+    @register = get_register(params[:register_id])
     @form = JSON.parse(params.to_json)
   end
 
   def edit
     check_permissions(:REGISTER_EDIT, current_user: current_user,
-                                     register_name: params[:register])
-
+                                     register_name: params[:register_id])
     @changes = Change.joins('LEFT OUTER JOIN statuses on statuses.change_id = changes.id')
-                     .where("register_name = '#{params[:register]}' AND statuses.status = 'pending'")
-    @register = get_register(params[:register])
+                     .where("register_name = '#{params[:register_id]}' AND statuses.status = 'pending'")
+    @register = get_register(params[:register_id])
 
     if @changes.any? { |c| c.payload.value?(params[:id]) }
       flash[:notice] = 'There is already a pending update on this record, this must be reviewed before creating another update'
@@ -42,16 +41,16 @@ class RegisterController < ApplicationController
 
     if @form.nil?
       @form = convert_register_json(
-        OpenRegister.record(params[:register].downcase, params[:id], Rails.configuration.register_phase)
+        OpenRegister.record(params[:register_id].downcase, params[:id], Rails.configuration.register_phase)
       )
     end
   end
 
   def confirm
     check_permissions(:REGISTER_CONFIRM, current_user: current_user,
-                                        register_name: params[:register])
+                                        register_name: params[:register_id])
 
-    register_name = params[:register].downcase
+    register_name = params[:register_id].downcase
     field_definitions = @registers_client.get_register(register_name, 'beta').get_field_definitions
     records = @registers_client.get_register(register_name, 'beta').get_records
     validation_result = @data_validator.get_form_errors(params, field_definitions, register_name, records)
@@ -70,13 +69,12 @@ class RegisterController < ApplicationController
       if @current_register_record
         @current_register_record = convert_register_json(@current_register_record)
       end
-
       render :confirm
     end
   end
 
   def create
-    fields = get_register(params[:register]).fields
+    fields = get_register(params[:register_id]).fields
     payload = generate_canonical_object(fields, params)
 
     if current_user.basic?
@@ -90,13 +88,13 @@ private
 
   def create_pending_review(payload)
     check_permissions(:REGISTER_CREATE_PENDING_REVIEW, current_user: current_user,
-                                                      register_name: params[:register])
+                                                      register_name: params[:register_id])
 
-    @change = Change.new(register_name: params[:register], payload: payload, user_id: current_user.id)
+    @change = Change.new(register_name: params[:register_id], payload: payload, user_id: current_user.id)
     @change.status = Status.new(status: 'pending')
     @change.save
 
-    @change_approvers = Register.find_by(key: params[:register]).team.team_members.where.not(role: 'basic', user_id: current_user)
+    @change_approvers = Register.find_by(key: params[:register_id]).team.team_members.where.not(role: 'basic', user_id: current_user)
 
     if @change_approvers.present?
       RegisterUpdatesMailer.register_update_notification(@change, current_user, @change_approvers).deliver_now
@@ -105,15 +103,15 @@ private
     RegisterUpdatesMailer.register_update_receipt(@change, current_user).deliver_now
 
     flash[:notice] = 'Your update has been submitted and sent for review.'
-    redirect_to action: 'index', register: params[:register]
+    redirect_to action: 'index', register: params[:register_id]
   end
 
   def create_and_review(payload)
     check_permissions(:REGISTER_CREATE_AND_REVIEW, current_user: current_user,
-                                                  register_name: params[:register])
+                                                  register_name: params[:register_id])
 
     if params[:confirm_approve] == '1'
-      @change = Change.new(register_name: params[:register], payload: payload, user_id: current_user.id)
+      @change = Change.new(register_name: params[:register_id], payload: payload, user_id: current_user.id)
       @change.status = Status.new(status: 'approved', reviewed_by_id: current_user.id)
       @change.save
 
@@ -123,14 +121,14 @@ private
       if Rails.env.development? || response.code == '200'
         @registers_client.get_register(@change.register_name, Rails.configuration.register_phase.to_s).refresh_data
         flash[:notice] = 'The record has been published.'
-        redirect_to controller: 'register', action: 'index', register: params[:register]
+        redirect_to controller: 'register', action: 'index', register: params[:register_id]
       else
         flash[:alert] = 'This update hasn’t been published due to technical reasons. Please try again.'
         redirect_back fallback_location: root_path
       end
     else
-      register_name = params[:register].downcase
-      @register = get_register(params[:register])
+      register_name = params[:register_id].downcase
+      @register = get_register(params[:register_id])
       @current_register_record = OpenRegister.record(register_name, params[register_name.to_sym], :beta)
 
       if @current_register_record

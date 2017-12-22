@@ -1,5 +1,5 @@
 = content_for :page_title, 'Review updates'
-= link_to 'Back', "/#{params[:register]}", class: 'link-back'
+= link_to 'Back', "/#{params[:register_id]}", class: 'link-back'
 
 - if params[:approve] == 'yes'
   %header.page-header
@@ -10,7 +10,7 @@
   = form_tag change_path, method: :put do
     .multiple-choice
       = check_box_tag 'confirm_approve'
-      = label_tag 'confirm_approve', "These updates will be published to the #{params[:register]} register."
+      = label_tag 'confirm_approve', "These updates will be published to the #{params[:register_id]} register."
     .form-group
       = submit_tag 'Approve', class: 'button'
 

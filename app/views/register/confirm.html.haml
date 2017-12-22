@@ -39,7 +39,7 @@
               %td
                 %div.panel.panel-change-notification #{params[field.to_sym]}
               %td
-                = link_to 'Update', {action: 'edit', id: params[params[:register].to_sym], anchor: field, params: params}
+                = link_to 'Update', {action: 'edit', id: params[params[:register_id].to_sym], anchor: field, params: params}
             - else
               %td
               %td
@@ -58,8 +58,8 @@
             %td
             %td
 
-= form_for :create, method: :post, url: "/#{params[:register]}" do
-  = hidden_field_tag :register_name, params[:register]
+= form_for :create, method: :post, url: "/#{params[:register_id]}" do
+  = hidden_field_tag :register_name, params[:register_id]
   = hidden_field_tag :data_confirmed, true
   - @register.fields.each do |field|
     = hidden_field_tag field, params[field]
@@ -76,6 +76,6 @@
         %span.error-message= flash.alert
       .multiple-choice
         = check_box_tag :confirm_approve
-        = label_tag :confirm_approve, "These updates will be published to the #{params[:register].capitalize} register."
+        = label_tag :confirm_approve, "These updates will be published to the #{params[:register_id].capitalize} register."
   .form-group
     = button_tag 'Submit', class: 'button'
