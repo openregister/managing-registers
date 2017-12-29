@@ -1,5 +1,5 @@
-= content_for :page_title, "New #{params[:register]}"
-= link_to 'Back', "/#{params[:register]}", class: 'link-back'
+= content_for :page_title, "New #{params[:register_id]}"
+= link_to 'Back', "/#{params[:register_id]}", class: 'link-back'
 
 = render partial: 'layouts/form-error-summary' if flash.present?
 

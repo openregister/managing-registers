@@ -1,4 +1,4 @@
-= form_for :create, url: "/#{params[:register]}" do |f|
+= form_for :create, url: "/#{params[:register_id]}" do |f|
   - if params[:action] == 'new' || params[:action] == 'create'
     = hidden_field_tag 'is_create', 'true'
   - @register.fields.each do |field|
@@ -9,8 +9,8 @@
         - if has_error
           %span{class: 'error-message'} #{flash[field.underscore]}
       %span.form-hint #{get_description_for_register_field(field)}
-      - if params[:action] == 'edit' && field == params[:register]
-        = text_field_tag field, field != params[:register] ? @form[field] : @form['key'], class: 'form-control disabled', readonly: true, tabindex: '-1'
+      - if params[:action] == 'edit' && field == params[:register_id]
+        = text_field_tag field, field != params[:register_id] ? @form[field] : @form['key'], class: 'form-control disabled', readonly: true, tabindex: '-1'
       - else
         = text_field_tag field, @form[field], class: "form-control #{'form-control-error' if has_error}"
   = f.submit 'Continue', class: 'button'

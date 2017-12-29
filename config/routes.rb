@@ -23,9 +23,9 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/:register', to: 'register#index', as: 'registers'
-  get '/:register/:id/edit', to: 'register#edit', as: 'edit_register'
-  get '/:register/new', to: 'register#new', as: 'new_register'
-  post '/:register', to: 'register#create'
+  get '/:register_id', to: 'register#index', as: 'registers'
+  get '/:register_id/:id/edit', to: 'register#edit', as: 'edit_register'
+  get '/:register_id/new', to: 'register#new', as: 'new_register'
+  post '/:register_id', to: 'register#create'
 
 end
