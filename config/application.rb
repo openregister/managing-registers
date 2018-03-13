@@ -8,11 +8,8 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
 require "sprockets/railtie"
-
-# Openregister gem
-require 'openregister'
+require 'register_client_manager'
 require 'cf-app-utils'
-
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
