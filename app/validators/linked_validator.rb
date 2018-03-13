@@ -27,7 +27,8 @@ class LinkedValidator < ActiveModel::EachValidator
   end
 
   def valid_key?(register_name, key)
-    current_register_record = OpenRegister.record(register_name, key, Rails.configuration.register_phase)
+    register_data = registers_client.get_register(register_name, Rails.configuration.register_phase)
+    current_register_record = register_data.get_records_with_history.get_records_for_key(key).first
     !current_register_record.nil?
   rescue => _
     return false

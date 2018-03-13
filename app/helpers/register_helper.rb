@@ -4,10 +4,10 @@ module RegisterHelper
   end
 
   def registers_by_name
-    OpenRegister.register('register', Rails.configuration.register_phase)
-      ._all_records
-      .select { |item| not_system_register(item) }
-      .map(&:key)
+    register_data = @registers_client.get_register('register', Rails.configuration.register_phase, nil)
+    register_data.get_records
+                 .select { |record| not_system_register(record.entry) }
+                 .sort_by { |record| record.entry.key }
   end
 
   def not_system_register(item)

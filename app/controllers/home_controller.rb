@@ -3,10 +3,11 @@ class HomeController < ApplicationController
   include RegisterHelper
 
   def index
-    @registers = OpenRegister.register('register', Rails.configuration.register_phase)
-                   ._all_records
-                   .select { |item| select? item }
-                   .sort_by(&:key)
+    register_data = @registers_client.get_register('register', Rails.configuration.register_phase, nil)
+
+    @registers = register_data.get_records
+                              .select { |record| select? record.entry }
+                              .sort_by { |record| record.entry.key }
   end
 
   def select?(item)

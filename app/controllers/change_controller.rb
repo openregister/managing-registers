@@ -9,7 +9,7 @@ class ChangeController < ApplicationController
     check_permissions(:CHANGE_SHOW, current_user: current_user,
                                    register_name: @change.register_name)
 
-    @register = get_register(@change.register_name)
+    @register = @registers_client.get_register(@change.register_name)
     @new_register_record = @change.payload
     @current_register_record = OpenRegister.record(@change.register_name,
                                                    @change.payload[@change.register_name],
@@ -26,7 +26,7 @@ class ChangeController < ApplicationController
       check_permissions(:CHANGE_EDIT, current_user: current_user,
                                      register_name: @change.register_name)
 
-      @register = get_register(@change.register_name)
+      @register = @registers_client.get_register(@change.register_name)
       @new_register_record = @change.payload
       @current_register_record = OpenRegister.record(@change.register_name,
                                                      @change.payload[@change.register_name],

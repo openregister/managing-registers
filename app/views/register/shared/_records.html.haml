@@ -9,20 +9,20 @@
   %thead
     %tr
       %th #{params[:register_id].capitalize}
-      - if @register[0].try(:name)
+      - if @register.first.item.value['name'].present?
         %th Name
       %th
         %span.visually-hidden Update record
 
   %tbody{class: "js-filter-block"}
-    - @register.each do |register|
-      %tr{class: "js-filter-item", "data-filter-terms" => "#{register.try(:name)} #{register.key}"}
-        %td= register.key
+    - @register.each do |record|
+      %tr{class: "js-filter-item", "data-filter-terms" => "#{record.try(:name)} #{record.entry.key}"}
+        %td= record.entry.key
         %td
-          - if register.try(:name)
-            = register.name
+          - if record.item.value['name'].present?
+            = record.item.value['name']
         %td{style:"text-align:right"}
-          - if @changes.any? { |c| c.payload.value?(register.key)}
+          - if @changes.any? { |c| c.payload.value?(record.key)}
             Pending review
           - else
-            = link_to 'Update', edit_register_path(id: register.key)
+            = link_to 'Update', edit_register_path(id: record.entry.key)
