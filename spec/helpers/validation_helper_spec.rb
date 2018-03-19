@@ -10,12 +10,12 @@ RSpec.describe ValidationHelper do
   describe 'get_form_errors' do
     before do
       data = File.open('./spec/support/country_gm.tsv', &:read)
-      stub_request(:get, 'https://country.beta.openregister.org/record/GM.tsv')
-        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate', 'Host' => 'country.beta.openregister.org' })
+      stub_request(:get, 'https://country.register.gov.uk/record/GM.tsv')
+        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate', 'Host' => 'country.register.gov.uk' })
         .to_return(status: 200, body: data, headers: {})
 
-      stub_request(:get, 'https://country.beta.openregister.org/record/ZZ.tsv')
-        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate', 'Host' => 'country.beta.openregister.org' })
+      stub_request(:get, 'https://country.register.gov.uk/record/ZZ.tsv')
+        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate', 'Host' => 'country.register.gov.uk' })
         .to_return(status: 404)
     end
 

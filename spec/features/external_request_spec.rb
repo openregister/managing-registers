@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 feature 'External request' do
-  it 'Queries register register on beta.openregister.org' do
-    uri = URI('https://register.beta.openregister.org/')
+  it 'Queries register register on register.gov.uk' do
+    uri = URI('https://register.register.gov.uk/')
 
     response = Net::HTTP.get(uri)
 
