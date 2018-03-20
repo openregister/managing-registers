@@ -5,15 +5,8 @@ module ApplicationHelper
     end
   end
 
-  def convert_register_json(register)
-    converted_json = JSON.parse(register.to_json)
-    converted_json[0].keys.each do |key|
-      if key.include? '_'
-        converted_json[key.tr('_', '-')] = converted_json[key];
-        converted_json.delete(key);
-      end
-    end
-    converted_json
+  def convert_register_json(record)
+    record.item.value
   end
 
   def generate_canonical_object(fields, params)
