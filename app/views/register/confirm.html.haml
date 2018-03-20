@@ -26,7 +26,7 @@
         %span.visually-hidden Update field
 
   %tbody
-    - @register.fields.each do |field|
+    - @register.get_register_definition.item.value['fields'].each do |field|
       %tr
         %td #{field}
         - if !@current_register_record.nil?
@@ -61,7 +61,7 @@
 = form_for :create, method: :post, url: "/#{params[:register_id]}" do
   = hidden_field_tag :register_name, params[:register_id]
   = hidden_field_tag :data_confirmed, true
-  - @register.fields.each do |field|
+  - @register.get_register_definition.item.value['fields'].each do |field|
     = hidden_field_tag field, params[field]
   - if current_user.basic?
     .notice
