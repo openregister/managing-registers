@@ -41,7 +41,7 @@ class RegisterController < ApplicationController
 
     if @form.nil?
       register_data = @registers_client.get_register(params[:register_id], Rails.configuration.register_phase)
-      @record = register_data.get_records.select { |record| record.entry.key == params[:id] }
+      @record = register_data.get_record(params[:id])
       @form = convert_register_json(@record)
     end
   end
