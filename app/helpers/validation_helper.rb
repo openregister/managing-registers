@@ -14,10 +14,10 @@ module ValidationHelper
 
         # Custom validators are defined in app/validators
         field_definitions.each do |field|
-          field_sym = field_to_sym.call(field[:item]['field'])
+          field_sym = field_to_sym.call(field.item.value['field'])
           attr_accessor field_sym
           is_key = field_sym == register_sym
-          case field[:item]['datatype']
+          case field.item.value['datatype']
           when 'integer'
             validates field_sym, numericality: { only_integer: true, message: '%<value>s is not an integer' }, allow_blank: true
           when 'curie'
@@ -32,7 +32,7 @@ module ValidationHelper
         end
       end
 
-      field_definitions_map = field_definitions.map { |f| field_to_sym.call(f[:item]['field']) }
+      field_definitions_map = field_definitions.map { |f| field_to_sym.call(f.item.value['field']) }
       record = register_model_class.new
       field_definitions_map.each do |f|
         value = params[f.to_s.dasherize]
