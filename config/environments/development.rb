@@ -66,5 +66,4 @@ Rails.application.configure do
   config.register_phase = 'test'
 
   config.cache_duration = 3600
-
 end

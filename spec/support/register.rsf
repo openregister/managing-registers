@@ -1,0 +1,27 @@
+assert-root-hash	sha-256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+add-item	{"cardinality":"1","datatype":"text","field":"copyright","phase":"beta","text":"Copyright for the data in the register."}
+add-item	{"cardinality":"n","datatype":"string","field":"fields","phase":"beta","register":"field","text":"Set of field names."}
+add-item	{"name":"register"}
+add-item	{"cardinality":"1","datatype":"string","field":"register","phase":"beta","register":"register","text":"A register name."}
+add-item	{"fields":["field","datatype","phase","register","cardinality","text"],"phase":"discovery","register":"field","registry":"cabinet-office","text":"Field names which may appear in a register"}
+add-item	{"fields":["register","text","registry","phase","copyright","fields"],"phase":"discovery","register":"register","registry":"cabinet-office","text":"Registers maintained by HM Government"}
+add-item	{"cardinality":"1","datatype":"string","field":"phase","phase":"beta","text":"Phase of a register or service as defined by the [digital service manual](https://www.gov.uk/service-manual)."}
+add-item	{"copyright":"Contains Ordnance Survey data © Crown copyright & database right 2015\n Contains Royal Mail data © Royal Mail copyright & database right 2015\n","fields":["address","parent-address","primary-address","name","name-cy","name-gd","street","street-custodian","point","start-date","end-date"],"phase":"discovery","register":"address","registry":"cabinet-office","text":"Addresses in the UK"}
+add-item	{"fields":["datatype","phase","text"],"phase":"discovery","register":"datatype","registry":"cabinet-office","text":"Datatypes constraining values used by register fields and idenitifying ways in which it may be encoded a representation"}
+add-item	{"fields":["country","name","official-name","citizen-names","start-date","end-date"],"phase":"discovery","register":"country","registry":"foreign-commonwealth-office","text":"British English-language names and descriptive terms for countries"}
+add-item	{"cardinality":"1","datatype":"text","field":"text","phase":"beta","text":"Description of register entry."}
+add-item	{"cardinality":"1","datatype":"string","field":"registry","phase":"beta","text":"Body responsible for maintaining one or more registers"}
+append-entry	system	name	2017-07-14T11:27:05Z	sha-256:6165e10a2d0eda90d341fd6cb4136634503162220781595f528d1ca0cf396518
+append-entry	system	field:register	2017-01-27T16:34:30Z	sha-256:98ea1be5b6664c6b60a1fc1e5ff73f28b41dfa45aebf2e7d3dd87da679d0b5d4
+append-entry	system	field:text	2017-01-27T16:34:30Z	sha-256:a88f2002515f72bec7322e91d9acfece60510c9bbcecb64bd90bad072e5f2a2f
+append-entry	system	field:registry	2017-01-27T16:34:30Z	sha-256:51d8eda8a9e5c8ae77697e8526a4c0462b8866d7f5f8fadf59a1aa719baad4f1
+append-entry	system	field:phase	2017-01-27T16:34:30Z	sha-256:4a199ba778d66910bb7b53e4cd7e53d6749849d7aec8a82b4124fb44ad8f6e00
+append-entry	system	field:copyright	2017-01-27T16:34:30Z	sha-256:1a854022d46e315c9b8751d231820afdfd234492357e842749515e86b76bdb2f
+append-entry	system	field:fields	2017-01-27T16:34:30Z	sha-256:9c27b78d95ebc20a5a1446938614e883bc31410aba84759402592debfd4d49f4
+append-entry	system	register:register	2017-01-30T11:54:05Z	sha-256:60a17ebb4b523dcacd96fa3f63b73900bc896b703cc469c52f97c6309f2c4e6d
+append-entry	user	address	2017-01-30T11:54:05Z	sha-256:1d310dcf928b62cd0a14498eb760ad486d135bd0ba707b3455213ee0369f5c43
+append-entry	user	country	2017-01-30T11:54:05Z	sha-256:e4f5d041ff7ed59acd8d59d745620969848eabc5e0b0b97defb6db5c8fd72fe3
+append-entry	user	datatype	2017-01-30T11:54:05Z	sha-256:27dea0cc84beb72504499f450688987092b2f0f3a621560c52cf10e3bff48be4
+append-entry	user	field	2017-01-30T11:54:05Z	sha-256:4ed1ffbdc48e7e4825ddf876ca6e182de1b6bd478648defcde810e07fad681cf
+append-entry	user	register	2017-01-30T11:54:05Z	sha-256:60a17ebb4b523dcacd96fa3f63b73900bc896b703cc469c52f97c6309f2c4e6d
+assert-root-hash	sha-256:dd1e1be3c07f3465611002b212ac8c75409e9b7bc775c3d1d8b49b86cb88cac2
