@@ -16,7 +16,7 @@ class RegisterController < ApplicationController
 
     @register = @registers_client.get_register(params[:register_id], Rails.configuration.register_phase, nil)
                 .get_records
-                .sort_by{ |record| record.entry.key }
+                .sort_by { |record| record.entry.key }
   end
 
   def new
@@ -41,7 +41,7 @@ class RegisterController < ApplicationController
 
     if @form.nil?
       register_data = @registers_client.get_register(params[:register_id], Rails.configuration.register_phase)
-      @record = register_data.get_records.select{ |record| record.entry.key == params[:id] }
+      @record = register_data.get_records.select { |record| record.entry.key == params[:id] }
       @form = convert_register_json(@record)
     end
   end
@@ -56,7 +56,7 @@ class RegisterController < ApplicationController
     validation_result = @data_validator.get_form_errors(params, field_definitions, register_name, records)
     if validation_result.messages.present?
       validation_result.messages.each { |k, v| flash.now[k] = v.join(', ') }
-      @register = get_register(register_name)
+      @register = @registers_client.get_register(register_name, Rails.configuration.register_phase, nil)
       @form = JSON.parse(params.to_json)
       render :new
     else
