@@ -11,7 +11,7 @@ RSpec.feature 'Publish Record', type: :feature do
     stub_request(:post, 'https://api.notifications.service.gov.uk/v2/notifications/email')
       .to_return(status: 200, body: '{}')
 
-    stub('https://country.register.gov.uk/download-rsf/0', './spec/support/country.rsf')
+    stub('https://country.register.gov.uk/download-rsf/0', './spec/support/country-full.rsf')
     stub('https://register.register.gov.uk/download-rsf/0', './spec/support/register.rsf')
   end
 

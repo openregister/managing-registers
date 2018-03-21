@@ -22,7 +22,7 @@
           - if record.item.value['name'].present?
             = record.item.value['name']
         %td{style:"text-align:right"}
-          - if @changes.any? { |c| c.payload.value?(record.key)}
+          - if @changes.any? { |c| c.payload.value?(record.entry.key)}
             Pending review
           - else
             = link_to 'Update', edit_register_path(id: record.entry.key)

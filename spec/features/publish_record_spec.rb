@@ -17,7 +17,7 @@ RSpec.feature 'Publish Record', type: :feature do
             headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization' => 'Basic b3BlbnJlZ2lzdGVyOkxnanNBR3lIRTE=', 'Content-Type' => 'application/uk-gov-rsf' })
       .to_return(status: 200, body: '', headers: {})
 
-    stub('https://country.register.gov.uk/download-rsf/0', './spec/support/country.rsf')
+    stub('https://country.register.gov.uk/download-rsf/0', './spec/support/country-full.rsf')
     stub('https://register.register.gov.uk/download-rsf/0', './spec/support/register.rsf')
   end
 
