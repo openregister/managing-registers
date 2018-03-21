@@ -1,2 +1,0 @@
-index-entry-number	entry-number	entry-timestamp	key	field	datatype	phase	register	cardinality	text
-33	33	2017-01-10T17:16:07Z	phase	phase	string	beta		1	The stage of development a register is in. There are 4 phases - discovery, alpha, beta and live.

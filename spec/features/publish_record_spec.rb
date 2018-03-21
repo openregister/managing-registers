@@ -19,6 +19,7 @@ RSpec.feature 'Publish Record', type: :feature do
 
     stub('https://country.register.gov.uk/download-rsf/0', './spec/support/country-full.rsf')
     stub('https://register.register.gov.uk/download-rsf/0', './spec/support/register.rsf')
+    stub('https://country.register.gov.uk/download-rsf/207', './spec/support/country-207.rsf')
   end
 
   before :each do
