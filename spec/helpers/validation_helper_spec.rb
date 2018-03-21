@@ -8,17 +8,6 @@ RSpec.describe ValidationHelper do
   data_validator = ValidationHelper::DataValidator.new
 
   describe 'get_form_errors' do
-    before do
-      data = File.open('./spec/support/country_gm.tsv', &:read)
-      stub_request(:get, 'https://country.register.gov.uk/record/GM.tsv')
-        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate', 'Host' => 'country.register.gov.uk' })
-        .to_return(status: 200, body: data, headers: {})
-
-      stub_request(:get, 'https://country.register.gov.uk/record/ZZ.tsv')
-        .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate', 'Host' => 'country.register.gov.uk' })
-        .to_return(status: 404)
-    end
-
     it 'returns an error if date is invalid' do
       %w[X123 123X foo 20145 201].each do |d|
         params = { 'start-date' => d, 'country' => 'zz' }
