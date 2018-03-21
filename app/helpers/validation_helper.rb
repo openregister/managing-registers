@@ -1,8 +1,7 @@
 module ValidationHelper
   class DataValidator
-    def get_form_errors(params, field_definitions, register_name, records)
+    def get_form_errors(params, field_definitions, register_name, records, registers_client)
       field_to_sym = ->(field) { field.underscore.to_sym }
-
       register_sym = field_to_sym.call(register_name)
 
       register_model_class = Class.new do
@@ -21,7 +20,7 @@ module ValidationHelper
           when 'integer'
             validates field_sym, numericality: { only_integer: true, message: '%<value>s is not an integer' }, allow_blank: true
           when 'curie'
-            validates field_sym, linked: { register_linked: field[:item]['register'] }, allow_blank: true
+            validates field_sym, linked: { register_linked: field.item.value['register'], registers_client: registers_client }, allow_blank: true
           when 'string'
             validates field_sym, presence: { message: 'Field %<attribute>s is required' }, allow_blank: !is_key, key_uniqueness: { records: records, is_create: params[:is_create] }, if: -> { is_key }
           when 'url'
