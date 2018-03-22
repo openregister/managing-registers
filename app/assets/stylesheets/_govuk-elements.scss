@@ -50,6 +50,20 @@
 @import "elements/forms/form-date";               // Date of birth pattern
 @import "elements/forms/form-validation";         // Errors and validation
 @import "elements/breadcrumbs";                   // Breadcrumbs
-@import "elements/phase-banner";                  // Alpha and beta banners and tags
+// @import "elements/phase-banner";                  // Alpha and beta banners and tags
 @import "elements/components";                    // GOV.UK prefixed styles - blue highlighted box
 @import "elements/shame";                         // Hacks and workarounds that will go away eventually
+
+$is-print: false !default;
+
+@mixin screen {
+  @if not $is-print {
+    @content;
+  }
+}
+
+@mixin print {
+  @if $is-print {
+    @content;
+  }
+}
