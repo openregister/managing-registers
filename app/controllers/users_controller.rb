@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  include ElevatedPermissionsHelper
+  include ElevatedPermissionsHelper # rubocop:disable Style/MixinUsage
   before_action :set_user
 
   def admin
