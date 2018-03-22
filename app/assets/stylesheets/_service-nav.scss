@@ -1,6 +1,6 @@
 .service-navigation {
   padding: 11px 0 9px 0;
-  border-bottom: 1px solid #bfc1c3;
+  border-bottom: 1px solid $border-colour;
   margin: 0;
   position: relative;
   overflow: hidden;
@@ -52,7 +52,7 @@
       &:after {
         background: $black;
         bottom: -10px;
-        content:  "";
+        content: "";
         display: block;
         height: 4px;
         position: absolute;

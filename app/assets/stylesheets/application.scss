@@ -1,8 +1,17 @@
 // Import GOV.UK frontend toolkit
 @import "govuk-elements";
-@import "header-tweaks";
+@import "govuk-logo";
+@import "phase-banner";
+@import "header";
 @import "service-nav";
 @import "tabs";
+
+html,
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  @include core-19;
+}
 
 // Override table font size
 table td,
@@ -203,14 +212,14 @@ table {
 }
 
 .browse-list {
-  margin-bottom: 30px
+  margin-bottom: 30px;
 }
 
 .browse-list-item {
   list-style: none;
 
   @include media(tablet) {
-    margin-bottom: 5px
+    margin-bottom: 5px;
   }
 }
 
@@ -220,14 +229,17 @@ table {
   font-size: 18px;
   line-height: 1.2;
 
-   @include media(tablet) {
+  @include media(tablet) {
     font-size: 24px;
     line-height: 1.25;
   }
 }
 
 .destroy-confirmation {
+  // scss-lint:disable PlaceholderInExtend
+  // extended from gov.uk elements
   @extend .error-summary;
+  // scss-lint:enable PlaceholderInExtend
   margin: 0;
   overflow: hidden;
 
@@ -241,9 +253,12 @@ table {
     margin-top: 0;
   }
 
+  // scss-lint:disable SelectorFormat
+  // Rails helper
   .button_to {
     float: left;
   }
+  // scss-lint:enable SelectorFormat
 
   .button {
     @include button($error-colour);
