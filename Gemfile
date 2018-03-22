@@ -9,7 +9,7 @@ end
 
 ruby File.read('.ruby-version').chomp
 
-gem 'rails', '5.1.4'
+gem 'rails', '5.1.5'
 
 # Database
 gem 'pg', '~> 0.18'
@@ -56,7 +56,7 @@ gem 'lograge', '~> 0.7.1'
 group :development, :test do
   gem 'capybara'
   gem 'factory_bot_rails', '~> 4.8', '>= 4.8.2'
-  gem 'govuk-lint', '~> 3.3'
+  gem 'govuk-lint', '~> 3.7'
   gem 'pry-byebug'
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 3.5'
