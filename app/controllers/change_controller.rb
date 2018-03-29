@@ -47,7 +47,7 @@ class ChangeController < ApplicationController
     RegisterUpdatesMailer.register_update_rejected(@change, current_user).deliver_now
 
     flash[:notice] = 'An email has been sent to the user.'
-    redirect_to controller: 'register', action: 'index', register: Change.find(params['id']).register_name
+    redirect_to controller: 'register', action: 'index', register_id: Change.find(params['id']).register_name
   end
 
   def update
@@ -72,7 +72,7 @@ class ChangeController < ApplicationController
 
       RegisterUpdatesMailer.register_update_approved(@change, current_user).deliver_now
 
-      redirect_to controller: 'register', action: 'index', register: Change.find(params['id']).register_name
+      redirect_to controller: 'register', action: 'index', register_id: Change.find(params['id']).register_name
     else
       flash[:notice] = 'Please confirm that you wish to approve this update'
       redirect_to :back
