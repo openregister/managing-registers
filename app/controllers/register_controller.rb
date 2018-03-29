@@ -72,7 +72,7 @@ class RegisterController < ApplicationController
   end
 
   def create
-    fields = @registers_client.get_register(params[:register_id], 'beta').get_register_definition.item.value['fields']
+    fields = @registers_client.get_register(params[:register_id], Rails.configuration.register_phase).get_register_definition.item.value['fields']
     payload = generate_canonical_object(fields, params)
 
     if current_user.basic?
