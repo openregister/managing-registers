@@ -5,10 +5,6 @@ require 'rails_helper'
 
 RSpec.feature 'Publish Record', type: :feature do
   before do
-    stub_request(:get, 'https://country.register.gov.uk/record/zz.tsv')
-      .with(headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'gzip, deflate', 'Host' => 'country.register.gov.uk' })
-      .to_return(status: 404, headers: {})
-
     stub_request(:post, 'https://api.notifications.service.gov.uk/v2/notifications/email')
       .to_return(status: 200, body: '{}')
 
