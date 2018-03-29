@@ -4,7 +4,7 @@ module RegisterHelper
   end
 
   def registers_by_name
-    register_data = @registers_client.get_register('register', Rails.configuration.register_phase, nil)
+    register_data = @registers_client.get_register('register', Rails.configuration.register_phase)
     register_data.get_records
                  .select { |record| not_system_register(record.entry) }
                  .sort_by { |record| record.entry.key }

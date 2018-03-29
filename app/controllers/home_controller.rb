@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   include RegisterHelper
 
   def index
-    register_data = @registers_client.get_register('register', Rails.configuration.register_phase, nil)
+    register_data = @registers_client.get_register('register', Rails.configuration.register_phase)
 
     @registers = register_data.get_records
                               .select { |record| select? record.entry }

@@ -14,7 +14,7 @@ class RegisterController < ApplicationController
     @changes = Change.joins('LEFT OUTER JOIN statuses on statuses.change_id = changes.id')
                      .where("register_name = '#{params[:register_id]}' AND statuses.status = 'pending'")
 
-    @register = @registers_client.get_register(params[:register_id], Rails.configuration.register_phase, nil)
+    @register = @registers_client.get_register(params[:register_id], Rails.configuration.register_phase)
                 .get_records
                 .sort_by { |record| record.entry.key }
   end
@@ -23,7 +23,7 @@ class RegisterController < ApplicationController
     check_permissions(:REGISTER_NEW, current_user: current_user,
                                     register_name: params[:register_id])
 
-    @register = @registers_client.get_register(params[:register_id], Rails.configuration.register_phase, nil)
+    @register = @registers_client.get_register(params[:register_id], Rails.configuration.register_phase)
     @form = JSON.parse(params.to_json)
   end
 
@@ -32,7 +32,7 @@ class RegisterController < ApplicationController
                                      register_name: params[:register_id])
     @changes = Change.joins('LEFT OUTER JOIN statuses on statuses.change_id = changes.id')
                      .where("register_name = '#{params[:register_id]}' AND statuses.status = 'pending'")
-    @register = @registers_client.get_register(params[:register_id], Rails.configuration.register_phase, nil)
+    @register = @registers_client.get_register(params[:register_id], Rails.configuration.register_phase)
 
     if @changes.any? { |c| c.payload.value?(params[:id]) }
       flash[:notice] = 'There is already a pending update on this record, this must be reviewed before creating another update'
@@ -56,12 +56,12 @@ class RegisterController < ApplicationController
     validation_result = @data_validator.get_form_errors(params, field_definitions, register_name, records, @registers_client)
     if validation_result.messages.present?
       validation_result.messages.each { |k, v| flash.now[k] = v.join(', ') }
-      @register = @registers_client.get_register(register_name, Rails.configuration.register_phase, nil)
+      @register = @registers_client.get_register(register_name, Rails.configuration.register_phase)
       @form = JSON.parse(params.to_json)
       render :new
     else
       return true if params[:data_confirmed]
-      @register = @registers_client.get_register(register_name, Rails.configuration.register_phase, nil)
+      @register = @registers_client.get_register(register_name, Rails.configuration.register_phase)
       @current_register_record = @register.get_record(params[register_name.to_sym])
 
       if @current_register_record
