@@ -10,7 +10,7 @@ module RegisterHelper
                  .sort_by { |record| record.entry.key }
   end
 
-  def not_system_register(item)
-    %w{register datatype field}.none? { |type| type == format(item.key) }
+  def not_system_register(entry)
+    %w{register datatype field}.none? { |type| type == format(entry.key) }
   end
 end
