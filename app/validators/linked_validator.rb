@@ -31,8 +31,6 @@ class LinkedValidator < ActiveModel::EachValidator
     register_data = @registers_client.get_register(register_name, Rails.configuration.register_phase)
     current_register_record = register_data.get_record(key)
     !current_register_record.nil?
-  rescue => _
-    return false
   end
 
   def valid_value?(value)
