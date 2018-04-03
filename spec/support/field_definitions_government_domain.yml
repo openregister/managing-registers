@@ -1,0 +1,73 @@
+--- !ruby/object:RegistersClient::RecordCollection
+data:
+- !ruby/object:RegistersClient::Record
+  entry: !ruby/object:RegistersClient::Entry
+    rsf_line: 
+    entry_number: 6
+    entry_type: !ruby/string:RestClient::Response system
+    parsed_entry:
+      :key: !ruby/string:RestClient::Response field:government-domain
+      :timestamp: !ruby/string:RestClient::Response '2017-09-19T11:56:51Z'
+      :item_hash: !ruby/string:RestClient::Response sha-256:1b3204c8a0b69adac80f02423be2e287e3960958068537a3a1601ee41bf2cc66
+  item: !ruby/object:RegistersClient::Item
+    item_json: !ruby/string:RestClient::Response '{"cardinality":"1","datatype":"string","field":"government-domain","phase":"beta","register":"government-domain","text":"A
+      government domain."}'
+    item_hash: sha-256:1b3204c8a0b69adac80f02423be2e287e3960958068537a3a1601ee41bf2cc66
+    parsed_item: 
+- !ruby/object:RegistersClient::Record
+  entry: !ruby/object:RegistersClient::Entry
+    rsf_line: 
+    entry_number: 7
+    entry_type: !ruby/string:RestClient::Response system
+    parsed_entry:
+      :key: !ruby/string:RestClient::Response field:hostname
+      :timestamp: !ruby/string:RestClient::Response '2017-09-19T11:56:51Z'
+      :item_hash: !ruby/string:RestClient::Response sha-256:e2577e16c816a7d2f3352d2a965092dff9bfc386f92cc071e384520bcca22317
+  item: !ruby/object:RegistersClient::Item
+    item_json: !ruby/string:RestClient::Response '{"cardinality":"1","datatype":"string","field":"hostname","phase":"beta","text":"The
+      section of a URL that identifies a government domain."}'
+    item_hash: sha-256:e2577e16c816a7d2f3352d2a965092dff9bfc386f92cc071e384520bcca22317
+    parsed_item: 
+- !ruby/object:RegistersClient::Record
+  entry: !ruby/object:RegistersClient::Entry
+    rsf_line: 
+    entry_number: 5
+    entry_type: !ruby/string:RestClient::Response system
+    parsed_entry:
+      :key: !ruby/string:RestClient::Response field:organisation
+      :timestamp: !ruby/string:RestClient::Response '2017-09-19T11:56:51Z'
+      :item_hash: !ruby/string:RestClient::Response sha-256:ab37e2bcbb803b0a0a563add927311acc5618ee17302cdc01cb9377f7ebf3bde
+  item: !ruby/object:RegistersClient::Item
+    item_json: !ruby/string:RestClient::Response '{"cardinality":"1","datatype":"curie","field":"organisation","phase":"beta","text":"The
+      entity''s organisation."}'
+    item_hash: sha-256:ab37e2bcbb803b0a0a563add927311acc5618ee17302cdc01cb9377f7ebf3bde
+    parsed_item: 
+- !ruby/object:RegistersClient::Record
+  entry: !ruby/object:RegistersClient::Entry
+    rsf_line: 
+    entry_number: 4
+    entry_type: !ruby/string:RestClient::Response system
+    parsed_entry:
+      :key: !ruby/string:RestClient::Response field:start-date
+      :timestamp: !ruby/string:RestClient::Response '2017-09-19T11:56:51Z'
+      :item_hash: !ruby/string:RestClient::Response sha-256:f09c439836eb6fccfb0680fa98dfc3d0300d1ceb2a43eb3c26b3eed01a42d2c2
+  item: !ruby/object:RegistersClient::Item
+    item_json: !ruby/string:RestClient::Response '{"cardinality":"1","datatype":"datetime","field":"start-date","phase":"beta","text":"The
+      date a record first became relevant to a register."}'
+    item_hash: sha-256:f09c439836eb6fccfb0680fa98dfc3d0300d1ceb2a43eb3c26b3eed01a42d2c2
+    parsed_item: 
+- !ruby/object:RegistersClient::Record
+  entry: !ruby/object:RegistersClient::Entry
+    rsf_line: 
+    entry_number: 3
+    entry_type: !ruby/string:RestClient::Response system
+    parsed_entry:
+      :key: !ruby/string:RestClient::Response field:end-date
+      :timestamp: !ruby/string:RestClient::Response '2017-09-19T11:56:51Z'
+      :item_hash: !ruby/string:RestClient::Response sha-256:c5845bfc15577e8c120970ba084f1dc2c82b10e703f80d1efe4f694295a5a71d
+  item: !ruby/object:RegistersClient::Item
+    item_json: !ruby/string:RestClient::Response '{"cardinality":"1","datatype":"datetime","field":"end-date","phase":"beta","text":"The
+      date a record stopped being applicable."}'
+    item_hash: sha-256:c5845bfc15577e8c120970ba084f1dc2c82b10e703f80d1efe4f694295a5a71d
+    parsed_item: 
+page_size: 10

@@ -47,14 +47,14 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   config.force_ssl = true
-  config.ssl_options = { hsts: false,  redirect: { exclude: -> request { request.path =~ /health_check/ } }, secure_cookies: true } 
+  config.ssl_options = { hsts: false, redirect: { exclude: ->(request) { request.path =~ /health_check/ } }, secure_cookies: true }
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
   config.log_level = :info
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -95,7 +95,7 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'https://managing-registers.cloudapps.digital' }
 
-  config.register_phase = :beta
+  config.register_phase = 'beta'
   config.register_url = 'beta.openregister.org/load-rsf'
   config.register_ssl = true
 

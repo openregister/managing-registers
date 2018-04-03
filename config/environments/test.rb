@@ -45,7 +45,7 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  config.register_phase = :beta
+  config.register_phase = 'beta'
 
   config.register_url = 'test.openregister.org/load-rsf'
   config.register_ssl = false

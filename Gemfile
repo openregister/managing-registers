@@ -30,8 +30,8 @@ gem 'govuk_elements_rails'
 gem 'govuk_frontend_toolkit'
 gem 'govuk_template'
 
-# Ruby client for OpenRegisters
-gem 'openregister-ruby', git: 'https://github.com/openregister/openregister-ruby-client', tag: 'v0.2.3'
+# API client for GOV.UK Registers
+gem 'govuk-registers-api-client'
 
 # Email and Text Notifications
 gem 'govuk_notify_rails'
@@ -73,8 +73,6 @@ group :development do
   gem 'binding_of_caller'
   gem 'letter_opener'
   gem 'listen', '~> 3.0.5'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
 end
 

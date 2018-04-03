@@ -14,16 +14,16 @@ class RegisterController < ApplicationController
     @changes = Change.joins('LEFT OUTER JOIN statuses on statuses.change_id = changes.id')
                      .where("register_name = '#{params[:register_id]}' AND statuses.status = 'pending'")
 
-    @register = get_register(params[:register_id])
-                ._all_records
-                .sort_by(&:key)
+    @register = @registers_client.get_register(params[:register_id], Rails.configuration.register_phase)
+                .get_records
+                .sort_by { |record| record.entry.key }
   end
 
   def new
     check_permissions(:REGISTER_NEW, current_user: current_user,
                                     register_name: params[:register_id])
 
-    @register = get_register(params[:register_id])
+    @register = @registers_client.get_register(params[:register_id], Rails.configuration.register_phase)
     @form = JSON.parse(params.to_json)
   end
 
@@ -32,7 +32,7 @@ class RegisterController < ApplicationController
                                      register_name: params[:register_id])
     @changes = Change.joins('LEFT OUTER JOIN statuses on statuses.change_id = changes.id')
                      .where("register_name = '#{params[:register_id]}' AND statuses.status = 'pending'")
-    @register = get_register(params[:register_id])
+    @register = @registers_client.get_register(params[:register_id], Rails.configuration.register_phase)
 
     if @changes.any? { |c| c.payload.value?(params[:id]) }
       flash[:notice] = 'There is already a pending update on this record, this must be reviewed before creating another update'
@@ -40,9 +40,9 @@ class RegisterController < ApplicationController
     end
 
     if @form.nil?
-      @form = convert_register_json(
-        OpenRegister.record(params[:register_id].downcase, params[:id], Rails.configuration.register_phase)
-      )
+      register_data = @registers_client.get_register(params[:register_id], Rails.configuration.register_phase)
+      @record = register_data.get_record(params[:id])
+      @form = convert_register_json(@record)
     end
   end
 
@@ -53,18 +53,16 @@ class RegisterController < ApplicationController
     register_name = params[:register_id].downcase
     field_definitions = @registers_client.get_register(register_name, 'beta').get_field_definitions
     records = @registers_client.get_register(register_name, 'beta').get_records
-    validation_result = @data_validator.get_form_errors(params, field_definitions, register_name, records)
+    validation_result = @data_validator.get_form_errors(params, field_definitions, register_name, records, @registers_client)
     if validation_result.messages.present?
       validation_result.messages.each { |k, v| flash.now[k] = v.join(', ') }
-      @register = get_register(register_name)
+      @register = @registers_client.get_register(register_name, Rails.configuration.register_phase)
       @form = JSON.parse(params.to_json)
       render :new
     else
       return true if params[:data_confirmed]
-      @register = get_register(register_name)
-      @current_register_record = OpenRegister.record(register_name,
-                                                     params[register_name.to_sym],
-                                                     Rails.configuration.register_phase)
+      @register = @registers_client.get_register(register_name, Rails.configuration.register_phase)
+      @current_register_record = @register.get_record(params[register_name.to_sym])
 
       if @current_register_record
         @current_register_record = convert_register_json(@current_register_record)
@@ -74,7 +72,7 @@ class RegisterController < ApplicationController
   end
 
   def create
-    fields = get_register(params[:register_id]).fields
+    fields = @registers_client.get_register(params[:register_id], Rails.configuration.register_phase).get_register_definition.item.value['fields']
     payload = generate_canonical_object(fields, params)
 
     if current_user.basic?
@@ -141,6 +139,5 @@ private
 
   def initialize_controller
     @data_validator = ValidationHelper::DataValidator.new
-    @registers_client ||= OpenRegister::RegistersClient.new(cache_duration: Rails.configuration.cache_duration)
   end
 end

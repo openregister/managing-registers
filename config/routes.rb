@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
-
   devise_for :users, controllers: { invitations: 'users_controller/invitations' }
 
-  resources :users, except: [:index, :edit]
-  resources :change, except: [:new, :create, :index]
-  resources :team_members, only: [:update, :destroy]
+  resources :users, except: %i[index edit]
+  resources :change, except: %i[new create index]
+  resources :team_members, only: %i[update destroy]
 
-  resources :teams, only: [:index, :show, :edit, :update] do
+  resources :teams, only: %i[index show edit update] do
     resources :team_members, only: :edit
   end
 
@@ -27,5 +26,4 @@ Rails.application.routes.draw do
   get '/:register_id/:id/edit', to: 'register#edit', as: 'edit_register'
   get '/:register_id/new', to: 'register#new', as: 'new_register'
   post '/:register_id', to: 'register#create'
-
 end

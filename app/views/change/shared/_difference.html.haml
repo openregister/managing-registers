@@ -5,7 +5,7 @@
       %th Current value
       %th New value
   %tbody
-    - @register.fields.each do |field|
+    - @register.get_register_definition.item.value['fields'].each do |field|
       %tr
         %td
           = field

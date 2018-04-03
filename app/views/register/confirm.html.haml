@@ -6,7 +6,7 @@
 - if @current_register_record.nil?
   = link_to 'Back', { action: 'new', params: params.permit!.to_h }, class: 'link-back'
 - else
-  = link_to 'Back', { action: 'edit', id: @current_register_record['key'], params: params.permit!.to_h }, class: 'link-back'
+  = link_to 'Back', { action: 'edit', id: @current_register_record[params[:register_id]], params: params.permit!.to_h }, class: 'link-back'
 
 = render partial: 'layouts/form-error-summary', :locals => { :dasherize => false } if flash.present?
 
@@ -26,7 +26,7 @@
         %span.visually-hidden Update field
 
   %tbody
-    - @register.fields.each do |field|
+    - @register.get_register_definition.item.value['fields'].each do |field|
       %tr
         %td #{field}
         - if !@current_register_record.nil?
@@ -61,7 +61,7 @@
 = form_for :create, method: :post, url: "/#{params[:register_id]}" do
   = hidden_field_tag :register_name, params[:register_id]
   = hidden_field_tag :data_confirmed, true
-  - @register.fields.each do |field|
+  - @register.get_register_definition.item.value['fields'].each do |field|
     = hidden_field_tag field, params[field]
   - if current_user.basic?
     .notice

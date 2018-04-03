@@ -6,7 +6,8 @@
   - if current_user.admin?
     - @registers.each do |register|
       %li.browse-list-item
-        = link_to prepare_register_name(register.key), register.key, class: 'browse-list-link'
+        = link_to prepare_register_name(register.entry.key), register.entry.key, class: 'browse-list-link'
+
   - else
     - current_user.teams.each do |team|
       - team.registers.each do |register|

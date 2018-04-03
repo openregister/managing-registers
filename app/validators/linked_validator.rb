@@ -3,6 +3,7 @@ class LinkedValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     register_linked = options[:register_linked]
+    @registers_client = options[:registers_client]
     record.errors.add attribute, 'Must be valid data from a register that is ready to use' unless validate_linked(value, register_linked)
   end
 
@@ -27,7 +28,8 @@ class LinkedValidator < ActiveModel::EachValidator
   end
 
   def valid_key?(register_name, key)
-    current_register_record = OpenRegister.record(register_name, key, Rails.configuration.register_phase)
+    register_data = @registers_client.get_register(register_name, Rails.configuration.register_phase)
+    current_register_record = register_data.get_record(key)
     !current_register_record.nil?
   rescue => _
     return false

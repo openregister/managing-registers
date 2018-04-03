@@ -9,11 +9,9 @@ class ChangeController < ApplicationController
     check_permissions(:CHANGE_SHOW, current_user: current_user,
                                    register_name: @change.register_name)
 
-    @register = get_register(@change.register_name)
+    @register = @registers_client.get_register(@change.register_name, Rails.configuration.register_phase)
     @new_register_record = @change.payload
-    @current_register_record = OpenRegister.record(@change.register_name,
-                                                   @change.payload[@change.register_name],
-                                                   Rails.configuration.register_phase)
+    @current_register_record = @register.get_record(@change.payload[@change.register_name])
     unless @current_register_record.nil?
       @current_register_record = convert_register_json(@current_register_record)
     end
@@ -26,11 +24,9 @@ class ChangeController < ApplicationController
       check_permissions(:CHANGE_EDIT, current_user: current_user,
                                      register_name: @change.register_name)
 
-      @register = get_register(@change.register_name)
+      @register = @registers_client.get_register(@change.register_name, Rails.configuration.register_phase)
       @new_register_record = @change.payload
-      @current_register_record = OpenRegister.record(@change.register_name,
-                                                     @change.payload[@change.register_name],
-                                                     Rails.configuration.register_phase)
+      @current_register_record = @register.get_record(@change.payload[@change.register_name])
       unless @current_register_record.nil?
         @current_register_record = convert_register_json(@current_register_record)
       end
@@ -51,7 +47,7 @@ class ChangeController < ApplicationController
     RegisterUpdatesMailer.register_update_rejected(@change, current_user).deliver_now
 
     flash[:notice] = 'An email has been sent to the user.'
-    redirect_to controller: 'register', action: 'index', register: Change.find(params['id']).register_name
+    redirect_to controller: 'register', action: 'index', register_id: Change.find(params['id']).register_name
   end
 
   def update
@@ -76,7 +72,7 @@ class ChangeController < ApplicationController
 
       RegisterUpdatesMailer.register_update_approved(@change, current_user).deliver_now
 
-      redirect_to controller: 'register', action: 'index', register: Change.find(params['id']).register_name
+      redirect_to controller: 'register', action: 'index', register_id: Change.find(params['id']).register_name
     else
       flash[:notice] = 'Please confirm that you wish to approve this update'
       redirect_to :back

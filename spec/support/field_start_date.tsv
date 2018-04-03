@@ -1,2 +1,0 @@
-index-entry-number	entry-number	entry-timestamp	key	field	datatype	phase	register	cardinality	text
-36	36	2017-01-10T17:16:07Z	start-date	start-date	datetime	beta		1	The date a record first became relevant to a register. For example, the date a country was first recognised by the UK.

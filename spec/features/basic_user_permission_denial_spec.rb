@@ -6,20 +6,7 @@ RSpec.feature 'Basic User Permissions', type: :feature do
   before :each do
     ObjectsFactory.new.create_user_with_team('basicuser@gov.uk', false, 'basic')
     expect(User.count).to eq(1)
-    stub('https://register.beta.openregister.org/record/register.tsv', './spec/support/register_register.tsv')
-    stub('https://field.beta.openregister.org/record/register.tsv', './spec/support/field_register.tsv')
-    stub('https://field.beta.openregister.org/record/text.tsv', './spec/support/text.tsv')
-    stub('https://field.beta.openregister.org/record/phase.tsv', './spec/support/phase.tsv')
-    stub('https://field.beta.openregister.org/record/registry.tsv', './spec/support/registry.tsv')
-    stub('https://field.beta.openregister.org/record/copyright.tsv', './spec/support/copyright.tsv')
-    stub('https://field.beta.openregister.org/record/fields.tsv', './spec/support/fields.tsv')
-    stub('https://register.beta.openregister.org/records.tsv', './spec/support/register_records.tsv')
-    stub('https://field.beta.openregister.org/record/name.tsv', './spec/support/field_name.tsv')
-    stub('https://field.beta.openregister.org/record/official-name.tsv', './spec/support/field_official_name.tsv')
-    stub('https://field.beta.openregister.org/record/citizen-names.tsv', './spec/support/field_citizen_name.tsv')
-    stub('https://field.beta.openregister.org/record/start-date.tsv', './spec/support/field_start_date.tsv')
-    stub('https://field.beta.openregister.org/record/end-date.tsv', './spec/support/field_end_date.tsv')
-    stub('https://country.beta.openregister.org/records.tsv', './spec/support/records.tsv')
+    stub('https://register.register.gov.uk/download-rsf/0', './spec/support/register.rsf')
 
     visit '/'
     expect(page).to have_content 'Sign in'
