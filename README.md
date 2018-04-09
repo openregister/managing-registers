@@ -14,10 +14,15 @@ Postgres 9.5+
 ### 3. Create database, migrate tables and seed user data
 `rake db:setup`
 
-### 4. Run the application
+### 4. Set Rails master key environment variable
+```
+export RAILS_MASTER_KEY=`registers-pass show registers/app/manager/store`
+```
+
+### 5. Run the application
 `rails s`
 
-### 5 Run further migrations of the Database
+### 6 Run further migrations of the Database
 `rake db:migrate`
 
 ## Deployment
