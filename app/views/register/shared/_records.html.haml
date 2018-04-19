@@ -1,3 +1,4 @@
+- has_name_field = @register.first.item.value['name'].present?
 .js-filter-list
   %form{class: "js-filter-form"}
     %fieldset
@@ -9,17 +10,16 @@
   %thead
     %tr
       %th #{params[:register_id].capitalize}
-      - if @register.first.item.value['name'].present?
+      - if has_name_field
         %th Name
       %th
         %span.visually-hidden Update record
-
   %tbody{class: "js-filter-block"}
     - @register.each do |record|
-      %tr{class: "js-filter-item", "data-filter-terms" => "#{record.try(:name)} #{record.entry.key}"}
+      %tr{class: "js-filter-item", "data-filter-terms" => "#{record.item.value['name'] if has_name_field} #{record.entry.key}"}
         %td= record.entry.key
         %td
-          - if record.item.value['name'].present?
+          - if has_name_field
             = record.item.value['name']
         %td{style:"text-align:right"}
           - if @changes.any? { |c| c.payload.value?(record.entry.key)}
