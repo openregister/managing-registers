@@ -11,13 +11,13 @@ Postgres 9.5+
 ### 2. Install Gems
 `bundle install`
 
-### 3. Create database, migrate tables and seed user data
-`rake db:setup`
-
-### 4. Set Rails master key environment variable
+### 3. Set Rails master key environment variable
 ```
 export RAILS_MASTER_KEY=`registers-pass show registers/app/manager/store`
 ```
+
+### 4. Create database, migrate tables and seed user data
+`rake db:setup`
 
 ### 5. Run the application
 `rails s`
