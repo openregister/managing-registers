@@ -4,7 +4,7 @@ inherit: manifest-base.yml
 
 routes:
   - route: managing-registers-production.cloudapps.digital
-  - route: managing-registers.cloudapps.digital
+  - route: manage.registers.service.gov.uk
 env:
   RAILS_ENV: production
   RACK_ENV: production
