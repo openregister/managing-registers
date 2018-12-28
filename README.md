@@ -5,7 +5,7 @@ This is the service used primarily by register custodians to manage their regist
 ## Running locally
 
 ### 1. Prerequisites
-Ruby 2.4.3
+Ruby 2.4.5
 Postgres 9.5+
 
 ### 2. Install Gems
