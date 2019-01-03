@@ -12,4 +12,3 @@ applications:
 services:
    - managing-registers-environment-variables
    - logit-ssl-drain
-   - prometheus
