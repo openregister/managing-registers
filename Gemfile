@@ -78,5 +78,5 @@ end
 
 group :staging, :production do
   gem 'logstash-event', '~> 1.2', '>= 1.2.02'
-  gem 'health_check', '~> 2.7'
+  gem 'health_check', '~> 3.0'
 end
