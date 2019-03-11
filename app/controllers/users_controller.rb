@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
   # Suspect the issue below is caused by https://github.com/bbatsov/rubocop/issues/4885 and will be resolved once govuk-lint updates version of rubocop
-  include ElevatedPermissionsHelper # rubocop:disable Style/MixinUsage
+  include ElevatedPermissionsHelper
   before_action :set_user
 
   def admin

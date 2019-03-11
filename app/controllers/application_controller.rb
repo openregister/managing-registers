@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
   before_action :devise_configure_permitted_parameters, if: :devise_controller?
-  before_action :set_registers_client
+  before_action :registers_client
 
   include CanCan::ControllerAdditions
   include Permissions::ControllerMethods
@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
 
 protected
 
-  def set_registers_client
+  def registers_client
     @registers_client ||= RegistersClient::RegisterClientManager.new
   end
 

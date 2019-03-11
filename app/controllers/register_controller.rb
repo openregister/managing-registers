@@ -61,6 +61,7 @@ class RegisterController < ApplicationController
       render :new
     else
       return true if params[:data_confirmed]
+
       @register = @registers_client.get_register(register_name, Rails.configuration.register_phase)
       @current_register_record = @register.get_record(params[register_name.to_sym])
 
