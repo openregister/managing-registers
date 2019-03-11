@@ -127,7 +127,7 @@ GEM
     govuk_notify_rails (2.0.0)
       notifications-ruby-client (>= 2.0.0)
       rails (>= 4.1.0)
-    govuk_template (0.23.0)
+    govuk_template (0.26.0)
       rails (>= 3.1)
     haml (4.0.7)
       tilt
@@ -147,7 +147,7 @@ GEM
       ruby_parser (~> 3.5)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    i18n (1.5.3)
+    i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     jquery-rails (4.3.1)
       rails-dom-testing (>= 1, < 3)
