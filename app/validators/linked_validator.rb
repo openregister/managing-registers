@@ -35,6 +35,7 @@ class LinkedValidator < ActiveModel::EachValidator
 
   def valid_value?(value)
     return true unless value.include? DELIMITER
+
     value.match?(/\A[\w-]+:\w+\z/)
   end
 end
