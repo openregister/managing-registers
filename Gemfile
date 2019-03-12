@@ -59,7 +59,7 @@ group :development, :test do
   gem 'govuk-lint', '~> 3.11'
   gem 'pry-byebug'
   gem 'rails-controller-testing'
-  gem 'rspec-rails', '~> 3.5'
+  gem 'rspec-rails', '~> 3.8'
 end
 
 group :test do
