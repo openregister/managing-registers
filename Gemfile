@@ -9,7 +9,7 @@ end
 
 ruby File.read('.ruby-version').chomp
 
-gem 'rails', ' ~> 5.1.6'
+gem 'rails', '~> 5.1.6'
 
 # Database
 gem 'pg', '~> 0.18'
