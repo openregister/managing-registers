@@ -127,7 +127,7 @@ GEM
     govuk_notify_rails (2.0.0)
       notifications-ruby-client (>= 2.0.0)
       rails (>= 4.1.0)
-    govuk_template (0.23.0)
+    govuk_template (0.26.0)
       rails (>= 3.1)
     haml (4.0.7)
       tilt
